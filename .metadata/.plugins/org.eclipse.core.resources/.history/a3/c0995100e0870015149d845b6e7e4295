@@ -1,0 +1,42 @@
+package main;
+
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JCheckBox;
+import javax.swing.SwingConstants;
+import javax.swing.JTextPane;
+import java.awt.Font;
+
+public class Column extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public Column() {
+		setLayout(null);
+		
+		JRadioButton rdbtnSetClass = new JRadioButton("Set Main Class");
+		rdbtnSetClass.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbtnSetClass.setBounds(6, 75, 109, 23);
+		add(rdbtnSetClass);
+		
+		JCheckBox chckbxIgnore = new JCheckBox("Ignore");
+		chckbxIgnore.setHorizontalAlignment(SwingConstants.CENTER);
+		chckbxIgnore.setBounds(6, 101, 97, 23);
+		add(chckbxIgnore);
+		
+		JTextPane txtpnId = new JTextPane();
+		txtpnId.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		txtpnId.setEditable(false);
+		txtpnId.setText("ID");
+		txtpnId.setBounds(6, 11, 100, 23);
+		add(txtpnId);
+		
+		JTextPane textPane = new JTextPane();
+		textPane.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		textPane.setEditable(false);
+		textPane.setBounds(6, 45, 103, 23);
+		add(textPane);
+
+	}
+}

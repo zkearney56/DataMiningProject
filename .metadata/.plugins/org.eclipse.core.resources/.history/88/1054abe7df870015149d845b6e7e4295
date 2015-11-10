@@ -1,0 +1,14 @@
+package main;
+
+import javax.swing.JPanel;
+
+public class Column extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public Column() {
+
+	}
+
+}

@@ -70,8 +70,4 @@ public class DataList {
 		}
 		
 	}
-	
-	public int getLength(){
-		return dataList.size();
-	}
 }

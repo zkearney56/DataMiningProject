@@ -65,7 +65,6 @@ public class Gui extends JFrame {
 		                if(getExtension(file).equals("csv")){
 		                	dataList = new DataList(file);
 		                	dataList.readFile();
-		                	showData();
 		                }
 		                else{
 		                	System.out.println("Err, invalid file");
@@ -85,9 +84,6 @@ public class Gui extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-	}
-	
-	void showData(){
 	}
 	
 	  public String getExtension(File f) {

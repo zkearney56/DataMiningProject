@@ -5,8 +5,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JMenuBar;
@@ -19,7 +17,6 @@ import java.awt.event.ActionEvent;
 public class Gui extends JFrame {
 
 	private JPanel contentPane;
-	private DataList dataList;
 	JFileChooser fc;
 	/**
 	 * Launch the application.
@@ -43,8 +40,6 @@ public class Gui extends JFrame {
 	public Gui() {
 		fc = new JFileChooser();
 		fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-		FileFilter filter = new FileNameExtensionFilter("CSV File", "csv");
-		fc.addChoosableFileFilter(filter);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 537, 470);
@@ -62,14 +57,7 @@ public class Gui extends JFrame {
 		 
 		            if (returnVal == JFileChooser.APPROVE_OPTION) {
 		                File file = fc.getSelectedFile();
-		                if(getExtension(file).equals("csv")){
-		                	dataList = new DataList(file);
-		                	dataList.readFile();
-		                	showData();
-		                }
-		                else{
-		                	System.out.println("Err, invalid file");
-		                }
+		                //This is where a real application would open the file.
 		            } else {
 		            }
 			}
@@ -86,18 +74,4 @@ public class Gui extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 	}
-	
-	void showData(){
-	}
-	
-	  public String getExtension(File f) {
-	        String ext = null;
-	        String s = f.getName();
-	        int i = s.lastIndexOf('.');
-
-	        if (i > 0 &&  i < s.length() - 1) {
-	            ext = s.substring(i+1).toLowerCase();
-	        }
-	        return ext;
-	    }
 }
