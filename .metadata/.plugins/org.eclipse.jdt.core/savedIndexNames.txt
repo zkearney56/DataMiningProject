@@ -1,21 +1,4 @@
-INDEX VERSION 1.127+E:\DataMining\Project\.metadata\.plugins\org.eclipse.jdt.core
+INDEX VERSION 1.127+E:\GitHub\DataMiningProject\DataMiningProject\.metadata\.plugins\org.eclipse.jdt.core
+3328962268.index
 2562647506.index
-4111033383.index
-3014184893.index
-3441508667.index
-1843921012.index
-4135081675.index
-1182100525.index
-555154626.index
-2064560966.index
-3079283040.index
-24458104.index
-2491824737.index
-2115386390.index
-862795761.index
-721359454.index
-2737566887.index
-2864556422.index
-3357340798.index
-1953860842.index
-2573329920.index
+683184654.index
