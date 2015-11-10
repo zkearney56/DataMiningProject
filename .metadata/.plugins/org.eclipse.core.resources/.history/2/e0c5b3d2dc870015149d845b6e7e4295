@@ -24,10 +24,6 @@ public class DataPoint {
 		return data;
 	}
 	
-	public void removeData(int column){
-		data.remove(column);
-	}
-	
 	public Object getDataVal(int val){
 		
 		return data.get(val);

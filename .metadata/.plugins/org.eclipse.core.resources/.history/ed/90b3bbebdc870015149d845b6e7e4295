@@ -30,30 +30,16 @@ public class DataList {
 							
 	}
 	
-	public DataPoint getRow(int column){
+	public DataPoint getVal(int column){
 		
 		return dataList.get(column);
 		
 	}
 	
-	public Object getRowColVal(int row, int column){
+	public void removeVal(int column){
 		
-		return dataList.get(row).getDataVal(column);
+		dataList.remove(column);
 		
-	}
-	
-	public void removeRow(int row){
-		
-		dataList.remove(row);
-		
-	}
-	
-	public void removeColumn(int column){
-		
-		dataTypes.remove(column);
-		for(int i = 0; i <= dataList.size(); i++){
-			dataList.get(i).removeData(column);
-		}
 	}
 	
 	public void setClass(int column){
