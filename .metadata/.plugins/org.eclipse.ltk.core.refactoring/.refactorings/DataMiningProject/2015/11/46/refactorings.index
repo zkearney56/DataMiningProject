@@ -1,2 +1,12 @@
 1447180961799	Move compilation units
 1447181044875	Move file
+1447204747709	Copy package
+1447204753521	Delete element
+1447204756108	Delete element
+1447204883255	Rename package 'Node'
+1447204889582	Copy package
+1447204899667	Delete element
+1447204905596	Delete element
+1447204906874	Delete element
+1447204938841	Rename package 'main.Tree'
+1447204946364	Rename package 'main.Node'
