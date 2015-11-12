@@ -1,5 +1,7 @@
 package main.node;
 
+import main.DataPoint;
+
 public class NominalDecisionNode implements Node {
 	
 	Node left;
@@ -10,7 +12,7 @@ public class NominalDecisionNode implements Node {
 		right = new Leaf("NULLVALUE");
 	}
 	@Override
-	public String acceptData(Object dataPoint) {
+	public String acceptData(DataPoint dataPoint) {
 		if(testData(dataPoint)){
 			return right.acceptData(dataPoint);
 		}
@@ -19,7 +21,7 @@ public class NominalDecisionNode implements Node {
 		}
 	}
 	@Override
-	public boolean testData(Object dataPoint) {
+	public boolean testData(DataPoint dataPoint) {
 		return false;
 	}
 	

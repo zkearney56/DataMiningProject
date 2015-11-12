@@ -1,5 +1,7 @@
 package main.node;
 
+import main.DataPoint;
+
 public class Leaf implements Node {
 
 	String classification;
@@ -13,12 +15,12 @@ public class Leaf implements Node {
 	
 	
 	@Override
-	public String acceptData(Object dataPoint){
+	public String acceptData(DataPoint dataPoint){
 		return classification;
 	}
 
 	@Override
-	public boolean testData(Object dataPoint) {
+	public boolean testData(DataPoint dataPoint) {
 		return false;
 	}
 
