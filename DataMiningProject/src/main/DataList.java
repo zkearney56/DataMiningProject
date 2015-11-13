@@ -11,23 +11,30 @@ public class DataList {
 	
 	ArrayList<DataPoint> dataList;
 	ArrayList<Object> dataTypes;
-	private File file;
 	
-	public DataList(File file){
-		this.file = file;
+	public DataList(){
+		dataList = new ArrayList<DataPoint>();
+		dataTypes = new ArrayList<Object>();
 	}
 	
-	public void readFile(){	
-			
+	public void readFile(File file){	
+			System.out.println(file.getAbsolutePath());
 		try{
 			CSVReader csvReader = new CSVReader(new FileReader(file));
-			Object[] row = csvReader.readNext();
-			for(int i =0; i <= row.length; i++){
-				dataTypes.add(row[i]);
-			}
+			String[] row;
+			boolean header = false;
 			while((row = csvReader.readNext()) != null) {
+				if(!header){
+					for(int i = 0; i < row.length; i++){					
+					System.out.println(row[i]);
+					dataTypes.add(row[i]);					
+					}
+					header = true;
+				}				
+					else{				
 				dataList.add(new DataPoint(new ArrayList<Object>(Arrays.asList(row))));
 			}
+				}	
 			csvReader.close();
 		}
 		catch(Exception e){
@@ -71,7 +78,15 @@ public class DataList {
 		
 	}
 	
+	public Object getHead(int column){
+		return dataTypes.get(column);
+	}
+	
 	public int getLength(){
+		return dataTypes.size();
+	}
+	
+	public int getNumRows(){
 		return dataList.size();
 	}
 }

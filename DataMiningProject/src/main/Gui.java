@@ -1,4 +1,5 @@
 package main;
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFileChooser;
@@ -15,12 +16,17 @@ import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollBar;
+import javax.swing.border.BevelBorder;
 
 public class Gui extends JFrame {
 
 	private JPanel contentPane;
 	private DataList dataList;
+	private File file;
 	JFileChooser fc;
+	JScrollPane scrollPane;
+	SetupPanel setupPanel;
 	/**
 	 * Launch the application.
 	 */
@@ -47,7 +53,7 @@ public class Gui extends JFrame {
 		fc.addChoosableFileFilter(filter);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 537, 470);
+		setBounds(100, 100, 748, 470);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -61,10 +67,10 @@ public class Gui extends JFrame {
 		            int returnVal = fc.showOpenDialog(Gui.this);
 		 
 		            if (returnVal == JFileChooser.APPROVE_OPTION) {
-		                File file = fc.getSelectedFile();
+		                file = fc.getSelectedFile();
 		                if(getExtension(file).equals("csv")){
-		                	dataList = new DataList(file);
-		                	dataList.readFile();
+		                	dataList = new DataList();
+		                	dataList.readFile(file);
 		                	showData();
 		                }
 		                else{
@@ -85,9 +91,17 @@ public class Gui extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
 	}
 	
 	void showData(){
+		setupPanel = new SetupPanel(dataList);
+		setupPanel.setBounds(0, 0, 521, 241);
+		scrollPane = new JScrollPane(setupPanel);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(10, 10, 712, 185);
+		scrollPane.setBorder(null);
+		contentPane.add(scrollPane);
 	}
 	
 	  public String getExtension(File f) {
