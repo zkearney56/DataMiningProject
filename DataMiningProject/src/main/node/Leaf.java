@@ -48,4 +48,10 @@ public class Leaf implements Node {
 	public String toString(){
 		return "(" + classification + ")"; 
 	}
+
+
+	@Override
+	public Node getResultNode(DataPoint dataPoint) {
+		return this;
+	}
 }

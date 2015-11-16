@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="main.node.Node"/>
+<fullyQualifiedTypeName name="main.DataPoint"/>
+<fullyQualifiedTypeName name="main.DataList"/>
+<fullyQualifiedTypeName name="main.algorithm.AlgorithmInterface"/>
+<fullyQualifiedTypeName name="main.algorithm.Algorithm"/>
+</qualifiedTypeNameHistroy>

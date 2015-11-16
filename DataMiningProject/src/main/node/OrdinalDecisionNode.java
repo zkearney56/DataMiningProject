@@ -9,47 +9,38 @@ public class OrdinalDecisionNode implements Node {
 	Node right;
 	
 	float breakValue;
-	
-	public OrdinalDecisionNode(float breakValue){
+	int dataIndex;
+	public OrdinalDecisionNode(float breakValue, int dataIndex){
 		this.breakValue = breakValue;
+		this.dataIndex = dataIndex;
 		left = new Leaf("NULLVALUE");
 		right = new Leaf("NULLVALUE");
 	}
 	
-	//THIS IS BROKEN
 	@Override
 	public String acceptData(DataPoint dataPoint) {
 		if(testData(dataPoint)){
-			if(right.acceptData(dataPoint).equals((String)dataPoint.getClassification())){
-				return right.acceptData(dataPoint);
-			}
-			else{
-				if(right instanceof Leaf){
-					Node temp = right;
-					right = new OrdinalDecisionNode((float)dataPoint.getDataVal(0));
-					right.setLeft(temp);
-					right.setRight(new Leaf((String) dataPoint.getClassification()));
-					return right.acceptData(dataPoint);
-				}
-				else{
-					return right.acceptData(dataPoint);
-				}
-			}
+			return right.acceptData(dataPoint);
 		}
 		else{
-			if(left instanceof Leaf){
-				Node temp = left;
-				left = new OrdinalDecisionNode((float)dataPoint.getDataVal(0));
-				left.setRight(new Leaf((String)dataPoint.getClassification()));
-				left.setLeft(temp);
-			}
 			return left.acceptData(dataPoint);
 		}
 	}
 	@Override
 	public boolean testData(DataPoint dataPoint) {
-		return (float)dataPoint.getDataVal(0) >= breakValue;
+		return (float)dataPoint.getDataVal(dataIndex) >= breakValue;
 	}
+	
+	
+	public Node getResultNode(DataPoint dataPoint) {
+		if(testData(dataPoint)){
+			return right;
+		}
+		else{
+			return left;
+		}
+	}
+	
 	
 	public String toString(){
 		return "(x >= " + Float.toString(breakValue) + ")"; 

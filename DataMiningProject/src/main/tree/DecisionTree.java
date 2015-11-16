@@ -2,33 +2,50 @@ package main.tree;
 
 import java.util.*;
 
+import main.algorithm.Algorithm;
 import main.node.*;
-import main.DataList;
+import main.DataPoint;
 public class DecisionTree {
 	
 	static Node rootNode;
-	
-	public DecisionTree(){
-		//TODO
+	Algorithm algorithm;
+	public DecisionTree(Algorithm a){
+		algorithm = a;
 	}
 	
-	public void trainTree(DataList data){
+	public void trainTree(){
 		//Set up the root node to decide based from the first input
-		rootNode = new OrdinalDecisionNode((float) data.getRow(0).getDataVal(0));
-		rootNode.setRight(new Leaf((String)data.getRow(0).getClassification()));
-		
-		for(int i = 0; i < data.getLength(); i++){
-			System.out.println(rootNode.acceptData(data.getRow(i).getDataVal(0)));
+		rootNode = algorithm.getBestNode();
+		while(algorithm.hasData()){
+			DataPoint current = algorithm.getNextDataPoint();
+			//if the data is correctly classified, remove the data from the list
+			if(rootNode.acceptData(current).equals(current.getClassification())){
+				algorithm.removeDataPoint();
+			}
+			else{
+				insertEndNode(current, algorithm.getBestNode());
+				algorithm.resetDataList();
+			}
 		}
 	}
 	
-	public void classify(Object data){
-		
+	public String classify(DataPoint data){
+		return rootNode.acceptData(data);
 	}
 	
-	public static void main(String args[]){
-		
+	public void insertEndNode(DataPoint dataPoint, Node node){
+		Node n = rootNode.getResultNode(dataPoint);
+		while(!(n.getResultNode(dataPoint) instanceof Leaf)){
+			n = n.getResultNode(dataPoint);
+		}
+		if(n.testData(dataPoint)){
+			n.setRight(node);
+		}
+		else{
+			n.setLeft(node);
+		}
 	}
+	
 	public void inOrderPrint(){
 		printInOrder(rootNode);
 		System.out.println("");
@@ -41,6 +58,10 @@ public class DecisionTree {
 		printInOrder(n.getLeft());
 		System.out.println(n);
 		printInOrder(n.getRight());
+	}
+	
+	public static void main(String args[]){
+		
 	}
 }
 

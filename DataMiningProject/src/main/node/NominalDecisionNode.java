@@ -41,4 +41,8 @@ public class NominalDecisionNode implements Node {
 	public void setLeft(Node left){
 		this.left = left;
 	}
+	@Override
+	public Node getResultNode(DataPoint dataPoint) {
+		return left;
+	}
 }
