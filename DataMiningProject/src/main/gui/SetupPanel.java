@@ -1,6 +1,7 @@
 package main.gui;
 
 import java.util.ArrayList;
+import main.structure.DataList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;

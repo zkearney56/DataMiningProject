@@ -18,6 +18,7 @@ import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
 import javax.swing.border.BevelBorder;
+import main.structure.DataList;
 
 public class Gui extends JFrame {
 

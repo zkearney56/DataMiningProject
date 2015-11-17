@@ -1,8 +1,8 @@
 package main.node;
 
 import java.util.ArrayList;
-
-import main.DataPoint;
+import main.structure.DataList;
+import main.structure.DataPoint;
 
 public class OrdinalDecisionNode implements Node {
 	Node left;

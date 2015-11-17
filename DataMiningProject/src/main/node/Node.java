@@ -1,6 +1,8 @@
 package main.node;
 
-import main.DataPoint;
+import main.structure.DataList;
+import main.structure.DataPoint;
+
 public interface Node {
 	String acceptData(DataPoint dataPoint);
 	boolean testData(DataPoint dataPoint);

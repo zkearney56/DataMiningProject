@@ -4,7 +4,8 @@ import java.util.*;
 
 import main.algorithm.Algorithm;
 import main.node.*;
-import main.DataPoint;
+import main.structure.DataPoint;
+
 public class DecisionTree {
 	
 	static Node rootNode;
