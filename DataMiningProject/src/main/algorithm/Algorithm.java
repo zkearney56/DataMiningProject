@@ -8,7 +8,8 @@ public abstract class Algorithm {
 	protected DataList dataList;
 	protected int currentDataPoint;
 	protected int numBins;
-	void Entropy(DataList dataList){
+	
+	Algorithm(DataList dataList){
 		this.dataList = dataList;
 		currentDataPoint = 0;
 		numBins = 10;

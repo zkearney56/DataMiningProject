@@ -19,7 +19,7 @@ public class FrequencyTable {
 		for(int i = 0; i < attributes.size(); i++){
 			Hashtable temp = new Hashtable<String, Integer>();
 			for(int j = 0 ; j < types.size(); j++){
-				temp.put(types.get(i), 0);
+				temp.put(types.get(j), 0);
 			}
 			frequency.put(attributes.get(i), temp);
 		}

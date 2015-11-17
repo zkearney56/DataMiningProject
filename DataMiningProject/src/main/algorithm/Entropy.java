@@ -11,14 +11,22 @@ import main.node.Node;
 
 public class Entropy extends Algorithm{
 
+	public Entropy(DataList dataList){
+		super(dataList);
+	}
+	
 	FrequencyTable frequencyTable;
 	public Node getBestNode() {
 		return null;
 	}
 	
+	public int test(){
+		return findBestColumn();
+	}
+	
 	private int findBestColumn(){
 		float gains[] = new float[dataList.getLength()];
-		
+		String split[] = new String[dataList.getLength()];
 		for(int i = 0; i < gains.length; i++){
 			//create a frequency table with all of the types and attributes
 			frequencyTable = getFrequencyTable(i);
@@ -35,9 +43,34 @@ public class Entropy extends Algorithm{
 					frequencyTable.increment(dataList.getRow(j).getDataVal(i), dataList.getRow(j).getClassification());
 				}
 			}
-			
+			split[i] = "";
+			for(int j = 0; j < dataList.getNumRows(); j++){
+				if(!(dataList.getRow(j).getClassification().equals(split[i]))){
+					
+					int matchCount = 0;
+					for(int k = 0; k < dataList.getLength(); k++){
+						if(dataList.getRow(k).getClassification().equals((dataList.getRow(i).getClassification()))){
+							matchCount++;
+						}
+					}
+					
+					float temp = e(matchCount,dataList.getNumRows()) - e(dataList.getRow(i).getClassification());
+					if(temp > gains[i]){
+						gains[i] = temp;
+						split[i] = dataList.getRow(i).getClassification();
+					}
+				}
+			}
 		}
-		return currentDataPoint;
+		float max = gains[0];
+		int maxIndex = 0;
+		for(int i = 1; i < gains.length; i++){
+			if(gains[i] > max){
+				max = gains[i];
+				maxIndex = i;
+			}
+		}
+		return maxIndex;
 	}
 	private float percent(Object a){
 		Integer total = frequencyTable.getTotal(a);
@@ -60,11 +93,11 @@ public class Entropy extends Algorithm{
 		
 		for(int i = 0; i < frequencyTable.getAttributesSize(); i++){
 			for(int j = 0; j < frequencyTable.getTypesSize(); j++){
-				if(frequencyTable.getType(i).equals(type)){
-					typeCount += frequencyTable.getValue(j, i);
+				if(frequencyTable.getType(j).equals(type)){
+					typeCount += frequencyTable.getValue(i, j);
 				}
 				else{
-					restCount += frequencyTable.getValue(j, i);
+					restCount += frequencyTable.getValue(i, j);
 				}
 				ent += percent(frequencyTable.getAttribute(i))*e(typeCount, restCount);
 				typeCount = 0;
@@ -107,12 +140,11 @@ public class Entropy extends Algorithm{
 			}
 			table.setTypes(t);
 			table.setAttributes(a);
-			return table;
 		}
 		return table;
 	}
 
 	public static void main(String args[]){
-		Entropy e = new Entropy();
+		//Entropy e = new Entropy();
 	}
 }
