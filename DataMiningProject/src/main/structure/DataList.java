@@ -3,17 +3,19 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 import com.opencsv.CSVReader;
 
 
 public class DataList {
 	
-	DMArrayList<DataPoint> dataList;
-	DMArrayList<Object> dataTypes;
+	private DMArrayList<DataPoint> dataPoints;
+	private DMArrayList<Object> dataTypes;
+	private String classification = "";
 	
 	public DataList(){
-		dataList = new DMArrayList<DataPoint>();
+		dataPoints = new DMArrayList<DataPoint>();
 		dataTypes = new DMArrayList<Object>();
 	}
 	
@@ -29,7 +31,7 @@ public class DataList {
 					header = true;
 				}				
 					else{				
-				dataList.add(new DataPoint(new DMArrayList<Object>(row)));
+				dataPoints.add(new DataPoint(new DMArrayList<Object>(row)));
 			}
 				}	
 			csvReader.close();
@@ -39,38 +41,43 @@ public class DataList {
 							
 	}
 	
+	public void declareClass(){
+		
+	}
+	
 	public DataPoint getRow(int column){
 		
-		return dataList.get(column);
+		return dataPoints.get(column);
 		
 	}
 	
 	public Object getRowColVal(int row, int column){
 		
-		return dataList.get(row).getDataVal(column);
+		return dataPoints.get(row).getDataVal(column);
 		
 	}
 	
 	public void removeRow(int row){
 		
-		dataList.remove(row);
+		dataPoints.remove(row);
 		
 	}
 	
 	public void removeColumn(int column){
 		
 		dataTypes.remove(column);
-		for(int i = 0; i <= dataList.size(); i++){
-			dataList.get(i).removeData(column);
+		for(int i = 0; i < dataPoints.size(); i++){
+			dataPoints.get(i).removeData(column);
 		}
 	}
 	
 	public void setClass(int column){
 	
+		classification = (String) dataTypes.get(column);
 		dataTypes.remove(column);
-		dataTypes.add(0, "Classification");
-		for(int i = 0; i <= dataList.size(); i++){
-			dataList.get(i).setClass(column);
+		dataTypes.add(0, classification);
+		for(int i = 0; i < dataPoints.size(); i++){
+			dataPoints.get(i).setClass(column);
 		}
 		
 	}
@@ -84,6 +91,15 @@ public class DataList {
 	}
 	
 	public int getNumRows(){
-		return dataList.size();
+		return dataPoints.size();
 	}
+	
+	public Iterator<Object> dataTypeIterator(){
+		return dataTypes.iterator();
+	}
+	
+	public Iterator<DataPoint> dataPointsIterator(){
+		return dataPoints.iterator();
+	}
+	
 }

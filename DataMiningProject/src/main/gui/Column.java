@@ -21,24 +21,28 @@ public class Column extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	JTextPane headerName;
-	JCheckBox ignoreBox;
-	JRadioButton classBtn;
-	int colIndex;
+	private JTextPane headerName;
+	private JCheckBox ignoreBox;
+	private JRadioButton classBtn;
+	private String head;
+	private int colIndex;
 	
 	public Column(String head, int colIndex) {
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setLayout(null);
 		setPreferredSize(new Dimension(125,135));
 		this.colIndex = colIndex;
+		this.head = head;
 		classBtn = new JRadioButton("Set Main Class");
 		classBtn.setHorizontalAlignment(SwingConstants.CENTER);
 		classBtn.setBounds(6, 75, 109, 23);
+		classBtn.setActionCommand(head);
 		add(classBtn);
 		
 		ignoreBox = new JCheckBox("Ignore");
 		ignoreBox.setHorizontalAlignment(SwingConstants.CENTER);
 		ignoreBox.setBounds(6, 101, 97, 23);
+		ignoreBox.setActionCommand(head);
 		add(ignoreBox);
 		
 		JTextPane txtpnId = new JTextPane();
@@ -61,5 +65,13 @@ public class Column extends JPanel {
 	
 	public JRadioButton getRadio(){
 		return classBtn;
+	}
+	
+	public JCheckBox enabled(){
+		return ignoreBox;
+	}
+	
+	public String getHead(){
+		return head;
 	}
 }

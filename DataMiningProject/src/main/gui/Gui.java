@@ -15,10 +15,14 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
 import javax.swing.border.BevelBorder;
 import main.structure.DataList;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 public class Gui extends JFrame {
 
@@ -28,6 +32,7 @@ public class Gui extends JFrame {
 	JFileChooser fc;
 	JScrollPane scrollPane;
 	SetupPanel setupPanel;
+	private JMenuItem mntmRun;
 	/**
 	 * Launch the application.
 	 */
@@ -48,13 +53,15 @@ public class Gui extends JFrame {
 	 * Create the frame.
 	 */
 	public Gui() {
+		setTitle("Data Mining Project");
+		setResizable(false);
 		fc = new JFileChooser();
 		fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		FileFilter filter = new FileNameExtensionFilter("CSV File", "csv");
 		fc.addChoosableFileFilter(filter);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 748, 470);
+		setBounds(100, 100, 1171, 547);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -83,7 +90,7 @@ public class Gui extends JFrame {
 		});
 		mnFile.add(mntmOpenCsv);
 		
-		JMenuItem mntmRun = new JMenuItem("Run");
+		mntmRun = new JMenuItem("Run");
 		mnFile.add(mntmRun);
 		
 		JMenuItem mntmExit = new JMenuItem("Exit");
@@ -93,16 +100,52 @@ public class Gui extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.setBounds(10, 11, 1145, 445);
+		contentPane.add(panel);
+		
 	}
 	
 	void showData(){
 		setupPanel = new SetupPanel(dataList);
-		setupPanel.setBounds(0, 0, 521, 241);
+		setupPanel.setBounds(0, 0, 1145, 241);
 		scrollPane = new JScrollPane(setupPanel);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(10, 10, 712, 185);
+		scrollPane.setBounds(10, 10, 1145, 475);
 		scrollPane.setBorder(null);
 		contentPane.add(scrollPane);
+		mntmRun.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Iterator<Object> ignoreItr = setupPanel.ignoreList().iterator();
+				while(ignoreItr.hasNext()){
+					Object remove = ignoreItr.next();
+					Iterator<Object> itr2 = dataList.dataTypeIterator();
+					int x = 0;
+					while(itr2.hasNext()){
+						Object next = itr2.next();
+						if(next.equals(remove)){
+							break;
+						}
+						x++;
+					}
+					dataList.removeColumn(x);
+				}
+				String classification = setupPanel.selectedClass();
+				Iterator itr = dataList.dataTypeIterator();
+				int index = 0;
+				while(itr.hasNext()){
+					Object element = itr.next();
+					if(element.equals(classification)){
+						break;
+					}
+					index++;
+				}
+				
+				dataList.setClass(index);
+				System.out.println("Test");
+			}
+		});
 	}
 	
 	  public String getExtension(File f) {

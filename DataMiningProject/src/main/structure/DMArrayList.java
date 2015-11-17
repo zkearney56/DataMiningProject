@@ -52,10 +52,10 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 	}
 
 	public void remove(int index) {
-		for(int i = index; i < size; i++){
+		for(int i = index; i < size-1; i++){
 		elementData[i] = elementData[i+1];
 		}
-		elementData[size] = null;
+		elementData[size-1] = null;
 		size--;		
 	}
 
