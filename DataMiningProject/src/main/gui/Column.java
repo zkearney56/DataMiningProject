@@ -1,4 +1,4 @@
-package main;
+package main.gui;
 
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
