@@ -1,6 +1,5 @@
 package main.node;
 
-import main.structure.DataList;
 import main.structure.DataPoint;
 
 public interface Node {

@@ -14,21 +14,24 @@ public class SetupPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	DMArrayList<Column> columns;
-	ButtonGroup classGrp = new ButtonGroup();
 	
+	private DMArrayList<Column> columns;
+	private ButtonGroup classGrp = new ButtonGroup();
+
 	public SetupPanel(DataList dataList) {
 		
 		setLayout(new FlowLayout(FlowLayout.LEFT, 2, 15));
-		setPreferredSize(new Dimension((dataList.getLength()*129)/3,135*3));
+
 		columns = new DMArrayList<Column>();
 		for(int i = 0; i < dataList.getLength(); i++){
-			Column column = new Column((String)dataList.getHead(i), i);
+			Column column = new Column((String)dataList.getHead(i));
 			column.setSize(125,135);
 			add(column);
 			classGrp.add(column.getRadio());
 			columns.add(column);
 		}
+		columns.get(0).getRadio().setSelected(true);
+		setPreferredSize(new Dimension((dataList.getLength()*129/2),135*2));
 	}
 	
 	public String selectedClass()
@@ -47,4 +50,5 @@ public class SetupPanel extends JPanel {
 		}
 		return list;
 	}
+	
 }

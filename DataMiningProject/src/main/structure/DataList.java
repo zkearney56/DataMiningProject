@@ -12,11 +12,31 @@ public class DataList {
 	
 	private DMArrayList<DataPoint> dataPoints;
 	private DMArrayList<Object> dataTypes;
+	private DMArrayList<DataPoint> training;
+	private DMArrayList<DataPoint> test;
 	private String classification = "";
 	
 	public DataList(){
 		dataPoints = new DMArrayList<DataPoint>();
 		dataTypes = new DMArrayList<Object>();
+		training = new DMArrayList<DataPoint>();
+		test = new DMArrayList<DataPoint>();
+	}
+	
+	public DMArrayList<Object> getHeaders(){
+		return dataTypes;
+	}
+	
+	public DMArrayList<DataPoint> getPoints(){
+		return dataPoints;
+	}
+	
+	public void setHeaders(DMArrayList<Object> dataTypes){
+		this.dataTypes = dataTypes;	
+	}
+	
+	public void setData(DMArrayList<DataPoint> dataPoints){
+		this.dataPoints = dataPoints;
 	}
 	
 	public void readFile(File file){	
@@ -79,7 +99,6 @@ public class DataList {
 		for(int i = 0; i < dataPoints.size(); i++){
 			dataPoints.get(i).setClass(column);
 		}
-		
 	}
 	
 	public Object getHead(int column){
@@ -102,4 +121,33 @@ public class DataList {
 		return dataPoints.iterator();
 	}
 	
+	/**
+	 * Returns training set at [0] and test set at [1];
+	 * @param folds
+	 * @return
+	 */
+	public Object[] nFoldCrossValid(int folds){
+		return null;
+	}	
+	
+	public void clearTestSets(){
+		training.clear();
+		test.clear();
+	}
+	
+	public void everyOther(){
+		clearTestSets();
+		for(int i = 0; i < dataPoints.size(); i++){
+			if((i & 1 ) == 0){
+				training.add(dataPoints.get(i));
+			}
+			else{
+				test.add(dataPoints.get(i));
+			}
+		}
+	}
+	
+	public Object[] randomShuffle(int percent){
+		return null;
+	}
 }

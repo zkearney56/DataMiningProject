@@ -15,6 +15,8 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class Column extends JPanel {
 
@@ -25,15 +27,24 @@ public class Column extends JPanel {
 	private JCheckBox ignoreBox;
 	private JRadioButton classBtn;
 	private String head;
-	private int colIndex;
 	
-	public Column(String head, int colIndex) {
+	public Column(String head) {
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setLayout(null);
 		setPreferredSize(new Dimension(125,135));
-		this.colIndex = colIndex;
 		this.head = head;
 		classBtn = new JRadioButton("Set Main Class");
+		classBtn.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == ItemEvent.SELECTED){
+					ignoreBox.setSelected(false);
+					ignoreBox.setEnabled(false);
+				}
+				else if(e.getStateChange() == ItemEvent.DESELECTED){
+					ignoreBox.setEnabled(true);
+				}
+			}
+		});
 		classBtn.setHorizontalAlignment(SwingConstants.CENTER);
 		classBtn.setBounds(6, 75, 109, 23);
 		classBtn.setActionCommand(head);
