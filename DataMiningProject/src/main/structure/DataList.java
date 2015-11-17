@@ -9,12 +9,12 @@ import com.opencsv.CSVReader;
 
 public class DataList {
 	
-	ArrayList<DataPoint> dataList;
-	ArrayList<Object> dataTypes;
+	DMArrayList<DataPoint> dataList;
+	DMArrayList<Object> dataTypes;
 	
 	public DataList(){
-		dataList = new ArrayList<DataPoint>();
-		dataTypes = new ArrayList<Object>();
+		dataList = new DMArrayList<DataPoint>();
+		dataTypes = new DMArrayList<Object>();
 	}
 	
 	public void readFile(File file){	
@@ -25,14 +25,11 @@ public class DataList {
 			boolean header = false;
 			while((row = csvReader.readNext()) != null) {
 				if(!header){
-					for(int i = 0; i < row.length; i++){					
-					System.out.println(row[i]);
-					dataTypes.add(row[i]);					
-					}
+					dataTypes = new DMArrayList<Object>(row);
 					header = true;
 				}				
 					else{				
-				dataList.add(new DataPoint(new ArrayList<Object>(Arrays.asList(row))));
+				dataList.add(new DataPoint(new DMArrayList<Object>(row)));
 			}
 				}	
 			csvReader.close();

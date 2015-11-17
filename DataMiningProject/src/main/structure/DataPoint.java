@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class DataPoint {
 	
-	private ArrayList<Object> data;
+	private DMArrayList<Object> data;
 	private String classification;
 
-	public DataPoint(ArrayList <Object> data){
+	public DataPoint(DMArrayList <Object> data){
 		
 		classification = null;
 		this.data = data;
@@ -20,7 +20,7 @@ public class DataPoint {
 	
 	}
 	
-	public ArrayList<Object> getData(){
+	public DMArrayList<Object> getData(){
 		return data;
 	}
 	

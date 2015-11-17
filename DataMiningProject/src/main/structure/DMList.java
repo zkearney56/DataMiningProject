@@ -1,10 +1,8 @@
 package main.structure;
 
-public interface List<E> {
+public interface DMList<E> {
 	
 	public void add(E e);
-	
-	public void add(int index, E e);
 	
 	public void clear();
 	
