@@ -25,22 +25,42 @@ public class Entropy extends Algorithm{
 	}
 	
 	private int findBestColumn(){
-		float gains[] = new float[dataList.getLength()];
-		String split[] = new String[dataList.getLength()];
+		float gains[] = new float[dataList.getLength() - 1];
+		String split[] = new String[dataList.getLength() - 1];
 		for(int i = 0; i < gains.length; i++){
 			//create a frequency table with all of the types and attributes
 			frequencyTable = getFrequencyTable(i);
 			for(int j = 0; j < dataList.getNumRows(); j++){
+				
 				//if something is broken check here first
-				if(!(dataList.getRow(j).getDataVal(i) instanceof String)){
+				
+				boolean isString = false;
+				try{
+					Float.parseFloat((String) dataList.getRow(j).getDataVal(i));
+				}
+				catch(NumberFormatException e)
+				{
+				  isString = true;
+				}
+				if(!isString){
+					float min = Float.parseFloat((String) dataList.getRow(0).getDataVal(i));
+					float max = Float.parseFloat((String) dataList.getRow(0).getDataVal(i));
 					float sum = 0;
-					for(int k = 0; k < dataList.getNumRows(); k++){
-						sum = sum + (float)dataList.getRow(j).getDataVal(i);
+					for(int k = 1; k < dataList.getNumRows(); k++){
+						float s = Float.parseFloat((String) dataList.getRow(k).getDataVal(i));
+						if(s < min){
+							min = s;
+						}
+						if(s > max){
+							max = s;
+						}
 					}
-					frequencyTable.increment((int)dataList.getRow(j).getDataVal(i)/sum, dataList.getRow(j).getClassification());
+					float diff = max-min;
+					float binNum = diff/(numBins-1);
+					frequencyTable.increment((int)((Float.parseFloat((String) dataList.getRow(j).getDataVal(i))-min)/binNum), dataList.getRow(j).getClassification());
 				}
 				else{
-					frequencyTable.increment(dataList.getRow(j).getDataVal(i), dataList.getRow(j).getClassification());
+					frequencyTable.increment((String)dataList.getRow(j).getDataVal(i), dataList.getRow(j).getClassification());
 				}
 			}
 			split[i] = "";
@@ -111,7 +131,15 @@ public class Entropy extends Algorithm{
 		Vector<Object> a = new Vector<Object>();
 		Vector<String> t = new Vector<String>();
 		
-		if(dataList.getRow(0).getDataVal(col) instanceof String){
+		boolean isString = false;
+		try{
+			Float.parseFloat((String) dataList.getRow(0).getDataVal(col));
+		}
+		catch(NumberFormatException e)
+		{
+		  isString = true;
+		}
+		if(isString){
 			for(int j = 0; j < dataList.getNumRows(); j++){
 				if(!t.contains(((DataPoint)dataList.getRow(j)).getClassification())){
 					t.add(((DataPoint)dataList.getRow(j)).getClassification());
