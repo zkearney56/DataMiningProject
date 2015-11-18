@@ -36,7 +36,7 @@ public class DataPoint {
 		
 		classification = (String) data.get(column);
 		data.remove(column);
-		data.add(0, classification);
+		//data.add(0, classification);
 		
 	}
 }
