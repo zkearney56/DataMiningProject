@@ -127,6 +127,7 @@ public class DataList {
 	 * @return
 	 */
 	public Object[] nFoldCrossValid(int folds){
+		clearTestSets();
 		return null;
 	}	
 	
@@ -147,7 +148,21 @@ public class DataList {
 		}
 	}
 	
-	public Object[] randomShuffle(int percent){
-		return null;
+	public void randomShuffle(float percent){
+		clearTestSets();
+		DMArrayList<DataPoint> grabBag = dataPoints;
+		grabBag.shuffle(100);
+		int size = grabBag.size();
+		percent = percent/100;
+		int trainCount = (int)(percent*size);
+		int testCount = grabBag.size() - trainCount;
+		for(int i = 0; i < trainCount; i++){
+			training.add(grabBag.get(0));
+			grabBag.remove(0);
+		}
+		for(int i = 0; i< testCount; i++){
+			test.add(grabBag.get(0));
+			grabBag.remove(0);
+		}
 	}
 }
