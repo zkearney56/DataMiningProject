@@ -98,7 +98,6 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 	public void randShufflePercent(int percent){
 		float count = (percent/100) * size;
 		for(int i = 0; i < size; i ++){
-			
 		}
 	}
 	
@@ -113,7 +112,6 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 				x=0;
 			}
 		}
-		
 	}
 	
 	public Iterator<E> iterator() {

@@ -19,6 +19,8 @@ import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
 import javax.swing.border.BevelBorder;
+
+import main.algorithm.Entropy;
 import main.structure.DataList;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
@@ -226,6 +228,7 @@ public class Gui extends JFrame {
 			public void actionPerformed(ActionEvent arg0){
 			Iterator<Object> ignoreItr = setupPanel.ignoreList().iterator();
 			while(ignoreItr.hasNext()){
+				
 				Object remove = ignoreItr.next();
 				Iterator<Object> itr2 = testData.dataTypeIterator();
 				int x = 0;
@@ -238,6 +241,7 @@ public class Gui extends JFrame {
 				}
 				testData.removeColumn(x);
 			}
+			
 			String classification = setupPanel.selectedClass();
 			Iterator itr = testData.dataTypeIterator();
 			int index = 0;
@@ -251,24 +255,41 @@ public class Gui extends JFrame {
 			
 			testData.setClass(index);
 			System.out.println("Test");
-			if(trainingMode.equals("NFOLD")){
-				int folds = Integer.parseInt((String)nFold.getSelectedItem());
-				testData.nFoldCrossValid(folds);
-			}
-			else if(trainingMode.equals("EVERYOTHER"))
-			{
-				testData.everyOther();	
-			}
-			else if(trainingMode.equals("RANDOM")){
-				float percent = Float.parseFloat((String)pTrain.getSelectedItem());
-				testData.randomShuffle(percent);
-			}
+			DataList trainingSet = new DataList();
+			DataList testSet = new DataList();
+			Object[] sets;
 			
+			switch(trainingMode){
+			case "NFOLD":	int folds = Integer.parseInt((String)nFold.getSelectedItem());
+							sets = testData.nFoldCrossValid(folds);
+							trainingSet = (DataList)sets[0];
+							testSet = (DataList)sets[1];
+							break;
+							
+			case "EVERYOTHER":
+							sets = testData.everyOther();
+							trainingSet = (DataList)sets[0];
+							testSet = (DataList)sets[1];
+							break;
+							
+			case "RANDOM":	float percent = Float.parseFloat((String)pTrain.getSelectedItem());
+							sets = testData.randomShuffle(percent);
+							trainingSet = (DataList)sets[0];
+							testSet = (DataList)sets[1];
+							break;
+							
+			default:		break;
+			
+			}
+	
 			ResultGui result = new ResultGui(testData);
 			result.setVisible(true);
 			System.out.println("Pause");
+			Entropy e = new Entropy(trainingSet);
+			System.out.println(e.test());
 		}
 	});
+		
 	/**
 		mntmRun.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

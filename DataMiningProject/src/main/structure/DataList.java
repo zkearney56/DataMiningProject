@@ -12,15 +12,11 @@ public class DataList {
 	
 	private DMArrayList<DataPoint> dataPoints;
 	private DMArrayList<Object> dataTypes;
-	private DMArrayList<DataPoint> training;
-	private DMArrayList<DataPoint> test;
 	private String classification = "";
 	
 	public DataList(){
 		dataPoints = new DMArrayList<DataPoint>();
 		dataTypes = new DMArrayList<Object>();
-		training = new DMArrayList<DataPoint>();
-		test = new DMArrayList<DataPoint>();
 	}
 	
 	public DMArrayList<Object> getHeaders(){
@@ -37,6 +33,10 @@ public class DataList {
 	
 	public void setData(DMArrayList<DataPoint> dataPoints){
 		this.dataPoints = dataPoints;
+	}
+	
+	public void addDataPoint(DataPoint point){
+		dataPoints.add(point);
 	}
 	
 	public void readFile(File file){	
@@ -95,7 +95,7 @@ public class DataList {
 	
 		classification = (String) dataTypes.get(column);
 		dataTypes.remove(column);
-		dataTypes.add(0, classification);
+		//dataTypes.add(0, classification);
 		for(int i = 0; i < dataPoints.size(); i++){
 			dataPoints.get(i).setClass(column);
 		}
@@ -127,28 +127,54 @@ public class DataList {
 	 * @return
 	 */
 	public Object[] nFoldCrossValid(int folds){
-		clearTestSets();
 		return null;
 	}	
 	
-	public void clearTestSets(){
+	/**public void clearTestSets(){
 		training.clear();
 		test.clear();
 	}
+	*/
 	
-	public void everyOther(){
-		clearTestSets();
+	public Object[] everyOther(){
+		DataList training = new DataList();
+		DataList test = new DataList();
 		for(int i = 0; i < dataPoints.size(); i++){
 			if((i & 1 ) == 0){
-				training.add(dataPoints.get(i));
+				training.addDataPoint(dataPoints.get(i));
 			}
 			else{
-				test.add(dataPoints.get(i));
+				test.addDataPoint(dataPoints.get(i));
 			}
 		}
+		training.setHeaders(this.getHeaders());
+		test.setHeaders(this.getHeaders());
+		return (new Object[] {training,test});
 	}
 	
-	public void randomShuffle(float percent){
+	public Object[] randomShuffle(float percent){
+		DataList training = new DataList();
+		DataList test = new DataList();
+		DMArrayList<DataPoint> grabBag = dataPoints;
+		grabBag.shuffle(100);
+		int size = grabBag.size();
+		percent = percent/100;
+		int trainCount = (int)(percent*size);
+		int testCount = grabBag.size() - trainCount;
+		for(int i = 0; i < trainCount; i++){
+			training.addDataPoint(grabBag.get(0));
+			grabBag.remove(0);
+		}
+		for(int i = 0; i< testCount; i++){
+			test.addDataPoint(grabBag.get(0));
+			grabBag.remove(0);
+		}
+		training.setHeaders(this.getHeaders());
+		test.setHeaders(this.getHeaders());
+		return (new Object[] {training,test});
+	}
+	
+	/**public void randomShuffle(float percent){
 		clearTestSets();
 		DMArrayList<DataPoint> grabBag = dataPoints;
 		grabBag.shuffle(100);
@@ -165,4 +191,5 @@ public class DataList {
 			grabBag.remove(0);
 		}
 	}
+	*/
 }
