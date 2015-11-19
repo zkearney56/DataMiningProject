@@ -35,7 +35,7 @@ public class FrequencyTable {
 	
 	public Integer getValue(int a, int t){
 		
-		return ((Integer)((Hashtable) frequency.get(attributes.get(a))).get(types.get(t)));
+		return getValue(getAttribute(a),getType(t));
 	}
 	public Integer getTypesSize(){
 		return types.size();

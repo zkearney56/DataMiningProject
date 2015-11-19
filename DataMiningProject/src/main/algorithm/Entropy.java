@@ -7,33 +7,84 @@ import java.util.Vector;
 import main.structure.DataList;
 import main.structure.DataPoint;
 import main.structure.FrequencyTable;
+import main.node.Leaf;
 import main.node.Node;
+import main.node.OrdinalDecisionNode;
 
 public class Entropy extends Algorithm{
+	
+	FrequencyTable frequencyTable;
+	String split[];
+	float gains[];
 
 	public Entropy(DataList dataList){
 		super(dataList);
+	//	preprocessData();
 	}
-	
-	FrequencyTable frequencyTable;
+	//START HERE THIS NEEDS A LOT OF CLEANUP
 	public Node getBestNode() {
-		return null;
+		int column = findBestColumn();
+		int splitPoint = findBestSplitBin(column);
+		Node n = new OrdinalDecisionNode(dataMin + splitPoint*dataBinNum, column);
+		n.setRight(new Leaf(split[column]));
+		float maxGains = 0;
+		int maxIndex = 0;
+		float min = Float.parseFloat((String) dataList.getRow(0).getDataVal(i));
+		float max = Float.parseFloat((String) dataList.getRow(0).getDataVal(i));
+		float sum = 0;
+		for(int k = 1; k < dataList.getNumRows(); k++){
+			float s = Float.parseFloat((String) dataList.getRow(k).getDataVal(i));
+			if(s < min){
+				min = s;
+			}
+			if(s > max){
+				max = s;
+			}
+		}
+		float diff = max-min;
+		float binNum = diff/(numBins-1);
+		for(int i = 1; i < gains.length; i++){
+			if(gains[i] != gains[column] && gains[i] > maxGains){
+				maxGains = gains[i];
+				maxIndex = i;
+			}
+		}
+		n.setLeft(new Leaf(split[maxIndex]));
+		return n;
 	}
 	
+	private int findBestSplitBin(int column) {
+		frequencyTable = getFrequencyTable(column);
+		float splitGains[] = new float[frequencyTable.getAttributesSize()];
+		for(int i = 0; i < gains.length; i++){
+			int total = frequencyTable.getTotal(frequencyTable.getAttribute(i));
+			float temp = e( total, dataList.getNumRows());
+			if(temp > gains[i]){
+				gains[i] = temp;
+			}
+		}
+		float maxGains = gains[0];
+		int index = 0;
+		for(int i = 1; i < gains.length; i++){
+			if(gains[i] > maxGains){
+				maxGains = gains[i];
+				index = i;
+			}
+		}
+		return (int) frequencyTable.getAttribute(index);
+	}
+
 	public int test(){
 		return findBestColumn();
 	}
 	
 	private int findBestColumn(){
-		float gains[] = new float[dataList.getLength() - 1];
-		String split[] = new String[dataList.getLength() - 1];
+		gains = new float[dataList.getLength() - 1];
+		split = new String[dataList.getLength() - 1];
 		for(int i = 0; i < gains.length; i++){
 			//create a frequency table with all of the types and attributes
 			frequencyTable = getFrequencyTable(i);
-			for(int j = 0; j < dataList.getNumRows(); j++){
-				
-				//if something is broken check here first
-				
+			for(int j = 0; j < dataList.getNumRows(); j++){			
 				boolean isString = false;
 				try{
 					Float.parseFloat((String) dataList.getRow(j).getDataVal(i));
@@ -57,6 +108,9 @@ public class Entropy extends Algorithm{
 					}
 					float diff = max-min;
 					float binNum = diff/(numBins-1);
+					dataMin = min;
+					dataMax = max;
+					dataBinNum = binNum;
 					frequencyTable.increment((int)((Float.parseFloat((String) dataList.getRow(j).getDataVal(i))-min)/binNum), dataList.getRow(j).getClassification());
 				}
 				else{
@@ -68,7 +122,8 @@ public class Entropy extends Algorithm{
 				if(!(dataList.getRow(j).getClassification().equals(split[i]))){
 					
 					int matchCount = 0;
-					for(int k = 0; k < dataList.getLength(); k++){
+					System.out.println(dataList.getNumRows());
+					for(int k = 0; k < dataList.getNumRows(); k++){
 						if(dataList.getRow(k).getClassification().equals((dataList.getRow(i).getClassification()))){
 							matchCount++;
 						}
@@ -119,12 +174,14 @@ public class Entropy extends Algorithm{
 				else{
 					restCount += frequencyTable.getValue(i, j);
 				}
-				ent += percent(frequencyTable.getAttribute(i))*e(typeCount, restCount);
-				typeCount = 0;
-				restCount = 0;
 			}
+			if(typeCount != 0 && restCount != 0){
+				ent += percent(frequencyTable.getAttribute(i))*e(typeCount, restCount);
+			}
+			typeCount = 0;
+			restCount = 0;
 		}
-		return currentDataPoint;
+		return ent;
 	}
 	private FrequencyTable getFrequencyTable(int col){
 		FrequencyTable table = new FrequencyTable();

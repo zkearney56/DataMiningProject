@@ -13,25 +13,34 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Iterator;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JScrollBar;
 import javax.swing.border.BevelBorder;
 
 import main.algorithm.Entropy;
 import main.structure.DataList;
+import main.tree.DecisionTree;
+
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
+
 import javax.swing.JTextPane;
 import javax.swing.JComboBox;
+
 import java.awt.SystemColor;
 import java.awt.Font;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyAdapter;
@@ -286,7 +295,10 @@ public class Gui extends JFrame {
 			result.setVisible(true);
 			System.out.println("Pause");
 			Entropy e = new Entropy(trainingSet);
-			System.out.println(e.test());
+			DecisionTree t = new DecisionTree(e);
+			t.trainTree();
+			t.inOrderPrint();
+			//System.out.println(e.test());
 		}
 	});
 		

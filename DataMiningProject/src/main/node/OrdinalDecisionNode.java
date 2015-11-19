@@ -1,6 +1,7 @@
 package main.node;
 
 import java.util.ArrayList;
+
 import main.structure.DataList;
 import main.structure.DataPoint;
 
@@ -28,7 +29,7 @@ public class OrdinalDecisionNode implements Node {
 	}
 	@Override
 	public boolean testData(DataPoint dataPoint) {
-		return (float)dataPoint.getDataVal(dataIndex) >= breakValue;
+		return Float.parseFloat((String) dataPoint.getDataVal(dataIndex)) >= breakValue;
 	}
 	
 	
