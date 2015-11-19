@@ -12,24 +12,40 @@ public class DecisionTree {
 	Algorithm algorithm;
 	public DecisionTree(Algorithm a){
 		algorithm = a;
+		rootNode = algorithm.getBestNode();
 	}
 	
 	public void trainTree(){
 		//Set up the root node to decide based from the first input
-		rootNode = algorithm.getBestNode();
 		while(algorithm.hasData()){
 			DataPoint current = algorithm.getNextDataPoint();
-			//if the data is correctly classified, remove the data from the list
-			if(rootNode.acceptData(current).equals(current.getClassification())){
-				algorithm.removeDataPoint();
-			}
-			else{
-				insertEndNode(current, algorithm.getBestNode());
+			rootNode.acceptData(current);
+		}
+		inOrderCheck(rootNode);
+		if(algorithm.hasData()){
+			trainTree();
+		}
+	}
+	public void inOrderCheck(Node n){
+		if(n.getLeft() instanceof Leaf){
+			if(!((Leaf) n.getLeft()).isLeaf()){
+				n.setLeft(((Leaf) n.getLeft()).makeNewDecisionNode());
 				algorithm.resetDataList();
 			}
 		}
+		else{
+			inOrderCheck(n.getLeft());
+		}
+		if(n.getRight() instanceof Leaf){
+			if(!((Leaf) n.getRight()).isLeaf()){
+				n.setRight(((Leaf) n.getRight()).makeNewDecisionNode());
+				algorithm.resetDataList();
+			}
+		}
+		else{
+			inOrderCheck(n.getRight());
+		}
 	}
-	
 	public String classify(DataPoint data){
 		return rootNode.acceptData(data);
 	}

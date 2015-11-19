@@ -1,5 +1,7 @@
 package main.node;
 
+import main.algorithm.Entropy;
+import main.structure.DMArrayList;
 import main.structure.DataList;
 import main.structure.DataPoint;
 
@@ -9,14 +11,17 @@ public class Leaf implements Node {
 	
 	Node left;
 	Node right;
+	DataList list;
 	
 	public Leaf(String classification){
 		this.classification = classification;
+		list = new DataList();
 	}
 	
 	
 	@Override
 	public String acceptData(DataPoint dataPoint){
+		list.addDataPoint(dataPoint);
 		return classification;
 	}
 
@@ -25,6 +30,31 @@ public class Leaf implements Node {
 		return false;
 	}
 
+	public boolean isLeaf(){
+		for(int i = 0; i < list.getNumRows(); i++){
+			if(!list.getRow(i).getClassification().equals(classification)){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public void setHeaders(DMArrayList<Object> dataTypes){
+		list.setHeaders(dataTypes);	
+	}
+	
+	public Node makeNewDecisionNode(){
+		String temp = "";
+		temp = list.getRow(0).getClassification();
+		for(int i = 1; i < list.getNumRows(); i++){
+			if(!(list.getRow(i).getClassification().equals(temp))){
+				Entropy e = new Entropy(list);
+				return e.getBestNode();
+			}
+		}
+		Leaf l = new Leaf(list.getRow(0).getClassification());
+		return l;
+	}
 	@Override
 	public Node getLeft() {
 		return null;

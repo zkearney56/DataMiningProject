@@ -24,16 +24,14 @@ public class Entropy extends Algorithm{
 	//START HERE THIS NEEDS A LOT OF CLEANUP
 	public Node getBestNode() {
 		int column = findBestColumn();
-		int splitPoint = findBestSplitBin(column);
-		Node n = new OrdinalDecisionNode(dataMin + splitPoint*dataBinNum, column);
-		n.setRight(new Leaf(split[column]));
+		
 		float maxGains = 0;
 		int maxIndex = 0;
-		float min = Float.parseFloat((String) dataList.getRow(0).getDataVal(i));
-		float max = Float.parseFloat((String) dataList.getRow(0).getDataVal(i));
+		float min = Float.parseFloat((String) dataList.getRow(0).getDataVal(column));
+		float max = Float.parseFloat((String) dataList.getRow(0).getDataVal(column));
 		float sum = 0;
 		for(int k = 1; k < dataList.getNumRows(); k++){
-			float s = Float.parseFloat((String) dataList.getRow(k).getDataVal(i));
+			float s = Float.parseFloat((String) dataList.getRow(k).getDataVal(column));
 			if(s < min){
 				min = s;
 			}
@@ -49,25 +47,33 @@ public class Entropy extends Algorithm{
 				maxIndex = i;
 			}
 		}
+		int splitPoint = findBestSplitBin(column, min, binNum);
+		Node n = new OrdinalDecisionNode(min + splitPoint*binNum, column);
+		n.setRight(new Leaf(split[column]));
 		n.setLeft(new Leaf(split[maxIndex]));
+		((Leaf)n.getLeft()).setHeaders(dataList.getHeaders());
+		((Leaf)n.getRight()).setHeaders(dataList.getHeaders());
 		return n;
 	}
 	
-	private int findBestSplitBin(int column) {
+	private int findBestSplitBin(int column, float min, float binNum) {
 		frequencyTable = getFrequencyTable(column);
+		for(int j = 0; j < dataList.getNumRows(); j++){			
+			frequencyTable.increment((int)((Float.parseFloat((String) dataList.getRow(j).getDataVal(column))-min)/binNum), dataList.getRow(j).getClassification());
+		}
 		float splitGains[] = new float[frequencyTable.getAttributesSize()];
-		for(int i = 0; i < gains.length; i++){
+		for(int i = 0; i < splitGains.length; i++){
 			int total = frequencyTable.getTotal(frequencyTable.getAttribute(i));
 			float temp = e( total, dataList.getNumRows());
-			if(temp > gains[i]){
-				gains[i] = temp;
+			if(temp > splitGains[i]){
+				splitGains[i] = temp;
 			}
 		}
-		float maxGains = gains[0];
+		float maxGains = splitGains[0];
 		int index = 0;
-		for(int i = 1; i < gains.length; i++){
-			if(gains[i] > maxGains){
-				maxGains = gains[i];
+		for(int i = 1; i < splitGains.length; i++){
+			if(splitGains[i] > maxGains){
+				maxGains = splitGains[i];
 				index = i;
 			}
 		}
@@ -84,33 +90,34 @@ public class Entropy extends Algorithm{
 		for(int i = 0; i < gains.length; i++){
 			//create a frequency table with all of the types and attributes
 			frequencyTable = getFrequencyTable(i);
-			for(int j = 0; j < dataList.getNumRows(); j++){			
-				boolean isString = false;
-				try{
-					Float.parseFloat((String) dataList.getRow(j).getDataVal(i));
-				}
-				catch(NumberFormatException e)
-				{
-				  isString = true;
-				}
-				if(!isString){
-					float min = Float.parseFloat((String) dataList.getRow(0).getDataVal(i));
-					float max = Float.parseFloat((String) dataList.getRow(0).getDataVal(i));
-					float sum = 0;
-					for(int k = 1; k < dataList.getNumRows(); k++){
-						float s = Float.parseFloat((String) dataList.getRow(k).getDataVal(i));
-						if(s < min){
-							min = s;
-						}
-						if(s > max){
-							max = s;
-						}
+			float min = Float.parseFloat((String) dataList.getRow(0).getDataVal(i));
+			float max = Float.parseFloat((String) dataList.getRow(0).getDataVal(i));
+			float sum = 0;
+			float diff = 0;
+			float binNum = 0;
+			boolean isString = false;
+			try{
+				Float.parseFloat((String) dataList.getRow(0).getDataVal(i));
+			}
+			catch(NumberFormatException e)
+			{
+			  isString = true;
+			}
+			if(!isString){
+				for(int k = 1; k < dataList.getNumRows(); k++){
+					float s = Float.parseFloat((String) dataList.getRow(k).getDataVal(i));
+					if(s < min){
+						min = s;
 					}
-					float diff = max-min;
-					float binNum = diff/(numBins-1);
-					dataMin = min;
-					dataMax = max;
-					dataBinNum = binNum;
+					if(s > max){
+						max = s;
+					}
+				}
+				diff = max-min;
+				binNum = diff/(numBins-1);
+			}
+			for(int j = 0; j < dataList.getNumRows(); j++){			
+				if(!isString){
 					frequencyTable.increment((int)((Float.parseFloat((String) dataList.getRow(j).getDataVal(i))-min)/binNum), dataList.getRow(j).getClassification());
 				}
 				else{
@@ -124,7 +131,7 @@ public class Entropy extends Algorithm{
 					int matchCount = 0;
 					System.out.println(dataList.getNumRows());
 					for(int k = 0; k < dataList.getNumRows(); k++){
-						if(dataList.getRow(k).getClassification().equals((dataList.getRow(i).getClassification()))){
+						if(dataList.getRow(k).getClassification().equals((dataList.getRow(j).getClassification()))){
 							matchCount++;
 						}
 					}
@@ -216,8 +223,13 @@ public class Entropy extends Algorithm{
 			}
 			sum = sum/numBins;*/
 			for(int j = 0; j < dataList.getNumRows(); j++){
-				if(!t.contains(((DataPoint)dataList.getRow(j)).getClassification())){
-					t.add(((DataPoint)dataList.getRow(j)).getClassification());
+				try{
+					if(!t.contains(((DataPoint)dataList.getRow(j)).getClassification())){
+						t.add(((DataPoint)dataList.getRow(j)).getClassification());
+					}
+				}
+				catch(Exception e){
+					
 				}
 			}
 			for(int i = 0; i < 10; i++){
@@ -227,9 +239,5 @@ public class Entropy extends Algorithm{
 			table.setAttributes(a);
 		}
 		return table;
-	}
-
-	public static void main(String args[]){
-		//Entropy e = new Entropy();
 	}
 }

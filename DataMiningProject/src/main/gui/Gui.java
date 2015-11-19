@@ -347,6 +347,9 @@ public class Gui extends JFrame {
 			DecisionTree t = new DecisionTree(e);
 			t.trainTree();
 			t.inOrderPrint();
+			for(int i = 0; i < testSet.getNumRows(); i++){
+				System.out.println(testSet.getRow(i).getClassification() + " = " + t.classify(testSet.getRow(i)));
+			}
 			//System.out.println(e.test());
 		}
 	});

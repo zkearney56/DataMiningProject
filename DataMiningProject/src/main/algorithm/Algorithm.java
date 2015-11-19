@@ -19,7 +19,7 @@ public abstract class Algorithm {
 	
 	public DataPoint getNextDataPoint() {
 		currentDataPoint++;
-		if(dataList.getLength() >= currentDataPoint){
+		if(dataList.getLength() >= currentDataPoint - 1){
 			return dataList.getRow(currentDataPoint - 1);
 		}
 		else{
@@ -35,7 +35,7 @@ public abstract class Algorithm {
 		currentDataPoint = 0;
 	}
 	public boolean hasData(){
-		return !(dataList.getLength() == 0);
+		return dataList.getNumRows() > currentDataPoint;
 	}
 	public void setNumBins(int b){
 		if(b > 0){
