@@ -12,6 +12,7 @@ public class DataList {
 	
 	private DMArrayList<DataPoint> dataPoints;
 	private DMArrayList<Object> dataTypes;
+	private DMArrayList<Attribute> dataAttributes;
 	private String classification = "";
 	
 	public DataList(){
@@ -61,6 +62,15 @@ public class DataList {
 							
 	}
 	
+	public void trimList(int num){
+		dataPoints.trim(num);
+	}
+	
+	public int getDataSize()
+	{
+	return dataPoints.size();
+	}
+	
 	public void declareClass(){
 		
 	}
@@ -77,12 +87,39 @@ public class DataList {
 		
 	}
 	
+	public String getType(int column){
+		return dataPoints.get(0).getType(column);
+	}
+	
 	public void removeRow(int row){
 		
 		dataPoints.remove(row);
 		
 	}
 	
+	public Attribute getAttribute(int column){
+		
+		if(column > dataTypes.size()) throw new ArrayIndexOutOfBoundsException();
+		String name = (String)dataTypes.get(column);
+		if(getType(column).equals("Categorial")){
+			return new Attribute(name, "Categorial");
+		}
+		
+		else if(getType(column).equals("Numeric")){
+			DMArrayList<Double> colVals = new DMArrayList<Double>();
+			for(int i = 0; i < dataPoints.size(); i++){
+				colVals.add(Double.parseDouble((String)dataPoints.get(i).getDataVal(column)));
+			}
+			double min = MathFunctions.min(colVals);
+			double max = MathFunctions.max(colVals);
+			double mean = MathFunctions.mean(colVals);
+			double stdDev = MathFunctions.stdDev(mean, colVals);
+			return new Attribute(name, "Numeric", min, max, mean, stdDev);
+		}
+		else return null;
+		
+	}
+
 	public void removeColumn(int column){
 		
 		dataTypes.remove(column);
@@ -156,7 +193,7 @@ public class DataList {
 		DataList training = new DataList();
 		DataList test = new DataList();
 		DMArrayList<DataPoint> grabBag = dataPoints;
-		grabBag.shuffle(100);
+		grabBag.shuffle();
 		int size = grabBag.size();
 		percent = percent/100;
 		int trainCount = (int)(percent*size);
