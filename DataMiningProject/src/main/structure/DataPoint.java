@@ -18,6 +18,18 @@ public class DataPoint {
 	
 	}
 	
+	public String getType(int column){
+		try  
+		  {  
+		    double d = Double.parseDouble((String) data.get(column));  
+		  }  
+		  catch(NumberFormatException nfe)  
+		  {  
+		    return "Categorial";  
+		  }  
+		  return "Numeric";  
+	}
+	
 	public DMArrayList<Object> getData(){
 		return data;
 	}
@@ -26,9 +38,9 @@ public class DataPoint {
 		data.remove(column);
 	}
 	
-	public Object getDataVal(int val){
+	public Object getDataVal(int column){
 		
-		return data.get(val);
+		return data.get(column);
 		
 	}
 	

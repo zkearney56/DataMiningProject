@@ -31,7 +31,7 @@ public class Column extends JPanel {
 	public Column(String head) {
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setLayout(null);
-		setPreferredSize(new Dimension(125,135));
+		setPreferredSize(new Dimension(125, 138));
 		this.head = head;
 		classBtn = new JRadioButton("Set Main Class");
 		classBtn.addItemListener(new ItemListener() {

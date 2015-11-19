@@ -13,8 +13,12 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.text.Format;
+import java.text.NumberFormat;
 import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
@@ -36,6 +40,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JFormattedTextField;
 
 public class Gui extends JFrame {
 
@@ -48,10 +53,11 @@ public class Gui extends JFrame {
 	SetupPanel setupPanel;
 	private JMenuItem mntmRun;
 	private JButton btnExecute;
-	private JTextField foldTrain;
-	private JTextField percentTrain;
+	private JFormattedTextField trimSize;
 	private JComboBox trainingComboBox, nFold, pTrain, algorithm;
 	private String trainingMode = "NFOLD";
+	private JTextPane sizePane;
+	private Format numFormat;
 	/**
 	 * Launch the application.
 	 */
@@ -80,7 +86,7 @@ public class Gui extends JFrame {
 		fc.addChoosableFileFilter(filter);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1171, 465);
+		setBounds(100, 100, 1171, 700);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -102,6 +108,7 @@ public class Gui extends JFrame {
 		                	trainingComboBox.setEnabled(true);
 		                	nFold.setEnabled(true);
 		                	algorithm.setEnabled(true);
+		                	trimSize.setEnabled(true);
 		                }
 		                else{
 		                	System.out.println("Err, invalid file");
@@ -131,33 +138,30 @@ public class Gui extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBounds(10, 11, 1150, 330);
-		contentPane.add(panel);
-		
 		JTextPane txtpnAlgorithm = new JTextPane();
+		txtpnAlgorithm.setEditable(false);
 		txtpnAlgorithm.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtpnAlgorithm.setBackground(SystemColor.menu);
 		txtpnAlgorithm.setText("Algorithm");
-		txtpnAlgorithm.setBounds(10, 352, 161, 20);
+		txtpnAlgorithm.setBounds(10, 589, 161, 20);
 		contentPane.add(txtpnAlgorithm);
 		
 		algorithm = new JComboBox();
 		algorithm.setEnabled(false);
 		algorithm.setModel(new DefaultComboBoxModel(new String[] {"Entropy"}));
-		algorithm.setBounds(10, 383, 161, 20);
+		algorithm.setBounds(10, 620, 161, 20);
 		contentPane.add(algorithm);
 		
 		btnExecute = new JButton("Execute");
-		btnExecute.setBounds(1019, 352, 136, 23);
+		btnExecute.setBounds(1019, 528, 136, 23);
 		contentPane.add(btnExecute);
 		
 		JTextPane txtpnTrainingSet = new JTextPane();
+		txtpnTrainingSet.setEditable(false);
 		txtpnTrainingSet.setText("Training Set");
 		txtpnTrainingSet.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtpnTrainingSet.setBackground(SystemColor.menu);
-		txtpnTrainingSet.setBounds(202, 352, 161, 20);
+		txtpnTrainingSet.setBounds(202, 589, 161, 20);
 		contentPane.add(txtpnTrainingSet);
 		
 		trainingComboBox = new JComboBox();
@@ -182,46 +186,91 @@ public class Gui extends JFrame {
 			}
 		});
 		trainingComboBox.setModel(new DefaultComboBoxModel(new String[] {"N-Fold Cross Validation", "Every Other", "Random"}));
-		trainingComboBox.setBounds(202, 383, 161, 20);
+		trainingComboBox.setBounds(202, 620, 161, 20);
 		contentPane.add(trainingComboBox);
 		
 		JTextPane txtpnNumfolds = new JTextPane();
+		txtpnNumfolds.setEditable(false);
 		txtpnNumfolds.setText("Number of Folds");
 		txtpnNumfolds.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtpnNumfolds.setBackground(SystemColor.menu);
-		txtpnNumfolds.setBounds(377, 352, 108, 20);
+		txtpnNumfolds.setBounds(377, 589, 108, 20);
 		contentPane.add(txtpnNumfolds);
 		
 		JTextPane txtpnPercentTraining = new JTextPane();
+		txtpnPercentTraining.setEditable(false);
 		txtpnPercentTraining.setText("Percent Training");
 		txtpnPercentTraining.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtpnPercentTraining.setBackground(SystemColor.menu);
-		txtpnPercentTraining.setBounds(508, 352, 136, 20);
+		txtpnPercentTraining.setBounds(508, 589, 136, 20);
 		contentPane.add(txtpnPercentTraining);	
 		
 		nFold = new JComboBox();
 		nFold.setEnabled(false);
 		nFold.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20", "25", "50", "100"}));
-		nFold.setBounds(373, 383, 112, 20);
+		nFold.setBounds(373, 620, 112, 20);
 		contentPane.add(nFold);
 		
 		pTrain = new JComboBox();
 		pTrain.setEnabled(false);
 		pTrain.setModel(new DefaultComboBoxModel(new String[] {"10", "20", "30", "40", "50", "60", "70", "80", "90"}));
-		pTrain.setBounds(508, 383, 112, 20);
+		pTrain.setBounds(508, 620, 112, 20);
 		contentPane.add(pTrain);
 		
+		JTextPane txtpnTrim = new JTextPane();
+		txtpnTrim.setEditable(false);
+		txtpnTrim.setText("Records");
+		txtpnTrim.setFont(new Font("Tahoma", Font.BOLD, 13));
+		txtpnTrim.setBackground(SystemColor.menu);
+		txtpnTrim.setBounds(10, 528, 161, 20);
+		contentPane.add(txtpnTrim);
+		
+		JTextPane txtpnTrim_1 = new JTextPane();
+		txtpnTrim_1.setEditable(false);
+		txtpnTrim_1.setText("Trim");
+		txtpnTrim_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		txtpnTrim_1.setBackground(SystemColor.menu);
+		txtpnTrim_1.setBounds(202, 528, 161, 20);
+		contentPane.add(txtpnTrim_1);
+		
+		sizePane = new JTextPane();
+		sizePane.setEditable(false);
+		sizePane.setBackground(SystemColor.menu);
+		sizePane.setBounds(10, 558, 161, 20);
+		contentPane.add(sizePane);
+		
+		trimSize = new JFormattedTextField(NumberFormat.getNumberInstance());
+		trimSize.setEnabled(false);
+		trimSize.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to trim?", "Trim?",  JOptionPane.YES_NO_OPTION);
+				if (reply == JOptionPane.YES_OPTION)
+				{
+				   dataList.trimList(Integer.parseInt(trimSize.getText()));
+				   update();
+				}
+			}
+		});
+		trimSize.setColumns(5);
+		trimSize.setBounds(202, 559, 127, 20);
+		contentPane.add(trimSize);
+
+	}
+	
+	void update(){
+		sizePane.setText(Integer.toString(dataList.getDataSize()));
 	}
 	
 	void showData(){
 		
 		setupPanel = new SetupPanel(dataList);
-		setupPanel.setBounds(0, 0, 1150, 320);
+		setupPanel.setBounds(0, 0, 1150, 500);
 		scrollPane = new JScrollPane(setupPanel);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(10, 10, 1150, 330);
+		scrollPane.setBounds(10, 10, 1150, 500);
 		scrollPane.setBorder(null);
 		contentPane.add(scrollPane);
+		update();
 		
 		btnExecute.addActionListener(new ActionListener(){	
 			DataList testData = dataList;

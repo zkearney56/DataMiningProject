@@ -85,8 +85,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 	public void swap(int index1, int index2){
 		if(indexRange(index1)||indexRange(index2)) throw new ArrayIndexOutOfBoundsException();
 		Object e1 = elementData[index1];
-		Object e2 = elementData[index2];
-		elementData[index1] = e2;
+		elementData[index1] = elementData[index2];
 		elementData[index2] = e1;
 	}
 	
@@ -95,15 +94,9 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 		return rand;
 	}
 	
-	public void randShufflePercent(int percent){
-		float count = (percent/100) * size;
-		for(int i = 0; i < size; i ++){
-		}
-	}
-	
-	public void shuffle(int iterations){
+	public void shuffle(){
 		int x = 0;
-		for(int i = 1; i < size*iterations*100; i++){
+		for(int i = 1; i < size*5; i++){
 			swap(x, randNum());
 			if(x<size){
 				x++;
@@ -111,6 +104,13 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 			else{
 				x=0;
 			}
+		}
+	}
+	
+	public void trim(int num){
+		if(num > size) throw new ArrayIndexOutOfBoundsException();
+		for(int i = 0; i < num; i ++){
+			this.remove(i);
 		}
 	}
 	
