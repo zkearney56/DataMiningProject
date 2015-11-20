@@ -1,29 +1,27 @@
 package main.structure;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import com.opencsv.CSVReader;
 
-public class DataList {
+
+public class OldDataList {
 	
 	private DMArrayList<DataPoint> dataPoints;
 	private DMArrayList<Object> dataTypes;
 	private DMArrayList<Attribute> dataAttributes;
 	private String classification = "";
-
-	public DataList(){
+	
+	public OldDataList(){
 		dataPoints = new DMArrayList<DataPoint>();
 		dataTypes = new DMArrayList<Object>();
-		dataAttributes = new DMArrayList<Attribute>();
 	}
 	
 	public DMArrayList<Object> getHeaders(){
 		return dataTypes;
-	}
-	
-	public DMArrayList<Attribute> getAttributes(){
-		return dataAttributes;
 	}
 	
 	public DMArrayList<DataPoint> getPoints(){
@@ -36,13 +34,6 @@ public class DataList {
 	
 	public void setData(DMArrayList<DataPoint> dataPoints){
 		this.dataPoints = dataPoints;
-	}
-	
-	public void resetAttributes(){
-		dataAttributes.clear();
-		for(int i = 0; i < dataTypes.size(); i++){
-			dataAttributes.add(getAttribute(i));
-		}
 	}
 	
 	public void addDataPoint(DataPoint point){
@@ -63,15 +54,9 @@ public class DataList {
 					else{				
 				dataPoints.add(new DataPoint(new DMArrayList<Object>(row)));
 			}
-				}
-			
+				}	
 			csvReader.close();
-			for(int i = 0; i < dataTypes.size(); i++){
-				dataAttributes.add(getAttribute(i));
-			}
-			System.out.println("Test");
 		}
-
 		catch(Exception e){
 			e.printStackTrace();}
 							
@@ -131,7 +116,8 @@ public class DataList {
 			double stdDev = MathFunctions.stdDev(mean, colVals);
 			return new Attribute(name, "Numeric", min, max, mean, stdDev);
 		}
-		else return null;	
+		else return null;
+		
 	}
 
 	public void removeColumn(int column){
@@ -172,11 +158,6 @@ public class DataList {
 		return dataPoints.iterator();
 	}
 	
-	public Iterator<Attribute> dataAttributesIterator(){
-		return dataAttributes.iterator();
-	}
-	
-	
 	/**
 	 * Returns training set at [0] and test set at [1];
 	 * @param folds
@@ -193,8 +174,8 @@ public class DataList {
 	*/
 	
 	public Object[] everyOther(){
-		DataList training = new DataList();
-		DataList test = new DataList();
+		OldDataList training = new OldDataList();
+		OldDataList test = new OldDataList();
 		for(int i = 0; i < dataPoints.size(); i++){
 			if((i & 1 ) == 0){
 				training.addDataPoint(dataPoints.get(i));
@@ -209,8 +190,8 @@ public class DataList {
 	}
 	
 	public Object[] randomShuffle(float percent){
-		DataList training = new DataList();
-		DataList test = new DataList();
+		OldDataList training = new OldDataList();
+		OldDataList test = new OldDataList();
 		DMArrayList<DataPoint> grabBag = dataPoints;
 		grabBag.shuffle();
 		int size = grabBag.size();
@@ -227,8 +208,6 @@ public class DataList {
 		}
 		training.setHeaders(this.getHeaders());
 		test.setHeaders(this.getHeaders());
-		training.resetAttributes();
-		test.resetAttributes();
 		return (new Object[] {training,test});
 	}
 	

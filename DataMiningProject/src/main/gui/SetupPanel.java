@@ -17,31 +17,42 @@ public class SetupPanel extends JPanel {
 	 */
 	
 	//private DMArrayList<Column> columns;
-	private DMArrayList<AttributePanel> attributes;
+	private DMArrayList<AttributePanel> attributePanel;
+	private DMArrayList<Attribute> attributes;
 	
 	private ButtonGroup classGrp = new ButtonGroup();
 
-	public SetupPanel(DataList dataList) {
+	public SetupPanel(DMArrayList<Attribute> attributes) {
 		
 		setLayout(new FlowLayout(FlowLayout.LEFT, 2, 15));
 
 		//columns = new DMArrayList<Column>();
-		attributes = new DMArrayList<AttributePanel>();
+		attributePanel = new DMArrayList<AttributePanel>();
+		this.attributes = attributes;
+		Iterator itr = attributes.iterator();
+		while(itr.hasNext()){
+			AttributePanel att = new AttributePanel((Attribute)itr.next());
+			att.setSize(250,216);
+			add(att);
+			classGrp.add(att.getRadio());
+			attributePanel.add(att);
+		}
 		
-		for(int i = 0; i < dataList.getLength(); i++){
+		/**for(int i = 0; i < dataList.getLength(); i++){
 			AttributePanel att = new AttributePanel(dataList.getAttribute(i));
 			//Column column = new Column((String)dataList.getHead(i));
 			att.setSize(250,216);
 			add(att);
 			classGrp.add(att.getRadio());
-			attributes.add(att);
+			attributePanel.add(att);
 			//column.setSize(125,135);
 			//add(column);
 			//classGrp.add(column.getRadio());
 			//columns.add(column);
 		}
-		attributes.get(0).getRadio().setSelected(true);
-		setPreferredSize(new Dimension((dataList.getLength()*254/2),216*2));
+		*/
+		attributePanel.get(0).getRadio().setSelected(true);
+		setPreferredSize(new Dimension((attributes.size()*254/2),216*2));
 	}
 	
 	public String selectedClass()
@@ -51,7 +62,7 @@ public class SetupPanel extends JPanel {
 	
 	public DMArrayList<Object> ignoreList(){
 		DMArrayList<Object> list = new DMArrayList<Object>();
-		Iterator<AttributePanel> itr = attributes.iterator();
+		Iterator<AttributePanel> itr = attributePanel.iterator();
 		while(itr.hasNext()){
 			AttributePanel attr = itr.next();
 			if(attr.enabled().isSelected()){

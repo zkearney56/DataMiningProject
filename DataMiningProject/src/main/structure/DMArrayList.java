@@ -75,7 +75,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 	}
 	
 	private boolean indexRange(int index){
-		if(index > size || index < 0){
+		if(index >= size || index < 0){
 			return true;
 		}
 		else{
@@ -90,7 +90,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 	}
 	
 	private int randNum(){
-		int rand = ThreadLocalRandom.current().nextInt(0,size);
+		int rand = ThreadLocalRandom.current().nextInt(0,size-1);
 		return rand;
 	}
 	

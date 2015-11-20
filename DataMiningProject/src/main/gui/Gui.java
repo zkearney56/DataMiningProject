@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.text.DecimalFormat;
 import java.text.Format;
 import java.text.NumberFormat;
 import java.util.Iterator;
@@ -67,9 +68,11 @@ public class Gui extends JFrame {
 	private String trainingMode = "NFOLD";
 	private JTextPane sizePane;
 	private Format numFormat;
+	
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -248,16 +251,23 @@ public class Gui extends JFrame {
 		sizePane.setBounds(10, 558, 161, 20);
 		contentPane.add(sizePane);
 		
-		trimSize = new JFormattedTextField(NumberFormat.getNumberInstance());
+		DecimalFormat nf = new DecimalFormat("###");
+		nf.setParseIntegerOnly(true);
+		trimSize = new JFormattedTextField(nf);
 		trimSize.setEnabled(false);
 		trimSize.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(trimSize.getText().matches("^\\d+$")){
+					if(Integer.parseInt(trimSize.getText()) < dataList.getDataSize()){ 
 				int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to trim?", "Trim?",  JOptionPane.YES_NO_OPTION);
 				if (reply == JOptionPane.YES_OPTION)
 				{
 				   dataList.trimList(Integer.parseInt(trimSize.getText()));
 				   update();
 				}
+			}
+					else throw new ArrayIndexOutOfBoundsException();
+			}
 			}
 		});
 		trimSize.setColumns(5);
@@ -272,7 +282,7 @@ public class Gui extends JFrame {
 	
 	void showData(){
 		
-		setupPanel = new SetupPanel(dataList);
+		setupPanel = new SetupPanel(dataList.getAttributes());
 		setupPanel.setBounds(0, 0, 1150, 500);
 		scrollPane = new JScrollPane(setupPanel);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -339,7 +349,7 @@ public class Gui extends JFrame {
 			default:		break;
 			
 			}
-	
+			
 			ResultGui result = new ResultGui(testData);
 			result.setVisible(true);
 			System.out.println("Pause");
