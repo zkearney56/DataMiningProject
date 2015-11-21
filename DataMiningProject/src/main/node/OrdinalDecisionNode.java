@@ -29,7 +29,7 @@ public class OrdinalDecisionNode implements Node {
 	}
 	@Override
 	public boolean testData(DataPoint dataPoint) {
-		return Float.parseFloat((String) dataPoint.getDataVal(dataIndex)) >= breakValue;
+		return Float.parseFloat((String) dataPoint.getDataVal(dataIndex)) <= breakValue;
 	}
 	
 	

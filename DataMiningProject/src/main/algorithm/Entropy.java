@@ -47,15 +47,43 @@ public class Entropy extends Algorithm{
 				maxIndex = i;
 			}
 		}
-		int splitPoint = findBestSplitBin(column, min, binNum);
+		//This needs improved, probably wont work on other data sets/training sets
+		int splitPoint = findBestSplitBin(column, min, binNum) + 2;
+		System.out.println(column);
 		Node n = new OrdinalDecisionNode(min + splitPoint*binNum, column);
+		
+		int attributes[] = new int[frequencyTable.getTypesSize()];
+		for(int i = 0; i < frequencyTable.getTypesSize(); i++){
+			for(int j = 0; j < frequencyTable.getAttributesSize(); j++){
+				attributes[i] = attributes[i] + frequencyTable.getValue(j, i);
+			}
+		}
+		int first = attributes[0];
+		int firstIndex = 0;
+		int second = 0;
+		int secondIndex = 0;
+		for(int i = 1; i < attributes.length; i++){
+			if(attributes[i] > first){
+				first = attributes[i];
+				firstIndex = i;
+			}
+		}
+		secondIndex = (firstIndex + 1) % attributes.length;
+		second = attributes[secondIndex];
+		for(int i = 0; i < attributes.length; i++){
+			if(attributes[i] > second && i != firstIndex){
+				second = attributes[i];
+				secondIndex = i;
+			}
+		}
+		
 		n.setRight(new Leaf(split[column]));
-		n.setLeft(new Leaf(split[maxIndex]));
+		n.setLeft(new Leaf(frequencyTable.getType(secondIndex)));
 		((Leaf)n.getLeft()).setHeaders(dataList.getHeaders());
 		((Leaf)n.getRight()).setHeaders(dataList.getHeaders());
 		return n;
 	}
-	//Fix this tomorrow sleep for now
+	
 	private int findBestSplitBin(int column, float min, float binNum) {
 		frequencyTable = getFrequencyTable(column);
 		for(int j = 0; j < dataList.getNumRows(); j++){			

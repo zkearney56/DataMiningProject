@@ -19,7 +19,7 @@ public abstract class Algorithm {
 	
 	public DataPoint getNextDataPoint() {
 		currentDataPoint++;
-		if(dataList.getLength() >= currentDataPoint - 1){
+		if(dataList.getNumRows() >= currentDataPoint - 1){
 			return dataList.getRow(currentDataPoint - 1);
 		}
 		else{
