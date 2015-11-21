@@ -55,7 +55,7 @@ public class Entropy extends Algorithm{
 		((Leaf)n.getRight()).setHeaders(dataList.getHeaders());
 		return n;
 	}
-	
+	//Fix this tomorrow sleep for now
 	private int findBestSplitBin(int column, float min, float binNum) {
 		frequencyTable = getFrequencyTable(column);
 		for(int j = 0; j < dataList.getNumRows(); j++){			
@@ -85,8 +85,8 @@ public class Entropy extends Algorithm{
 	}
 	
 	private int findBestColumn(){
-		gains = new float[dataList.getLength() - 1];
-		split = new String[dataList.getLength() - 1];
+		gains = new float[dataList.getLength()];
+		split = new String[dataList.getLength()];
 		for(int i = 0; i < gains.length; i++){
 			//create a frequency table with all of the types and attributes
 			frequencyTable = getFrequencyTable(i);
@@ -125,9 +125,10 @@ public class Entropy extends Algorithm{
 				}
 			}
 			split[i] = "";
+			Vector<String> used = new Vector<String>();
 			for(int j = 0; j < dataList.getNumRows(); j++){
-				if(!(dataList.getRow(j).getClassification().equals(split[i]))){
-					
+				if(!(used.contains(dataList.getRow(j).getClassification()))){
+					used.add(dataList.getRow(j).getClassification());
 					int matchCount = 0;
 					System.out.println(dataList.getNumRows());
 					for(int k = 0; k < dataList.getNumRows(); k++){
@@ -136,10 +137,10 @@ public class Entropy extends Algorithm{
 						}
 					}
 					
-					float temp = e(matchCount,dataList.getNumRows()) - e(dataList.getRow(i).getClassification());
+					float temp = e(matchCount,dataList.getNumRows()) - e(dataList.getRow(j).getClassification());
 					if(temp > gains[i]){
 						gains[i] = temp;
-						split[i] = dataList.getRow(i).getClassification();
+						split[i] = dataList.getRow(j).getClassification();
 					}
 				}
 			}
