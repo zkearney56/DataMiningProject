@@ -210,6 +210,10 @@ public class Entropy extends Algorithm{
 					}
 					
 					float temp = e(matchCount,dataList.getNumRows()) - e(dataList.getRow(j).getClassification());
+					if(j == 0){
+						gains[i] = temp;
+						split[i] = dataList.getRow(j).getClassification();
+					}
 					if(temp > gains[i]){
 						gains[i] = temp;
 						split[i] = dataList.getRow(j).getClassification();
@@ -305,7 +309,7 @@ public class Entropy extends Algorithm{
 					
 				}
 			}
-			for(int i = 0; i < 10; i++){
+			for(int i = 0; i < numBins; i++){
 				a.add(i);
 			}
 			table.setTypes(t);
