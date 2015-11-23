@@ -97,13 +97,8 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 	public void shuffle(){
 		int x = 0;
 		for(int i = 1; i < size*5; i++){
-			swap(x, randNum());
-			if(x<size){
-				x++;
-			}
-			else{
-				x=0;
-			}
+			swap(i%size, randNum());
+			
 		}
 	}
 	

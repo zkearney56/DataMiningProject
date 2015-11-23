@@ -29,8 +29,17 @@ public class DecisionTree {
 	public void inOrderCheck(Node n){
 		if(n.getLeft() instanceof Leaf){
 			if(!((Leaf) n.getLeft()).isLeaf()){
-				n.setLeft(((Leaf) n.getLeft()).makeNewDecisionNode());
-				algorithm.resetDataList();
+				Node temp = ((Leaf) n.getLeft()).makeNewDecisionNode();
+				if(n.getRight() instanceof Leaf){
+					if(((Leaf)n.getRight()).getListSize() > 0){
+						n.setLeft(temp);
+						algorithm.resetDataList();
+					}
+				}
+				else{
+					n.setLeft(temp);
+					algorithm.resetDataList();
+				}
 			}
 		}
 		else{
@@ -38,8 +47,17 @@ public class DecisionTree {
 		}
 		if(n.getRight() instanceof Leaf){
 			if(!((Leaf) n.getRight()).isLeaf()){
-				n.setRight(((Leaf) n.getRight()).makeNewDecisionNode());
-				algorithm.resetDataList();
+				Node temp = ((Leaf) n.getRight()).makeNewDecisionNode();
+				if(n.getLeft() instanceof Leaf){
+					if(((Leaf)n.getLeft()).getListSize() > 0){
+						n.setRight(temp);
+						algorithm.resetDataList();
+					}
+				}
+				else{
+					n.setRight(temp);
+					algorithm.resetDataList();
+				}
 			}
 		}
 		else{

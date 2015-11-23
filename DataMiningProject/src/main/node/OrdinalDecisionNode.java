@@ -18,6 +18,12 @@ public class OrdinalDecisionNode implements Node {
 		right = new Leaf("NULLVALUE");
 	}
 	
+	public Object getSplitValue(){
+		return breakValue;
+	}
+	public int getDataIndex(){
+		return dataIndex;
+	}
 	@Override
 	public String acceptData(DataPoint dataPoint) {
 		if(testData(dataPoint)){
@@ -63,7 +69,7 @@ public class OrdinalDecisionNode implements Node {
 		this.right = right;
 	}
 	
-	public void setBreakValue(int newValue){
+	public void setBreakValue(float newValue){
 		breakValue = newValue;
 	}
 }

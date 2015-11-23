@@ -17,8 +17,6 @@ public class Leaf implements Node {
 		this.classification = classification;
 		list = new DataList();
 	}
-	
-	
 	@Override
 	public String acceptData(DataPoint dataPoint){
 		list.addDataPoint(dataPoint);
@@ -55,6 +53,9 @@ public class Leaf implements Node {
 		Leaf l = new Leaf(list.getRow(0).getClassification());
 		return l;
 	}
+	public int getListSize(){
+		return list.getNumRows();
+	}
 	@Override
 	public Node getLeft() {
 		return null;
@@ -80,7 +81,12 @@ public class Leaf implements Node {
 		return "(" + classification + ")"; 
 	}
 
-
+	public Object getSplitValue(){
+		return false;
+	}
+	public int getDataIndex(){
+		return 0;
+	}
 	@Override
 	public Node getResultNode(DataPoint dataPoint) {
 		return this;

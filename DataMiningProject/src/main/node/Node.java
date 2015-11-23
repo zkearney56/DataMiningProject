@@ -9,5 +9,7 @@ public interface Node {
 	Node getRight();
 	void setRight(Node right);
 	void setLeft(Node left);
+	int getDataIndex();
+	Object getSplitValue();
 	Node getResultNode(DataPoint dataPoint);
 }

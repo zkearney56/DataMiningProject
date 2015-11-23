@@ -357,10 +357,15 @@ public class Gui extends JFrame {
 			DecisionTree t = new DecisionTree(e);
 			t.trainTree();
 			t.inOrderPrint();
+			int total = testSet.getNumRows();
+			int correct = 0;
 			for(int i = 0; i < testSet.getNumRows(); i++){
+				if(testSet.getRow(i).getClassification().equals(t.classify(testSet.getRow(i)))){
+					correct++;
+				}
 				System.out.println(testSet.getRow(i).getClassification() + " = " + t.classify(testSet.getRow(i)));
 			}
-			//System.out.println(e.test());
+			System.out.println("Percent correctly classified: " + Float.toString((float)correct/(float)total));
 		}
 	});
 		

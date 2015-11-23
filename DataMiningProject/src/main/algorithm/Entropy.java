@@ -9,6 +9,7 @@ import main.structure.DataPoint;
 import main.structure.FrequencyTable;
 import main.node.Leaf;
 import main.node.Node;
+import main.node.NominalDecisionNode;
 import main.node.OrdinalDecisionNode;
 
 public class Entropy extends Algorithm{
@@ -24,33 +25,44 @@ public class Entropy extends Algorithm{
 	//START HERE THIS NEEDS A LOT OF CLEANUP
 	public Node getBestNode() {
 		int column = findBestColumn();
-		
 		float maxGains = 0;
 		int maxIndex = 0;
-		float min = Float.parseFloat((String) dataList.getRow(0).getDataVal(column));
-		float max = Float.parseFloat((String) dataList.getRow(0).getDataVal(column));
+		float min = 0;
+		float max = 0;
 		float sum = 0;
-		for(int k = 1; k < dataList.getNumRows(); k++){
-			float s = Float.parseFloat((String) dataList.getRow(k).getDataVal(column));
-			if(s < min){
-				min = s;
-			}
-			if(s > max){
-				max = s;
-			}
+		Node n;
+		int splitPoint = 0;
+		String sSplitPoint = "";
+		boolean isString = false;
+		try{
+			Float.parseFloat((String) dataList.getRow(0).getDataVal(column));
 		}
-		float diff = max-min;
-		float binNum = diff/(numBins-1);
-		for(int i = 1; i < gains.length; i++){
-			if(gains[i] != gains[column] && gains[i] > maxGains){
-				maxGains = gains[i];
-				maxIndex = i;
-			}
+		catch(NumberFormatException e)
+		{
+		  isString = true;
 		}
 		//This needs improved, probably wont work on other data sets/training sets
-		int splitPoint = findBestSplitBin(column, min, binNum) + 2;
-		System.out.println(column);
-		Node n = new OrdinalDecisionNode(min + splitPoint*binNum, column);
+		if(!isString){
+			min = Float.parseFloat((String) dataList.getRow(0).getDataVal(column));
+			max = Float.parseFloat((String) dataList.getRow(0).getDataVal(column));
+			for(int k = 1; k < dataList.getNumRows(); k++){
+				float s = Float.parseFloat((String) dataList.getRow(k).getDataVal(column));
+				if(s < min){
+					min = s;
+				}
+				if(s > max){
+					max = s;
+				}
+			}
+			float diff = max-min;
+			float binNum = diff/(numBins-1);
+			splitPoint = findBestSplitBin(column, min, binNum);
+			n = new OrdinalDecisionNode(min + splitPoint*binNum, column);
+		}
+		else{
+			sSplitPoint = findBestSplitBin(column);
+			n = new NominalDecisionNode(sSplitPoint, column);
+		}	
 		
 		int attributes[] = new int[frequencyTable.getTypesSize()];
 		for(int i = 0; i < frequencyTable.getTypesSize(); i++){
@@ -77,11 +89,38 @@ public class Entropy extends Algorithm{
 			}
 		}
 		
-		n.setRight(new Leaf(split[column]));
 		n.setLeft(new Leaf(frequencyTable.getType(secondIndex)));
+		n.setRight(new Leaf(split[column]));
 		((Leaf)n.getLeft()).setHeaders(dataList.getHeaders());
 		((Leaf)n.getRight()).setHeaders(dataList.getHeaders());
 		return n;
+	}
+	
+	private String findBestSplitBin(int column) {
+		frequencyTable = getFrequencyTable(column);
+		for(int j = 0; j < dataList.getNumRows(); j++){			
+			frequencyTable.increment(dataList.getRow(j).getDataVal(column), dataList.getRow(j).getClassification());
+		}
+		float splitGains[] = new float[frequencyTable.getAttributesSize()];
+		for(int i = 0; i < splitGains.length; i++){
+			splitGains[i] = 0;
+		}
+		for(int i = 0; i < splitGains.length; i++){
+			int total = frequencyTable.getTotal(frequencyTable.getAttribute(i));
+			float temp = e((String)dataList.getHead(column)) - e( total, dataList.getNumRows());
+			if(temp > splitGains[i] && temp > 0 && temp < 1){
+				splitGains[i] = temp;
+			}
+		}
+		float maxGains = splitGains[0];
+		int index = 0;
+		for(int i = 1; i < splitGains.length; i++){
+			if(splitGains[i] > maxGains){
+				maxGains = splitGains[i];
+				index = i;
+			}
+		}
+		return (String) frequencyTable.getAttribute(index);
 	}
 	
 	private int findBestSplitBin(int column, float min, float binNum) {
@@ -91,9 +130,12 @@ public class Entropy extends Algorithm{
 		}
 		float splitGains[] = new float[frequencyTable.getAttributesSize()];
 		for(int i = 0; i < splitGains.length; i++){
+			splitGains[i] = 0;
+		}
+		for(int i = 0; i < splitGains.length; i++){
 			int total = frequencyTable.getTotal(frequencyTable.getAttribute(i));
-			float temp = e( total, dataList.getNumRows());
-			if(temp > splitGains[i]){
+			float temp = e((String)dataList.getHead(column)) - e( total, dataList.getNumRows());
+			if(temp > splitGains[i] && temp > 0 && temp < 1){
 				splitGains[i] = temp;
 			}
 		}
@@ -118,8 +160,8 @@ public class Entropy extends Algorithm{
 		for(int i = 0; i < gains.length; i++){
 			//create a frequency table with all of the types and attributes
 			frequencyTable = getFrequencyTable(i);
-			float min = Float.parseFloat((String) dataList.getRow(0).getDataVal(i));
-			float max = Float.parseFloat((String) dataList.getRow(0).getDataVal(i));
+			float min = 0;
+			float max = 0;
 			float sum = 0;
 			float diff = 0;
 			float binNum = 0;
@@ -132,6 +174,8 @@ public class Entropy extends Algorithm{
 			  isString = true;
 			}
 			if(!isString){
+				min = Float.parseFloat((String) dataList.getRow(0).getDataVal(i));
+				max = Float.parseFloat((String) dataList.getRow(0).getDataVal(i));
 				for(int k = 1; k < dataList.getNumRows(); k++){
 					float s = Float.parseFloat((String) dataList.getRow(k).getDataVal(i));
 					if(s < min){
@@ -158,7 +202,7 @@ public class Entropy extends Algorithm{
 				if(!(used.contains(dataList.getRow(j).getClassification()))){
 					used.add(dataList.getRow(j).getClassification());
 					int matchCount = 0;
-					System.out.println(dataList.getNumRows());
+				//	System.out.println(dataList.getNumRows());
 					for(int k = 0; k < dataList.getNumRows(); k++){
 						if(dataList.getRow(k).getClassification().equals((dataList.getRow(j).getClassification()))){
 							matchCount++;
