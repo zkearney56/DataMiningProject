@@ -11,11 +11,13 @@ public class NominalDecisionNode implements Node {
 	
 	String breakString;
 	int dataIndex;
-	public NominalDecisionNode(String breakValue, int dataIndex){
+	String attributeName;
+	public NominalDecisionNode(String breakValue, int dataIndex, String attribute){
 		this.breakString = breakValue;
 		this.dataIndex = dataIndex;
 		left = new Leaf("NULLVALUE");
 		right = new Leaf("NULLVALUE");
+		attributeName = attribute;
 	}
 	
 	public Object getSplitValue(){
@@ -50,7 +52,7 @@ public class NominalDecisionNode implements Node {
 	
 	
 	public String toString(){
-		return "(x = " + breakString + ")"; 
+		return "(" + attributeName + " = " + breakString + ")"; 
 	}
 	@Override
 	public Node getLeft() {

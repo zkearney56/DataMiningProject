@@ -11,11 +11,13 @@ public class OrdinalDecisionNode implements Node {
 	
 	float breakValue;
 	int dataIndex;
-	public OrdinalDecisionNode(float breakValue, int dataIndex){
+	String attributeName;
+	public OrdinalDecisionNode(float breakValue, int dataIndex, String attribute){
 		this.breakValue = breakValue;
 		this.dataIndex = dataIndex;
 		left = new Leaf("NULLVALUE");
 		right = new Leaf("NULLVALUE");
+		attributeName = attribute;
 	}
 	
 	public Object getSplitValue(){
@@ -50,7 +52,7 @@ public class OrdinalDecisionNode implements Node {
 	
 	
 	public String toString(){
-		return "(x >= " + Float.toString(breakValue) + ")"; 
+		return "(" + attributeName + " >= " + Float.toString(breakValue) + ")"; 
 	}
 	@Override
 	public Node getLeft() {

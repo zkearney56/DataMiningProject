@@ -225,7 +225,7 @@ public class Gui extends JFrame {
 		
 		pTrain = new JComboBox();
 		pTrain.setEnabled(false);
-		pTrain.setModel(new DefaultComboBoxModel(new String[] {"10", "20", "30", "40", "50", "60", "70", "80", "90"}));
+		pTrain.setModel(new DefaultComboBoxModel(new String[] {"1","5","10", "20", "30", "40", "50", "60", "70", "80", "90"}));
 		pTrain.setBounds(508, 620, 112, 20);
 		contentPane.add(pTrain);
 		

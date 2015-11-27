@@ -57,11 +57,11 @@ public class Entropy extends Algorithm{
 			float diff = max-min;
 			float binNum = diff/(numBins-1);
 			splitPoint = findBestSplitBin(column, min, binNum);
-			n = new OrdinalDecisionNode(min + splitPoint*binNum, column);
+			n = new OrdinalDecisionNode(min + splitPoint*binNum, column, (String)dataList.getHead(column));
 		}
 		else{
 			sSplitPoint = findBestSplitBin(column);
-			n = new NominalDecisionNode(sSplitPoint, column);
+			n = new NominalDecisionNode(sSplitPoint, column, (String)dataList.getHead(column));
 		}	
 		
 		int attributes[] = new int[frequencyTable.getTypesSize()];
