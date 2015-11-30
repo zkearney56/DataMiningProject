@@ -1,4 +1,8 @@
 package main.structure;
+/**
+ * Author: Zachary Kearney
+ * Last Edited: 11/30/2015
+ */
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -97,12 +101,12 @@ public class OldDataList {
 		
 	}
 	
-	public Attribute getAttribute(int column){
+	/**public Attribute getAttribute(int column){
 		
 		if(column > dataTypes.size()) throw new ArrayIndexOutOfBoundsException();
 		String name = (String)dataTypes.get(column);
 		if(getType(column).equals("Categorial")){
-			return new Attribute(name, "Categorial");
+			//return new Attribute(name, "Categorial");
 		}
 		
 		else if(getType(column).equals("Numeric")){
@@ -119,7 +123,7 @@ public class OldDataList {
 		else return null;
 		
 	}
-
+*/
 	public void removeColumn(int column){
 		
 		dataTypes.remove(column);

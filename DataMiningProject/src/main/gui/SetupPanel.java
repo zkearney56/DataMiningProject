@@ -1,5 +1,8 @@
 package main.gui;
-
+/**
+ * Author: Zachary Kearney
+ * Last Edited: 11/30/2015
+ */
 import main.structure.Attribute;
 import main.structure.DMArrayList;
 import main.structure.DataList;
@@ -16,7 +19,6 @@ public class SetupPanel extends JPanel {
 	 * Create the panel.
 	 */
 	
-	//private DMArrayList<Column> columns;
 	private DMArrayList<AttributePanel> attributePanel;
 	private DMArrayList<Attribute> attributes;
 	
@@ -26,7 +28,6 @@ public class SetupPanel extends JPanel {
 		
 		setLayout(new FlowLayout(FlowLayout.LEFT, 2, 15));
 
-		//columns = new DMArrayList<Column>();
 		attributePanel = new DMArrayList<AttributePanel>();
 		this.attributes = attributes;
 		Iterator itr = attributes.iterator();
@@ -37,20 +38,7 @@ public class SetupPanel extends JPanel {
 			classGrp.add(att.getRadio());
 			attributePanel.add(att);
 		}
-		
-		/**for(int i = 0; i < dataList.getLength(); i++){
-			AttributePanel att = new AttributePanel(dataList.getAttribute(i));
-			//Column column = new Column((String)dataList.getHead(i));
-			att.setSize(250,216);
-			add(att);
-			classGrp.add(att.getRadio());
-			attributePanel.add(att);
-			//column.setSize(125,135);
-			//add(column);
-			//classGrp.add(column.getRadio());
-			//columns.add(column);
-		}
-		*/
+
 		attributePanel.get(0).getRadio().setSelected(true);
 		setPreferredSize(new Dimension((attributes.size()*140),216*2));
 	}

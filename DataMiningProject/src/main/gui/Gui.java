@@ -1,4 +1,8 @@
 package main.gui;
+/**
+ * Author: Zachary Kearney
+ * Last Edited: 11/30/2015
+ */
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -426,7 +430,7 @@ public class Gui extends JFrame {
 		*/
 	}
 	
-	  public String getExtension(File f) {
+	  private String getExtension(File f) {
 	        String ext = null;
 	        String s = f.getName();
 	        int i = s.lastIndexOf('.');

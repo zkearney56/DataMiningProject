@@ -1,4 +1,8 @@
 package main.gui;
+/**
+ * Author: Zachary Kearney
+ * Last Edited: 11/30/2015
+ */
 
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;

@@ -1,5 +1,8 @@
 package main.gui;
-
+/**
+ * Author: Zachary Kearney
+ * Last Edited: 11/30/2015
+ */
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 

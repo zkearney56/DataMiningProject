@@ -1,4 +1,9 @@
 package main.structure;
+/**
+ * Author: Zachary Kearney
+ * Last Edited: 11/30/2015
+ * Object container for all data, contains three array lists containing the headers, data rows, and column attributes.
+ */
 import java.io.File;
 import java.io.FileReader;
 import java.util.Iterator;
@@ -49,6 +54,10 @@ public class DataList {
 		dataPoints.add(point);
 	}
 	
+	/**
+	 * Reads a csv file and fills the arraylists with data from the file.
+	 * @param file
+	 */
 	public void readFile(File file){	
 			System.out.println(file.getAbsolutePath());
 		try{
@@ -77,41 +86,70 @@ public class DataList {
 							
 	}
 	
+	/**
+	 * Trims the dataPoints list by a set number.
+	 * @param num
+	 */
 	public void trimList(int num){
 		dataPoints.trim(num);
 	}
 	
+	/**
+	 * Returns the number of rows.
+	 * @return
+	 */
 	public int getDataSize()
 	{
 	return dataPoints.size();
 	}
 	
-	public void declareClass(){
-		
-	}
-	
+	/**
+	 * Returns the specified row as a DataPoint.
+	 * @param column
+	 * @return
+	 */
 	public DataPoint getRow(int column){
 		
 		return dataPoints.get(column);
 		
 	}
 	
+	/**
+	 * Returns the specified data from (row,column).
+	 * @param row
+	 * @param column
+	 * @return
+	 */
 	public Object getRowColVal(int row, int column){
 		
 		return dataPoints.get(row).getDataVal(column);
 		
 	}
 	
+	/**
+	 * Returns the type of the specified column.
+	 * @param column
+	 * @return
+	 */
 	public String getType(int column){
 		return dataPoints.get(0).getType(column);
 	}
 	
+	/**
+	 * Removes a row from the data.
+	 * @param row
+	 */
 	public void removeRow(int row){
 		
 		dataPoints.remove(row);
 		
 	}
 	
+	/**
+	 * Returns the attribute from the specified column.
+	 * @param column
+	 * @return
+	 */
 	public Attribute getAttribute(int column){
 		
 		if(column > dataTypes.size()) throw new ArrayIndexOutOfBoundsException();
@@ -134,6 +172,10 @@ public class DataList {
 		else return null;	
 	}
 
+	/**
+	 * Removes the column from the data.
+	 * @param column
+	 */
 	public void removeColumn(int column){
 		
 		dataTypes.remove(column);
@@ -141,7 +183,10 @@ public class DataList {
 			dataPoints.get(i).removeData(column);
 		}
 	}
-	
+	/**
+	 * Sets the main class of the data.
+	 * @param column
+	 */
 	public void setClass(int column){
 	
 		classification = (String) dataTypes.get(column);
@@ -152,14 +197,27 @@ public class DataList {
 		}
 	}
 	
+	/**
+	 * Returns the header of the specified column.
+	 * @param column
+	 * @return
+	 */
 	public Object getHead(int column){
 		return dataTypes.get(column);
 	}
 	
+	/**
+	 * Returns the number of columns.
+	 * @return
+	 */
 	public int getLength(){
 		return dataTypes.size();
 	}
 	
+	/**
+	 * Returns the number of rows.
+	 * @return
+	 */
 	public int getNumRows(){
 		return dataPoints.size();
 	}
@@ -192,6 +250,13 @@ public class DataList {
 	}
 	*/
 	
+	/**
+	 * Returns an object array containing two new dataLists.
+	 * The first datalist is the training set.
+	 * The second datalist is the test set.
+	 * The sets are shuffled to select every other value.
+	 * @return
+	 */
 	public Object[] everyOther(){
 		DataList training = new DataList();
 		DataList test = new DataList();
@@ -208,6 +273,14 @@ public class DataList {
 		return (new Object[] {training,test});
 	}
 	
+	/**
+	 * Returns an object array containing two new dataLists.
+	 * The first dataList is the training set.
+	 * The second dataList is the test set.
+	 * The sets are shuffled randomly, then split by the specified percent.
+	 * @param percent
+	 * @return
+	 */
 	public Object[] randomShuffle(float percent){
 		DataList training = new DataList();
 		DataList test = new DataList();
@@ -231,23 +304,4 @@ public class DataList {
 		test.resetAttributes();
 		return (new Object[] {training,test});
 	}
-	
-	/**public void randomShuffle(float percent){
-		clearTestSets();
-		DMArrayList<DataPoint> grabBag = dataPoints;
-		grabBag.shuffle(100);
-		int size = grabBag.size();
-		percent = percent/100;
-		int trainCount = (int)(percent*size);
-		int testCount = grabBag.size() - trainCount;
-		for(int i = 0; i < trainCount; i++){
-			training.add(grabBag.get(0));
-			grabBag.remove(0);
-		}
-		for(int i = 0; i< testCount; i++){
-			test.add(grabBag.get(0));
-			grabBag.remove(0);
-		}
-	}
-	*/
 }

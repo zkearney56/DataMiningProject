@@ -1,5 +1,10 @@
 package main.structure;
-
+/**
+ * Author: Zachary Kearney
+ * Last Edited: 11/30/2015
+ * Holds the attribute data of a column.
+ * This includes the name, type, min, max, mean, stdDev, the unique values, and the number of unique values
+ */
 import java.util.Iterator;
 
 public class Attribute {
@@ -11,6 +16,15 @@ public class Attribute {
 	private String name;
 	private int uniqueVals;
 	
+	/**
+	 * Constructor for a numeric Attribute with predefined values
+	 * @param name
+	 * @param type
+	 * @param min
+	 * @param max
+	 * @param mean
+	 * @param stdDev
+	 */
 	public Attribute(String name, String type, double min, double max, double mean, double stdDev){
 		this.name = name;
 		this.type = type;
@@ -20,6 +34,12 @@ public class Attribute {
 		this.stdDev = stdDev;
 	}
 	
+	/**
+	 * Constructor for an attribute that accepts a name, type, and an arraylist of data
+	 * @param name
+	 * @param type
+	 * @param data
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Attribute(String name, String type, DMArrayList data){
 		this.name = name;
@@ -34,6 +54,10 @@ public class Attribute {
 
 	}
 	
+	/**
+	 * If attribute is numeric, calculates the min, max, mean, and stdDev
+	 * @param data
+	 */
 	private void numeric(DMArrayList<Double> data){
 		min = MathFunctions.min(data);
 		max = MathFunctions.max(data);
@@ -41,6 +65,10 @@ public class Attribute {
 		stdDev = MathFunctions.stdDev(mean, data);
 	}
 	
+	/**
+	 * If attribute is categorial, calculates the unique values, then the min, max, mean, and stdDev of the unique values
+	 * @param data
+	 */
 	private void categorial(DMArrayList<String> data){
 		calculateData(data);
 		this.uniqueVals = dataStore.size();
@@ -50,6 +78,10 @@ public class Attribute {
 		stdDev = MathFunctions.stdDev(mean, values);
 	}
 	
+	/**
+	 * Used by categorial method to calculate the unique values
+	 * @param data
+	 */
 	private void calculateData(DMArrayList<String> data){
 		
 		dataStore = new DMArrayList<CategorialPoint>();

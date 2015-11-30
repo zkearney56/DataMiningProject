@@ -1,5 +1,9 @@
 package main.structure;
-
+/**
+ * Author: Zachary Kearney
+ * Last Edited: 11/30/2015
+ * Container for a CategorialPoint in an array list.
+ */
 public class CategorialPoint {
 
 		private String name;

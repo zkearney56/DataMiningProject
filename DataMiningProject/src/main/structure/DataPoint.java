@@ -1,10 +1,18 @@
 package main.structure;
-
+/**
+ * Author: Zachary Kearney
+ * Last Edited: 11/30/2015
+ * Container for a row of data within an ArrayList
+ */
 public class DataPoint {
 	
 	private DMArrayList<Object> data;
 	private String classification;
 
+	/**
+	 * Accepts an arraylist containing all data in a row
+	 * @param data
+	 */
 	public DataPoint(DMArrayList <Object> data){
 		
 		classification = null;

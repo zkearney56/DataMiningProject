@@ -1,4 +1,5 @@
 package main.structure;
+
 import java.util.*;
 public class FrequencyTable {
 	Hashtable frequency;

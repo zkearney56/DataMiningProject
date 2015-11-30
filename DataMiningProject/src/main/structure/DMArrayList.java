@@ -1,4 +1,9 @@
 package main.structure;
+/**
+ * Author: Zachary Kearney
+ * Last Edited: 11/30/2015
+ * Custom ArrayList class to hold all data from a file.
+ */
 
 import java.util.Arrays;
 import java.util.Iterator;
