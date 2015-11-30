@@ -117,7 +117,11 @@ public class DataList {
 		if(column > dataTypes.size()) throw new ArrayIndexOutOfBoundsException();
 		String name = (String)dataTypes.get(column);
 		if(getType(column).equals("Categorial")){
-			return new Attribute(name, "Categorial");
+			DMArrayList<String> colVals = new DMArrayList<String>();
+			for(int i = 0; i < dataPoints.size(); i++){
+				colVals.add(((String)dataPoints.get(i).getDataVal(column)));
+			}
+			return new Attribute(name, "Categorial", colVals);
 		}
 		
 		else if(getType(column).equals("Numeric")){
@@ -125,11 +129,7 @@ public class DataList {
 			for(int i = 0; i < dataPoints.size(); i++){
 				colVals.add(Double.parseDouble((String)dataPoints.get(i).getDataVal(column)));
 			}
-			double min = MathFunctions.min(colVals);
-			double max = MathFunctions.max(colVals);
-			double mean = MathFunctions.mean(colVals);
-			double stdDev = MathFunctions.stdDev(mean, colVals);
-			return new Attribute(name, "Numeric", min, max, mean, stdDev);
+			return new Attribute(name, "Numeric", colVals);
 		}
 		else return null;	
 	}

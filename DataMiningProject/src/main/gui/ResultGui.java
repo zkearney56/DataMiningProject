@@ -24,7 +24,7 @@ public class ResultGui extends JFrame {
 	public ResultGui(DataList testData) {
 		this.testData = testData;
 		setTitle("Results");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
 		JMenuBar menuBar = new JMenuBar();

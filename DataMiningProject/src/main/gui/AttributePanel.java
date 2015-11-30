@@ -47,7 +47,7 @@ public class AttributePanel extends JPanel {
 		setBackground(SystemColor.window);
 		setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		setLayout(null);
-		setPreferredSize(new Dimension(250, 216));
+		setPreferredSize(new Dimension(250, 250));
 		head = att.getName();
 		type = att.getType();
 		classBtn = new JRadioButton("Set Main Class");
@@ -65,14 +65,14 @@ public class AttributePanel extends JPanel {
 		});
 		
 		classBtn.setHorizontalAlignment(SwingConstants.CENTER);
-		classBtn.setBounds(6, 186, 109, 23);
+		classBtn.setBounds(6, 220, 109, 23);
 		classBtn.setActionCommand(head);
 		add(classBtn);
 		
 		ignoreBox = new JCheckBox("Ignore");
 		ignoreBox.setBackground(SystemColor.window);
 		ignoreBox.setHorizontalAlignment(SwingConstants.CENTER);
-		ignoreBox.setBounds(125, 186, 97, 23);
+		ignoreBox.setBounds(137, 220, 97, 23);
 		ignoreBox.setActionCommand(head);
 		add(ignoreBox);
 		
@@ -102,7 +102,7 @@ public class AttributePanel extends JPanel {
 		
 		txtpnMin = new JTextPane();
 		txtpnMin.setEditable(false);
-		txtpnMin.setBackground(SystemColor.window);
+		txtpnMin.setBackground(Color.WHITE);
 		txtpnMin.setText("Minimum");
 		txtpnMin.setBounds(6, 80, 109, 20);
 		add(txtpnMin);
@@ -110,7 +110,7 @@ public class AttributePanel extends JPanel {
 		txtpnMaximum = new JTextPane();
 		txtpnMaximum.setEditable(false);
 		txtpnMaximum.setText("Maximum");
-		txtpnMaximum.setBackground(SystemColor.window);
+		txtpnMaximum.setBackground(Color.WHITE);
 		txtpnMaximum.setBounds(6, 105, 109, 20);
 		add(txtpnMaximum);
 		
@@ -159,11 +159,30 @@ public class AttributePanel extends JPanel {
 		Type.setBounds(131, 45, 109, 23);
 		add(Type);
 		
+		JTextPane txtPaneUniqueVals = new JTextPane();
+		txtPaneUniqueVals.setText("UniqueVals");
+		txtPaneUniqueVals.setEditable(false);
+		txtPaneUniqueVals.setBackground(Color.WHITE);
+		txtPaneUniqueVals.setBounds(6, 180, 109, 20);
+		add(txtPaneUniqueVals);
+		
+		JTextPane uniqueVals = new JTextPane();
+		uniqueVals.setEditable(false);
+		uniqueVals.setBackground(Color.WHITE);
+		uniqueVals.setBounds(125, 180, 109, 20);
+		add(uniqueVals);
+		
 		switch (type){
 		case "Categorial": 	Type.setText(type);
+							min.setText(Double.toString(att.getMin()));
+							max.setText(Double.toString(att.getMax()));
+							mean.setText(Double.toString(att.getMean()));
+							stdev.setText(Double.toString(att.getStdDev()));
+							uniqueVals.setText(Integer.toString(att.getUniqueVals()));
 							break;
 							
-		case "Numeric": 	Type.setText(type);
+		case "Numeric": 	
+							Type.setText(type);
 							min.setText(Double.toString(att.getMin()));
 							max.setText(Double.toString(att.getMax()));
 							mean.setText(Double.toString(att.getMean()));
@@ -185,4 +204,12 @@ public class AttributePanel extends JPanel {
 	public String getHead(){
 		return head;
 	}
-}
+	
+	private void numeric(){
+		
+	}
+	
+	private void categorial(){
+	}
+	}
+

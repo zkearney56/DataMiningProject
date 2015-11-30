@@ -32,7 +32,7 @@ public class SetupPanel extends JPanel {
 		Iterator itr = attributes.iterator();
 		while(itr.hasNext()){
 			AttributePanel att = new AttributePanel((Attribute)itr.next());
-			att.setSize(250,216);
+			att.setSize(250,250);
 			add(att);
 			classGrp.add(att.getRadio());
 			attributePanel.add(att);
