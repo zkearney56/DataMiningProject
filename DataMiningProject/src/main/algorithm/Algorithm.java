@@ -14,7 +14,15 @@ public abstract class Algorithm {
 		currentDataPoint = 0;
 		numBins = 10;
 	}
+	Algorithm(){
+		currentDataPoint = 0;
+		numBins = 10;
+	}
 	
+	public void setDataList(DataList dataList){
+		this.dataList = dataList;
+		currentDataPoint = 0;
+	}
 	public abstract Node getBestNode();
 	
 	public DataPoint getNextDataPoint() {

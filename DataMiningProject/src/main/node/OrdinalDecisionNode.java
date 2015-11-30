@@ -15,8 +15,6 @@ public class OrdinalDecisionNode implements Node {
 	public OrdinalDecisionNode(float breakValue, int dataIndex, String attribute){
 		this.breakValue = breakValue;
 		this.dataIndex = dataIndex;
-		left = new Leaf("NULLVALUE");
-		right = new Leaf("NULLVALUE");
 		attributeName = attribute;
 	}
 	

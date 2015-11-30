@@ -22,6 +22,9 @@ public class Entropy extends Algorithm{
 		super(dataList);
 	//	preprocessData();
 	}
+	public Entropy(){
+		super();
+	}
 	//START HERE THIS NEEDS A LOT OF CLEANUP
 	public Node getBestNode() {
 		int column = findBestColumn();
@@ -89,8 +92,8 @@ public class Entropy extends Algorithm{
 			}
 		}
 		
-		n.setLeft(new Leaf(frequencyTable.getType(secondIndex)));
-		n.setRight(new Leaf(split[column]));
+		n.setLeft(new Leaf(frequencyTable.getType(secondIndex), new Entropy()));
+		n.setRight(new Leaf(split[column], new Entropy()));
 		((Leaf)n.getLeft()).setHeaders(dataList.getHeaders());
 		((Leaf)n.getRight()).setHeaders(dataList.getHeaders());
 		return n;
@@ -150,9 +153,6 @@ public class Entropy extends Algorithm{
 		return (int) frequencyTable.getAttribute(index);
 	}
 
-	public int test(){
-		return findBestColumn();
-	}
 	
 	private int findBestColumn(){
 		gains = new float[dataList.getLength()];

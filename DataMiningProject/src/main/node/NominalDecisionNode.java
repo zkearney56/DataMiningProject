@@ -15,8 +15,6 @@ public class NominalDecisionNode implements Node {
 	public NominalDecisionNode(String breakValue, int dataIndex, String attribute){
 		this.breakString = breakValue;
 		this.dataIndex = dataIndex;
-		left = new Leaf("NULLVALUE");
-		right = new Leaf("NULLVALUE");
 		attributeName = attribute;
 	}
 	

@@ -1,5 +1,6 @@
 package main.node;
 
+import main.algorithm.Algorithm;
 import main.algorithm.Entropy;
 import main.structure.DMArrayList;
 import main.structure.DataList;
@@ -12,10 +13,12 @@ public class Leaf implements Node {
 	Node left;
 	Node right;
 	DataList list;
+	Algorithm algorithm;
 	
-	public Leaf(String classification){
+	public Leaf(String classification, Algorithm a){
 		this.classification = classification;
 		list = new DataList();
+		algorithm = a;
 	}
 	@Override
 	public String acceptData(DataPoint dataPoint){
@@ -46,11 +49,11 @@ public class Leaf implements Node {
 		temp = list.getRow(0).getClassification();
 		for(int i = 1; i < list.getNumRows(); i++){
 			if(!(list.getRow(i).getClassification().equals(temp))){
-				Entropy e = new Entropy(list);
-				return e.getBestNode();
+				algorithm.setDataList(list);
+				return algorithm.getBestNode();
 			}
 		}
-		Leaf l = new Leaf(list.getRow(0).getClassification());
+		Leaf l = new Leaf(list.getRow(0).getClassification(), algorithm);
 		return l;
 	}
 	public int getListSize(){
