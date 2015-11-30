@@ -14,13 +14,12 @@ import main.node.OrdinalDecisionNode;
 
 public class Entropy extends Algorithm{
 	
-	FrequencyTable frequencyTable;
-	String split[];
-	float gains[];
+	private FrequencyTable frequencyTable;
+	private String split[];
+	private float gains[];
 
 	public Entropy(DataList dataList){
 		super(dataList);
-	//	preprocessData();
 	}
 	public Entropy(){
 		super();
@@ -34,8 +33,6 @@ public class Entropy extends Algorithm{
 		float max = 0;
 		float sum = 0;
 		Node n;
-		int splitPoint = 0;
-		String sSplitPoint = "";
 		boolean isString = false;
 		try{
 			Float.parseFloat((String) dataList.getRow(0).getDataVal(column));
@@ -44,7 +41,6 @@ public class Entropy extends Algorithm{
 		{
 		  isString = true;
 		}
-		//This needs improved, probably wont work on other data sets/training sets
 		if(!isString){
 			min = Float.parseFloat((String) dataList.getRow(0).getDataVal(column));
 			max = Float.parseFloat((String) dataList.getRow(0).getDataVal(column));
@@ -59,12 +55,12 @@ public class Entropy extends Algorithm{
 			}
 			float diff = max-min;
 			float binNum = diff/(numBins-1);
-			splitPoint = findBestSplitBin(column, min, binNum);
+			int splitPoint = findBestSplitBin(column, min, binNum);
 			n = new OrdinalDecisionNode(min + splitPoint*binNum, column, (String)dataList.getHead(column));
 		}
 		else{
-			sSplitPoint = findBestSplitBin(column);
-			n = new NominalDecisionNode(sSplitPoint, column, (String)dataList.getHead(column));
+			String splitPoint = findBestSplitBin(column);
+			n = new NominalDecisionNode(splitPoint, column, (String)dataList.getHead(column));
 		}	
 		
 		int attributes[] = new int[frequencyTable.getTypesSize()];
@@ -83,6 +79,7 @@ public class Entropy extends Algorithm{
 				firstIndex = i;
 			}
 		}
+		//This is to pick a starting value for second
 		secondIndex = (firstIndex + 1) % attributes.length;
 		second = attributes[secondIndex];
 		for(int i = 0; i < attributes.length; i++){
@@ -202,7 +199,6 @@ public class Entropy extends Algorithm{
 				if(!(used.contains(dataList.getRow(j).getClassification()))){
 					used.add(dataList.getRow(j).getClassification());
 					int matchCount = 0;
-				//	System.out.println(dataList.getNumRows());
 					for(int k = 0; k < dataList.getNumRows(); k++){
 						if(dataList.getRow(k).getClassification().equals((dataList.getRow(j).getClassification()))){
 							matchCount++;
@@ -266,55 +262,5 @@ public class Entropy extends Algorithm{
 			restCount = 0;
 		}
 		return ent;
-	}
-	private FrequencyTable getFrequencyTable(int col){
-		FrequencyTable table = new FrequencyTable();
-		Vector<Object> a = new Vector<Object>();
-		Vector<String> t = new Vector<String>();
-		
-		boolean isString = false;
-		try{
-			Float.parseFloat((String) dataList.getRow(0).getDataVal(col));
-		}
-		catch(NumberFormatException e)
-		{
-		  isString = true;
-		}
-		if(isString){
-			for(int j = 0; j < dataList.getNumRows(); j++){
-				if(!t.contains(((DataPoint)dataList.getRow(j)).getClassification())){
-					t.add(((DataPoint)dataList.getRow(j)).getClassification());
-				}
-				if(!a.contains(dataList.getRow(j).getDataVal(col))){
-					a.add(dataList.getRow(j).getDataVal(col));
-				}
-			}
-			table.setTypes(t);
-			table.setAttributes(a);
-		}
-		else{
-			//This might mess stuff up because float
-			/*float sum = 0;
-			for(int i = 0; i < dataList.getNumRows(); i++){
-				sum = sum + (float)dataList.getRow(i).getDataVal(col);
-			}
-			sum = sum/numBins;*/
-			for(int j = 0; j < dataList.getNumRows(); j++){
-				try{
-					if(!t.contains(((DataPoint)dataList.getRow(j)).getClassification())){
-						t.add(((DataPoint)dataList.getRow(j)).getClassification());
-					}
-				}
-				catch(Exception e){
-					
-				}
-			}
-			for(int i = 0; i < numBins; i++){
-				a.add(i);
-			}
-			table.setTypes(t);
-			table.setAttributes(a);
-		}
-		return table;
 	}
 }

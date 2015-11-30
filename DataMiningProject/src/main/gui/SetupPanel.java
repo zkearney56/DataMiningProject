@@ -52,7 +52,7 @@ public class SetupPanel extends JPanel {
 		}
 		*/
 		attributePanel.get(0).getRadio().setSelected(true);
-		setPreferredSize(new Dimension((attributes.size()*254/2),216*2));
+		setPreferredSize(new Dimension((attributes.size()*140),216*2));
 	}
 	
 	public String selectedClass()

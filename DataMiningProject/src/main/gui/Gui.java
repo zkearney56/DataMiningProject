@@ -13,7 +13,6 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
@@ -27,7 +26,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
 import javax.swing.border.BevelBorder;
 
+import main.algorithm.Algorithm;
 import main.algorithm.Entropy;
+import main.algorithm.Gini;
 import main.structure.DataList;
 import main.tree.DecisionTree;
 
@@ -50,6 +51,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JFormattedTextField;
 
 public class Gui extends JFrame {
@@ -66,6 +68,7 @@ public class Gui extends JFrame {
 	private JFormattedTextField trimSize;
 	private JComboBox trainingComboBox, nFold, pTrain, algorithm;
 	private String trainingMode = "NFOLD";
+	private String alg = "Entropy";
 	private JTextPane sizePane;
 	private Format numFormat;
 	
@@ -160,7 +163,17 @@ public class Gui extends JFrame {
 		
 		algorithm = new JComboBox();
 		algorithm.setEnabled(false);
-		algorithm.setModel(new DefaultComboBoxModel(new String[] {"Entropy"}));
+		algorithm.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				if(algorithm.getSelectedIndex() == 0){
+					alg = "Entropy";
+				}
+				else if(algorithm.getSelectedIndex() == 1){
+					alg = "Gini";
+				}
+			}
+		});
+		algorithm.setModel(new DefaultComboBoxModel(new String[] {"Entropy", "Gini"}));
 		algorithm.setBounds(10, 620, 161, 20);
 		contentPane.add(algorithm);
 		
@@ -322,7 +335,6 @@ public class Gui extends JFrame {
 			}
 			
 			testData.setClass(index);
-			System.out.println("Test");
 			DataList trainingSet = new DataList();
 			DataList testSet = new DataList();
 			Object[] sets;
@@ -352,9 +364,18 @@ public class Gui extends JFrame {
 			
 			ResultGui result = new ResultGui(testData);
 			result.setVisible(true);
-			System.out.println("Pause");
-			Entropy e = new Entropy(trainingSet);
-			DecisionTree t = new DecisionTree(e);
+			Algorithm a;
+			switch(alg){
+			case "Entropy":	a = new Entropy(trainingSet);
+							break;
+							
+			case "Gini":	a = new Gini(trainingSet);
+							break;
+							
+			default:		a = new Entropy(trainingSet);
+							break;
+			}
+			DecisionTree t = new DecisionTree(a);
 			t.trainTree();
 			t.inOrderPrint();
 			int total = testSet.getNumRows();
