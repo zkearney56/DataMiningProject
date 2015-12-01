@@ -98,20 +98,24 @@ public class Gini extends Algorithm{
 		}
 		float giniValues[] = new float[frequencyTable.getAttributesSize()];
 		for(int i = 0; i < giniValues.length; i++){
-			giniValues[i] = 0;
+			giniValues[i] = 1;
 		}
 		for(int i = 0; i < giniValues.length; i++){
 			int total = frequencyTable.getTotal(frequencyTable.getAttribute(i));
-			float temp = gini();
-			if(temp < giniValues[i] && temp > 0 && temp < 1){
-				giniValues[i] = temp;
+			if(total != 0){
+				float sum = 0;
+				for(int j = 0; j < frequencyTable.getTypesSize(); j++){
+					float temp = frequencyTable.getValue(i, j)/total;
+					sum += temp*temp;
+				}
+				giniValues[i] = 1 - sum;
 			}
 		}
-		float maxGains = giniValues[0];
+		float minGini = giniValues[0];
 		int index = 0;
 		for(int i = 1; i < giniValues.length; i++){
-			if(giniValues[i] > maxGains){
-				maxGains = giniValues[i];
+			if(giniValues[i] > minGini){
+				minGini = giniValues[i];
 				index = i;
 			}
 		}
@@ -125,20 +129,24 @@ public class Gini extends Algorithm{
 		}
 		float giniValues[] = new float[frequencyTable.getAttributesSize()];
 		for(int i = 0; i < giniValues.length; i++){
-			giniValues[i] = 0;
+			giniValues[i] = 1;
 		}
 		for(int i = 0; i < giniValues.length; i++){
 			int total = frequencyTable.getTotal(frequencyTable.getAttribute(i));
-			float temp = gini();
-			if(temp < giniValues[i] && temp > 0 && temp < 1){
-				giniValues[i] = temp;
+			if(total != 0){
+				float sum = 0;
+				for(int j = 0; j < frequencyTable.getTypesSize(); j++){
+					float temp = frequencyTable.getValue(i, j)/total;
+					sum += temp*temp;
+				}
+				giniValues[i] = 1 - sum;
 			}
 		}
-		float maxGains = giniValues[0];
+		float minGini = giniValues[0];
 		int index = 0;
 		for(int i = 1; i < giniValues.length; i++){
-			if(giniValues[i] > maxGains){
-				maxGains = giniValues[i];
+			if(giniValues[i] > minGini){
+				minGini = giniValues[i];
 				index = i;
 			}
 		}

@@ -93,11 +93,7 @@ public class DecisionTree {
 		printInOrder(n.getLeft());
 		System.out.println(n);
 		printInOrder(n.getRight());
-	}
-	
-	public static void main(String args[]){
-		
-	}
+	} 
 }
 
 
