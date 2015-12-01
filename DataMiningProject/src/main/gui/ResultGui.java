@@ -3,8 +3,6 @@ package main.gui;
  * Author: Zachary Kearney
  * Last Edited: 11/30/2015
  */
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,13 +17,11 @@ import javax.swing.JMenuItem;
 public class ResultGui extends JFrame {
 
 	private JPanel contentPane;
-	private DataList testData;
 
 	/**
 	 * Create the frame.
 	 */
 	public ResultGui(DataList testData) {
-		this.testData = testData;
 		setTitle("Results");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

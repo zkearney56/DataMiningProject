@@ -100,7 +100,6 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 	}
 	
 	public void shuffle(){
-		int x = 0;
 		for(int i = 1; i < size*5; i++){
 			swap(i%size, randNum());
 			
@@ -125,6 +124,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 		}
 		public E next() {
 			if(!hasNext()) throw new NoSuchElementException();
+			@SuppressWarnings("unchecked")
 			E e = (E) elementData[index];
 			index++;
 			return e;

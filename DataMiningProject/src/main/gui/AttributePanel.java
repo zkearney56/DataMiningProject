@@ -13,15 +13,10 @@ import javax.swing.JTextPane;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.SystemColor;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
-import javax.swing.border.MatteBorder;
-
 import main.structure.Attribute;
 
-import javax.swing.border.EmptyBorder;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
@@ -44,10 +39,9 @@ public class AttributePanel extends JPanel {
 	private JTextPane mean;
 	private JTextPane stdev;
 	private JTextPane Type;
-	private Attribute att;
+	private JTextPane uniqueVals;
 	
 	public AttributePanel(Attribute att) {
-		this.att = att;
 		setBackground(SystemColor.window);
 		setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		setLayout(null);
@@ -170,7 +164,7 @@ public class AttributePanel extends JPanel {
 		txtPaneUniqueVals.setBounds(6, 180, 109, 20);
 		add(txtPaneUniqueVals);
 		
-		JTextPane uniqueVals = new JTextPane();
+		uniqueVals = new JTextPane();
 		uniqueVals.setEditable(false);
 		uniqueVals.setBackground(Color.WHITE);
 		uniqueVals.setBounds(125, 180, 109, 20);
@@ -207,13 +201,6 @@ public class AttributePanel extends JPanel {
 	
 	public String getHead(){
 		return head;
-	}
-	
-	private void numeric(){
-		
-	}
-	
-	private void categorial(){
 	}
 	}
 

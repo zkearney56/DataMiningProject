@@ -1,9 +1,11 @@
 package main.structure;
+
 /**
  * Author: Zachary Kearney
  * Last Edited: 11/30/2015
  * Object container for all data, contains three array lists containing the headers, data rows, and column attributes.
  */
+
 import java.io.File;
 import java.io.FileReader;
 import java.util.Iterator;
@@ -33,6 +35,10 @@ public class DataList {
 	
 	public DMArrayList<DataPoint> getPoints(){
 		return dataPoints;
+	}
+	
+	public String getClassification(){
+		return classification;
 	}
 	
 	public void setHeaders(DMArrayList<Object> dataTypes){

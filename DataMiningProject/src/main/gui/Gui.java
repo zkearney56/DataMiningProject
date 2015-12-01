@@ -1,9 +1,4 @@
 package main.gui;
-/**
- * Author: Zachary Kearney
- * Last Edited: 11/30/2015
- */
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFileChooser;
@@ -23,23 +18,14 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.text.Format;
-import java.text.NumberFormat;
 import java.util.Iterator;
 import java.awt.event.ActionEvent;
-
-import javax.swing.JScrollBar;
-import javax.swing.border.BevelBorder;
 
 import main.algorithm.Algorithm;
 import main.algorithm.Entropy;
 import main.algorithm.Gini;
 import main.structure.DataList;
 import main.tree.DecisionTree;
-
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.LineBorder;
-
-import java.awt.Color;
 
 import javax.swing.JTextPane;
 import javax.swing.JComboBox;
@@ -49,13 +35,8 @@ import java.awt.Font;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JTextField;
-
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
 import javax.swing.JFormattedTextField;
 
 public class Gui extends JFrame {
@@ -329,7 +310,7 @@ public class Gui extends JFrame {
 			}
 			
 			String classification = setupPanel.selectedClass();
-			Iterator itr = testData.dataTypeIterator();
+			Iterator<Object> itr = testData.dataTypeIterator();
 			int index = 0;
 			while(itr.hasNext()){
 				Object element = itr.next();

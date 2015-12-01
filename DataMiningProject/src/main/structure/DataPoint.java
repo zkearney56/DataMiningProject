@@ -29,7 +29,8 @@ public class DataPoint {
 	public String getType(int column){
 		try  
 		  {  
-		    double d = Double.parseDouble((String) data.get(column));  
+		    @SuppressWarnings("unused")
+			double d = Double.parseDouble((String) data.get(column));  
 		  }  
 		  catch(NumberFormatException nfe)  
 		  {  
