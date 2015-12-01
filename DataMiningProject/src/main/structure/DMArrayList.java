@@ -18,11 +18,22 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 	
 	public DMArrayList(){
 		elementData = new Object[INITIAL_CAPACITY];
+		size = 0;
 	}
 
-	public DMArrayList(E[] row) {
+	public DMArrayList(E[] row){
 		elementData = row;
 		size = row.length;
+	}
+	
+	private DMArrayList(E[] row, int size) {
+		elementData = row;
+		this.size = size;;
+	}
+	
+	public DMArrayList clone(){
+		Object[] newData = elementData.clone();
+		return new DMArrayList(newData, size);
 	}
 
 	public void add(E e) {
@@ -62,7 +73,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 		elementData[i] = elementData[i+1];
 		}
 		elementData[size-1] = null;
-		size--;		
+		size--;
 	}
 
 	public int size(){
@@ -108,8 +119,8 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 	
 	public void trim(int num){
 		if(num > size) throw new ArrayIndexOutOfBoundsException();
-		for(int i = 0; i < num; i ++){
-			this.remove(i);
+		for(int i = 0, x = size-1; i < num; i ++, x--){
+			this.remove(x);
 		}
 	}
 	

@@ -12,7 +12,7 @@ import java.util.Iterator;
 
 import com.opencsv.CSVReader;
 
-public class DataList {
+public class DataList implements Cloneable {
 	
 	private DMArrayList<DataPoint> dataPoints;
 	private DMArrayList<Object> dataTypes;
@@ -25,6 +25,15 @@ public class DataList {
 		dataAttributes = new DMArrayList<Attribute>();
 	}
 	
+	public DataList(DMArrayList<DataPoint> dataPoints, DMArrayList<Object> dataTypes, DMArrayList<Attribute> dataAttributes){
+		this.dataPoints = dataPoints;
+		this.dataTypes = dataTypes;
+		this.dataAttributes = dataAttributes;
+	}
+	
+	public DataList clone(){
+		return new DataList(dataPoints.clone(), dataTypes.clone(), dataAttributes.clone());
+	}
 	public DMArrayList<Object> getHeaders(){
 		return dataTypes;
 	}
@@ -39,6 +48,10 @@ public class DataList {
 	
 	public String getClassification(){
 		return classification;
+	}
+	
+	public void setAttributes(DMArrayList<Attribute> dataAttributes){
+		this.dataAttributes = dataAttributes;
 	}
 	
 	public void setHeaders(DMArrayList<Object> dataTypes){
@@ -64,7 +77,10 @@ public class DataList {
 	 * Reads a csv file and fills the arraylists with data from the file.
 	 * @param file
 	 */
-	public void readFile(File file){	
+	public void readFile(File file){
+		dataPoints.clear();
+		dataTypes.clear();
+		dataAttributes.clear();
 			System.out.println(file.getAbsolutePath());
 		try{
 			CSVReader csvReader = new CSVReader(new FileReader(file));
@@ -84,7 +100,6 @@ public class DataList {
 			for(int i = 0; i < dataTypes.size(); i++){
 				dataAttributes.add(getAttribute(i));
 			}
-			System.out.println("Test");
 		}
 
 		catch(Exception e){

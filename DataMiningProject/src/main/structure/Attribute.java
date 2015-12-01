@@ -15,6 +15,7 @@ public class Attribute {
 	private String type;
 	private String name;
 	private int uniqueVals;
+	private boolean ignored = false;
 	
 	/**
 	 * Constructor for a numeric Attribute with predefined values
@@ -149,6 +150,14 @@ public class Attribute {
 	
 	public String getName(){
 		return name;
+	}
+	
+	public void ignore(boolean t){
+		ignored = t;
+	}
+	
+	public boolean getIgnore(){
+		return ignored;
 	}
 	
 }
