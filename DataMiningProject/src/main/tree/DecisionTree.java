@@ -6,26 +6,44 @@ import main.algorithm.Algorithm;
 import main.node.*;
 import main.structure.DataPoint;
 
+/**
+ * This class makes a decision tree that will use whatever algorithm is given to it to classify data.
+ * @author Dan Martin
+ *
+ */
 public class DecisionTree {
 	
 	static Node rootNode;
 	Algorithm algorithm;
+	
+	/**
+	 * Constructs a DecisionTree and prepares it to be trained.
+	 * @param a the algorithm that will be used to build the tree.
+	 */
 	public DecisionTree(Algorithm a){
 		algorithm = a;
+		//Create the root node using the algorithm.
 		rootNode = algorithm.getBestNode();
 	}
-	
+	/**
+	 * Uses the algorithm to create the entire decision tree.
+	 */
 	public void trainTree(){
-		//Set up the root node to decide based from the first input
 		while(algorithm.hasData()){
 			DataPoint current = algorithm.getNextDataPoint();
-			rootNode.acceptData(current);
+			rootNode.trainData(current);
 		}
 		inOrderCheck(rootNode);
 		if(algorithm.hasData()){
 			trainTree();
 		}
 	}
+	/**
+	 * Does an in order traversal of the tree to check if any of the leaf nodes need to split again.
+	 * If they do a new node is constructed and inserted.
+	 * The algorithms dataList is then reset so that all of the data can be put into the tree again.
+	 * @param n the node which to start the traversal.
+	 */
 	public void inOrderCheck(Node n){
 		if(n.getLeft() instanceof Leaf){
 			if(!((Leaf) n.getLeft()).isLeaf()){
@@ -64,23 +82,18 @@ public class DecisionTree {
 			inOrderCheck(n.getRight());
 		}
 	}
+	/**
+	 * Classifies a single dataPoint once the tree has been trained.
+	 * @param data the dataPoint to be classified.
+	 * @return the classification that the tree gave the dataPoint.
+	 */
 	public String classify(DataPoint data){
 		return rootNode.acceptData(data);
 	}
 	
-	public void insertEndNode(DataPoint dataPoint, Node node){
-		Node n = rootNode.getResultNode(dataPoint);
-		while(!(n.getResultNode(dataPoint) instanceof Leaf)){
-			n = n.getResultNode(dataPoint);
-		}
-		if(n.testData(dataPoint)){
-			n.setRight(node);
-		}
-		else{
-			n.setLeft(node);
-		}
-	}
-	
+	/**
+	 * Does an inOrder traversal of the tree and prints out each node.
+	 */
 	public void inOrderPrint(){
 		printInOrder(rootNode);
 		System.out.println("");
