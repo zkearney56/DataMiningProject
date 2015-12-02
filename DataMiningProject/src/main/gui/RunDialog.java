@@ -8,6 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import main.structure.DMArrayList;
 import main.structure.DataList;
 
 import javax.swing.JTextPane;
@@ -26,24 +27,18 @@ public class RunDialog extends JDialog {
 	 * Launch the application.
 	 */
 	private JComboBox mainclass, trim, percent, model, algorithm;
+	private DMArrayList<String> ignored;
 	private DataList list;
 	
 	/**
 	 * Create the dialog.
 	 */
 	
-	private void cleanList(){
-	for(int i = 0; i < list.getLength(); i++){
-		if(list.getAttribute(i).getIgnore()){
-			list.removeColumn(i);
-		}
-	}
-	}
-	
 	public RunDialog() {
 	}
 	
 	public void run(DataList list){
+		ignored = new DMArrayList<String>();
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.list = list;
@@ -173,9 +168,19 @@ public class RunDialog extends JDialog {
 		
 		String algorithmString = (String)algorithm.getSelectedItem();
 		
-		ResultGui result = new ResultGui(sets,algorithmString);
+		ResultGui result = new ResultGui(sets,algorithmString, ignored);
 		result.setVisible(true);
 		
 		RunDialog.this.dispose();
 	}
-}
+	
+	private void cleanList(){
+		
+	for(int i = 0; i < list.getLength(); i++){
+		if(list.getAttribute(i).getIgnore()){
+			ignored.add((String)list.getHead(i));
+			list.removeColumn(i);
+		}
+	}
+	}
+	}

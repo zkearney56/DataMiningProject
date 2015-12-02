@@ -46,6 +46,7 @@ public class NewGui extends JFrame {
 	 * Create the frame.
 	 */
 	public NewGui() {
+		setTitle("Decision Tree GUI");
 		setResizable(false);
 		
 		fc = new JFileChooser();
@@ -62,7 +63,7 @@ public class NewGui extends JFrame {
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
 		
-		JMenuItem mntmOpenCsv = new JMenuItem("Open Csv");
+		JMenuItem mntmOpenCsv = new JMenuItem("Open CSV");
 		mntmOpenCsv.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				            int returnVal = fc.showOpenDialog(NewGui.this);

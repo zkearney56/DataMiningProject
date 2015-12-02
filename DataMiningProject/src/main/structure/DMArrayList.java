@@ -132,6 +132,18 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 		return new ArrayListIterator();
 	}
 	
+	public void printArray(){
+		if(DMArrayList.this.size == 0){
+			System.out.println("None");
+		}
+		else{
+		Iterator itr = DMArrayList.this.iterator();
+		while(itr.hasNext()){
+			System.out.println((String)itr.next());
+		}
+	}
+	}
+	
 	private class ArrayListIterator implements Iterator<E>{
 		private int index = 0;	
 		public boolean hasNext() {

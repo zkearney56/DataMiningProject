@@ -230,6 +230,10 @@ public class DataList implements Cloneable {
 		}
 	}
 	
+	public void setClass(String classification){
+		this.classification = classification;
+	}
+	
 	/**
 	 * Returns the header of the specified column.
 	 * @param column
@@ -303,6 +307,8 @@ public class DataList implements Cloneable {
 		}
 		training.setHeaders(this.getHeaders());
 		test.setHeaders(this.getHeaders());
+		training.setClass(this.getClassification());
+		test.setClass(this.getClassification());
 		return (new Object[] {training,test});
 	}
 	
@@ -335,6 +341,8 @@ public class DataList implements Cloneable {
 		test.setHeaders(this.getHeaders());
 		training.resetAttributes();
 		test.resetAttributes();
+		training.setClass(this.getClassification());
+		test.setClass(this.getClassification());
 		return (new Object[] {training,test});
 	}
 }

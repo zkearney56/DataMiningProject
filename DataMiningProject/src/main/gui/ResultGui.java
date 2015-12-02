@@ -4,55 +4,39 @@ package main.gui;
  * Last Edited: 11/30/2015
  */
 
+import java.awt.BorderLayout;
+import java.io.PrintStream;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import main.algorithm.Algorithm;
 import main.algorithm.Entropy;
 import main.algorithm.Gini;
+import main.structure.DMArrayList;
 import main.structure.DataList;
 import main.tree.DecisionTree;
 
 public class ResultGui extends JFrame {
 
 	private JPanel contentPane;
-
+	private DataList trainingSet;
+	private DataList testSet;
+	private DMArrayList<String> ignored;
 	/**
 	 * Create the frame.
 	 */
-	public ResultGui(Object[] dataSets, String algorithm) {
-		
-		DataList trainingSet = (DataList)dataSets[0];
-		DataList testSet = (DataList)dataSets[0];
-		
-		Algorithm a;
-		switch(algorithm){
-		case "Entropy":	a = new Entropy(trainingSet);
-						break;
-						
-		case "Gini":	a = new Gini(trainingSet);
-						break;
-						
-		default:		a = new Entropy(trainingSet);
-						break;
-		}
-		DecisionTree t = new DecisionTree(a);
-		t.trainTree();
-		t.inOrderPrint();
-		int total = testSet.getNumRows();
-		int correct = 0;
-		for(int i = 0; i < testSet.getNumRows(); i++){
-			if(testSet.getRow(i).getClassification().equals(t.classify(testSet.getRow(i)))){
-				correct++;
-			}
-			System.out.println(testSet.getRow(i).getClassification() + " = " + t.classify(testSet.getRow(i)));
-		}
-		System.out.println("Percent correctly classified: " + Float.toString((float)correct/(float)total));
+	public ResultGui(Object[] dataSets, String algorithm, DMArrayList<String> ignored) {
 
+		this.ignored = ignored;
+		trainingSet = (DataList)dataSets[0];
+		testSet = (DataList)dataSets[0];
 		setTitle("Results");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -78,6 +62,58 @@ public class ResultGui extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		System.out.println("Pause");
+		JTextArea textArea = new JTextArea (25, 80);
+		System.out.println("Pause");	
+		
+		contentPane.setLayout (new BorderLayout ());
+        contentPane.add (
+            new JScrollPane (
+                textArea, 
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED),
+            BorderLayout.CENTER);
+        pack ();
+        setVisible (true);
+        
+        GuiOutputStream out = new GuiOutputStream (textArea);
+        System.setOut (new PrintStream (out));
+        
+        System.out.println("Ignored Attributes:");
+        ignored.printArray();
+        System.out.println("");
+        System.out.println("Main Class: " + (String)trainingSet.getClassification());
+        System.out.println("");
+		System.out.println("Training Set Size: " + trainingSet.getDataSize());
+		System.out.println("Test Set Size: " + testSet.getDataSize());
+		System.out.println("");
+		System.out.println("Algorithm: " + algorithm);
+		System.out.println("");
+		Algorithm a;
+		switch(algorithm){
+		case "Entropy":	a = new Entropy(trainingSet);
+						break;
+						
+		case "Gini":	a = new Gini(trainingSet);
+						break;
+						
+		default:		a = new Entropy(trainingSet);
+						break;
+		}
+		DecisionTree t = new DecisionTree(a);
+		System.out.println("Training Tree...");
+		t.trainTree();
+		System.out.println("Results:");
+		System.out.println("");
+		t.inOrderPrint();
+		int total = testSet.getNumRows();
+		int correct = 0;
+		for(int i = 0; i < testSet.getNumRows(); i++){
+			if(testSet.getRow(i).getClassification().equals(t.classify(testSet.getRow(i)))){
+				correct++;
+			}
+			System.out.println(testSet.getRow(i).getClassification() + " = " + t.classify(testSet.getRow(i)));
+		}
+		System.out.println("Percent correctly classified: " + Float.toString((float)correct/(float)total));
 	}
-}
+	
+	}
