@@ -70,6 +70,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E> {
 		}
 	}
 
+	@Override
 	public void add(E e) {
 		if (size == elementData.length) {
 			increaseCapacity();
@@ -77,6 +78,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E> {
 		elementData[size++] = e;
 	}
 
+	@Override
 	public void add(int index, E e) {
 		if (size == elementData.length) {
 			increaseCapacity();
@@ -88,6 +90,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E> {
 		size++;
 	}
 
+	@Override
 	public void clear() {
 
 		elementData = new Object[INITIAL_CAPACITY];
@@ -95,6 +98,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E> {
 
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public E get(int index) {
 		if (indexRange(index))
@@ -102,6 +106,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E> {
 		return (E) elementData[index];
 	}
 
+	@Override
 	public void remove(int index) {
 		if (indexRange(index))
 			throw new ArrayIndexOutOfBoundsException();
@@ -112,10 +117,12 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E> {
 		size--;
 	}
 
+	@Override
 	public int size() {
 		return size;
 	}
 
+	@Override
 	public void set(int index, E e) {
 		if (indexRange(index))
 			throw new ArrayIndexOutOfBoundsException();
@@ -135,6 +142,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E> {
 		}
 	}
 
+	@Override
 	public void swap(int index1, int index2) {
 		if (indexRange(index1) || indexRange(index2))
 			throw new ArrayIndexOutOfBoundsException();
@@ -148,6 +156,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E> {
 		return rand;
 	}
 
+	@Override
 	public void shuffle() {
 		for (int i = 1; i < size * 5; i++) {
 			swap(i % size, randNum());
@@ -155,6 +164,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E> {
 		}
 	}
 
+	@Override
 	public void trim(int num) {
 		if (num > size)
 			throw new ArrayIndexOutOfBoundsException();
@@ -163,6 +173,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E> {
 		}
 	}
 
+	@Override
 	public Iterator<E> iterator() {
 		return new ArrayListIterator();
 	}
@@ -182,28 +193,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E> {
 		}
 	}
 
-	/**
-	 * Used to output to a csv style file for objects containing ArrayLists
-	 * containing a specified toString method.
-	 * 
-	 * @return
-	 */
-
-	public String toStringObj() {
-		StringBuilder stringBuilder = new StringBuilder();
-		@SuppressWarnings("rawtypes")
-		Iterator itr = DMArrayList.this.iterator();
-		while (itr.hasNext()) {
-			stringBuilder.append(itr.next().toString());
-		}
-		return stringBuilder.toString();
-	}
-
-	/**
-	 * Used to output to a csv style file for arraylists not containing objects
-	 * containing a custom toString method.
-	 */
-
+	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
 		@SuppressWarnings("rawtypes")
@@ -235,10 +225,12 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E> {
 	private class ArrayListIterator implements Iterator<E> {
 		private int index = 0;
 
+		@Override
 		public boolean hasNext() {
 			return index < size;
 		}
 
+		@Override
 		public E next() {
 			if (!hasNext())
 				throw new NoSuchElementException();
@@ -248,6 +240,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E> {
 			return e;
 		}
 
+		@Override
 		public void remove() {
 			// NoRemoveFunction
 		}

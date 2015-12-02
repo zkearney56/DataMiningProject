@@ -252,6 +252,7 @@ public class DataPanel extends JPanel {
 
 		ignoreBox = new JCheckBox("");
 		ignoreBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (ignoreBox.isSelected()) {
 					Attribute a = dataList.getAttributes().get(getSelected());
@@ -299,6 +300,7 @@ public class DataPanel extends JPanel {
 			data = getList();
 		}
 
+		@Override
 		public int getColumnCount() {
 			return columnNames.length;
 		}
@@ -308,6 +310,7 @@ public class DataPanel extends JPanel {
 			return data.length;
 		}
 
+		@Override
 		public String getColumnName(int col) {
 			return columnNames[col];
 		}

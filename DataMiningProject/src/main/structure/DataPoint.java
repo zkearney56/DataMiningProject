@@ -7,7 +7,7 @@ import java.util.Iterator;
  *         within an ArrayList
  */
 
-public class DataPoint {
+public class DataPoint implements DataPointInterface {
 
 	private DMArrayList<Object> data;
 	private String classification;
@@ -37,28 +37,22 @@ public class DataPoint {
 		this.data = new DMArrayList<Object>(point.data);
 	}
 
-	/**
-	 * Returns the classification of the datapoint.
-	 * 
-	 * @return returns the classification of the DataPoint.
+	/* (non-Javadoc)
+	 * @see main.structure.DataPointInterface#getClassification()
 	 */
 
+	@Override
 	public String getClassification() {
 
 		return classification;
 
 	}
 
-	/**
-	 * Returns the type of the DataPoint. Types can either be numerical or
-	 * categorical.
-	 * 
-	 * @param column
-	 *            - The column to access.
-	 * @return returns the type of the Column as either "Numeric" or
-	 *         "Categorical"
+	/* (non-Javadoc)
+	 * @see main.structure.DataPointInterface#getType(int)
 	 */
 
+	@Override
 	public String getType(int column) {
 		try {
 			@SuppressWarnings("unused")
@@ -69,48 +63,40 @@ public class DataPoint {
 		return "Numeric";
 	}
 
-	/**
-	 * Returns all data in the row as an array list.
-	 * 
-	 * @return returns all data in the row as an ArrayList.
+	/* (non-Javadoc)
+	 * @see main.structure.DataPointInterface#getData()
 	 */
 
+	@Override
 	public DMArrayList<Object> getData() {
 		return data;
 	}
 
-	/**
-	 * Removes a specified column from the row.
-	 * 
-	 * @param column
-	 *            - The column to remove.
+	/* (non-Javadoc)
+	 * @see main.structure.DataPointInterface#removeData(int)
 	 */
 
+	@Override
 	public void removeData(int column) {
 		data.remove(column);
 	}
 
-	/**
-	 * Returns the value from a specified column.
-	 * 
-	 * @param column
-	 *            - The column to access.
-	 * @return returns the data from the column.
+	/* (non-Javadoc)
+	 * @see main.structure.DataPointInterface#getDataVal(int)
 	 */
 
+	@Override
 	public Object getDataVal(int column) {
 
 		return data.get(column);
 
 	}
 
-	/**
-	 * Sets the classification of the DataPoint and removes the column.
-	 * 
-	 * @param column
-	 *            - the column to set as the main class.
+	/* (non-Javadoc)
+	 * @see main.structure.DataPointInterface#setClass(int)
 	 */
 
+	@Override
 	public void setClass(int column) {
 
 		classification = (String) data.get(column);
@@ -119,10 +105,11 @@ public class DataPoint {
 
 	}
 
-	/**
-	 * Used to create csv files from datapoints.
+	/* (non-Javadoc)
+	 * @see main.structure.DataPointInterface#toString()
 	 */
 
+	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
 		@SuppressWarnings("rawtypes")

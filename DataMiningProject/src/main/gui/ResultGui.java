@@ -17,6 +17,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import main.algorithm.Algorithm;
@@ -42,7 +44,7 @@ public class ResultGui extends JFrame {
 		trainingSet = (DataList) dataSets[0];
 		testSet = (DataList) dataSets[1];
 		setTitle("Results");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 
 		JMenuBar menuBar = new JMenuBar();
@@ -81,8 +83,8 @@ public class ResultGui extends JFrame {
 		textArea = new JTextArea(25, 80);
 
 		contentPane.setLayout(new BorderLayout());
-		contentPane.add(new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), BorderLayout.CENTER);
+		contentPane.add(new JScrollPane(textArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED), BorderLayout.CENTER);
 		pack();
 		setVisible(true);
 
@@ -92,7 +94,7 @@ public class ResultGui extends JFrame {
 		System.out.println("Ignored Attributes:");
 		ignored.printArray();
 		System.out.println("");
-		System.out.println("Main Class: " + (String) trainingSet.getClassification());
+		System.out.println("Main Class: " + trainingSet.getClassification());
 		System.out.println("");
 		System.out.println("Training Set Size: " + trainingSet.getNumRows());
 		System.out.println("Test Set Size: " + testSet.getNumRows());

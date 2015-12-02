@@ -41,6 +41,7 @@ public interface DMList<E> {
 	 * @return true or false
 	 */
 
+	@Override
 	public boolean equals(Object o);
 
 	/**
@@ -107,4 +108,11 @@ public interface DMList<E> {
 
 	public void trim(int num);
 
+	/**
+	 * Used to output to a csv style file for arraylists not containing objects
+	 * containing a custom toString method.
+	 */
+
+	@Override
+	public String toString();
 }

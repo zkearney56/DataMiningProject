@@ -19,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import main.structure.DMArrayList;
@@ -48,7 +49,7 @@ public class RunDialog extends JDialog {
 	public void run(DataList list) {
 		ignored = new DMArrayList<String>();
 		setModal(true);
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.list = list;
 		cleanList();
 		setTitle("Run Algorithm");
@@ -153,6 +154,7 @@ public class RunDialog extends JDialog {
 			{
 				JButton okButton = new JButton("Execute");
 				okButton.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent arg0) {
 						execute();
 					}
@@ -163,6 +165,7 @@ public class RunDialog extends JDialog {
 			{
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();
 					}

@@ -33,6 +33,7 @@ public class InitGui extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					InitGui frame = new InitGui();
@@ -73,6 +74,7 @@ public class InitGui extends JFrame {
 
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		mntmExit.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				InitGui.this.dispose();
 			}
@@ -81,6 +83,7 @@ public class InitGui extends JFrame {
 
 		JMenuItem mntmAbout = new JMenuItem("About");
 		mntmAbout.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane
 						.showMessageDialog(InitGui.this,
@@ -105,6 +108,7 @@ public class InitGui extends JFrame {
 
 	private ActionListener open() {
 		ActionListener open = new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				File file = ActionListeners.open(InitGui.this);
 				try{

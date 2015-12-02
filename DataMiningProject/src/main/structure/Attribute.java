@@ -131,12 +131,12 @@ public class Attribute implements AttributeInterface {
 
 		dataStore = new DMArrayList<CategorialPoint>();
 		Iterator<String> itr = data.iterator();
-		String current = (String) itr.next();
+		String current = itr.next();
 		CategorialPoint point = new CategorialPoint(current);
 		dataStore.add(point);
 		while (itr.hasNext()) {
 			boolean found = false;
-			current = (String) itr.next();
+			current = itr.next();
 			Iterator<CategorialPoint> itr2 = dataStore.iterator();
 			int i = 0;
 			while (itr2.hasNext() && !found) {
@@ -157,7 +157,7 @@ public class Attribute implements AttributeInterface {
 		values = new DMArrayList<Double>();
 		Iterator<CategorialPoint> itr3 = dataStore.iterator();
 		while (itr3.hasNext()) {
-			point = (CategorialPoint) itr3.next();
+			point = itr3.next();
 			values.add((double) point.getCount());
 
 		}

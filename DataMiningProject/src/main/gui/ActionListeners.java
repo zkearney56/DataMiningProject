@@ -27,6 +27,7 @@ public class ActionListeners {
 		fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		fc.setApproveButtonText("Export");
 		fc.setFileFilter(exportFilter);
+		fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
 		int returnval = fc.showSaveDialog(component);
 		if (returnval == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
@@ -51,6 +52,7 @@ public class ActionListeners {
 		fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		fc.setApproveButtonText("Export");
 		fc.setFileFilter(exportFilter);
+		fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
 		int returnval = fc.showSaveDialog(component);
 		if (returnval == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
@@ -76,6 +78,7 @@ public class ActionListeners {
 		fcsave.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		fcsave.setApproveButtonText("Save");
 		fcsave.setFileFilter(filter);
+		fcsave.setCurrentDirectory(new File(System.getProperty("user.dir")));
 		int returnval = fcsave.showSaveDialog(component);
 		if (returnval == JFileChooser.APPROVE_OPTION) {
 			File file = fcsave.getSelectedFile();
@@ -110,6 +113,7 @@ public class ActionListeners {
 		fc.addChoosableFileFilter(filter);
 		fc.setDialogTitle("Import from CSV");
 		fc.setApproveButtonText("Open");
+		fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
 		int returnVal = fc.showOpenDialog(frame);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			file = fc.getSelectedFile();
