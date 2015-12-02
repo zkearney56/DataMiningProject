@@ -13,7 +13,7 @@ public interface AttributeInterface {
 	/**
 	 * Returns the minimum value
 	 * 
-	 * @return min - the min of the Attribute.
+	 * @return the min of the Attribute.
 	 */
 
 	double getMin();
@@ -21,7 +21,7 @@ public interface AttributeInterface {
 	/**
 	 * Returns the maximum value
 	 * 
-	 * @return max - the max of the Attribute.
+	 * @return the max of the Attribute.
 	 */
 
 	double getMax();
@@ -29,7 +29,7 @@ public interface AttributeInterface {
 	/**
 	 * Returns the mean of the values
 	 * 
-	 * @return mean - the mean of the Attribute.
+	 * @return the mean of the Attribute.
 	 */
 
 	double getMean();
@@ -37,7 +37,7 @@ public interface AttributeInterface {
 	/**
 	 * Returns the standard deviation of the values
 	 * 
-	 * @return stdDev - the standard deviation of the Attribute.
+	 * @return the standard deviation of the Attribute.
 	 */
 
 	double getStdDev();
@@ -45,7 +45,7 @@ public interface AttributeInterface {
 	/**
 	 * Returns the number of unique values
 	 * 
-	 * @return uniqueVals - the number of unique values of the Attribute.
+	 * @return the number of unique values of the Attribute.
 	 */
 
 	int getNumUniqueVals();
@@ -53,7 +53,7 @@ public interface AttributeInterface {
 	/**
 	 * Returns the type of the Attribute, can be "Numeric" or "Categorical"
 	 * 
-	 * @return type - the type of the Attribute
+	 * @return the type of the Attribute
 	 */
 
 	String getType();
@@ -61,7 +61,7 @@ public interface AttributeInterface {
 	/**
 	 * Returns the name of the values
 	 * 
-	 * @return name - the name of the Attribute
+	 * @return the name of the Attribute
 	 */
 
 	String getName();
@@ -70,7 +70,7 @@ public interface AttributeInterface {
 	 * Used to signify is attribute is to be ignored
 	 * 
 	 * @param t
-	 *            - boolean
+	 *            boolean
 	 */
 
 	void ignore(boolean t);
@@ -78,7 +78,7 @@ public interface AttributeInterface {
 	/**
 	 * Returns ignore value
 	 * 
-	 * @return ignored - boolean signifying if Attribute is ignored.
+	 * @return boolean signifying if Attribute is ignored.
 	 */
 
 	boolean getIgnore();

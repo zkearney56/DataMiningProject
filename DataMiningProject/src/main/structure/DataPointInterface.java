@@ -23,7 +23,7 @@ public interface DataPointInterface {
 	 * categorical.
 	 * 
 	 * @param column
-	 *            - The column to access.
+	 *            The column to access.
 	 * @return returns the type of the Column as either "Numeric" or
 	 *         "Categorical"
 	 */
@@ -42,7 +42,7 @@ public interface DataPointInterface {
 	 * Removes a specified column from the row.
 	 * 
 	 * @param column
-	 *            - The column to remove.
+	 *            The column to remove.
 	 */
 
 	void removeData(int column);
@@ -51,7 +51,7 @@ public interface DataPointInterface {
 	 * Returns the value from a specified column.
 	 * 
 	 * @param column
-	 *            - The column to access.
+	 *            The column to access.
 	 * @return returns the data from the column.
 	 */
 
@@ -61,7 +61,7 @@ public interface DataPointInterface {
 	 * Sets the classification of the DataPoint and removes the column.
 	 * 
 	 * @param column
-	 *            - the column to set as the main class.
+	 *            the column to set as the main class.
 	 */
 
 	void setClass(int column);

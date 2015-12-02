@@ -3,7 +3,7 @@ package main.structure;
 import java.util.Iterator;
 
 /**
- *  Container for a row of data within an ArrayList
+ *  Object containing a row of data within an ArrayList.
  *  
  * @author Zachary Kearney
  * 
@@ -19,7 +19,7 @@ public class DataPoint implements DataPointInterface {
 	 * Constructor which accepts an arraylist containing all data in a row
 	 * 
 	 * @param data
-	 *            - DMArrayList which contains row data.
+	 *            DMArrayList which contains row data.
 	 */
 	public DataPoint(DMArrayList<Object> data) {
 
@@ -32,7 +32,7 @@ public class DataPoint implements DataPointInterface {
 	 * Constructor to clone an existing DataPoint.
 	 * 
 	 * @param point
-	 *            - DataPoint to clone.
+	 *            DataPoint to clone.
 	 */
 
 	public DataPoint(DataPoint point) {

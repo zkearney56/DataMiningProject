@@ -16,7 +16,7 @@ public abstract class MathFunctions {
 	 * Returns the min from the arraylist of doubles.
 	 * 
 	 * @param vals
-	 *            - DMArrayList containing all values
+	 *            DMArrayList containing all values
 	 * @return returns the maximum
 	 */
 
@@ -33,7 +33,7 @@ public abstract class MathFunctions {
 	 * Returns the max from the arraylist of doubles.
 	 * 
 	 * @param vals
-	 *            - DMArrayList containing all values
+	 *            DMArrayList containing all values
 	 * @return returns the minimum
 	 */
 
@@ -50,7 +50,7 @@ public abstract class MathFunctions {
 	 * Returns the mean of the arraylist of doubles.
 	 * 
 	 * @param vals
-	 *            - DMArrayList containing all values
+	 *            DMArrayList containing all values
 	 * @return returns the mean
 	 */
 
@@ -67,9 +67,9 @@ public abstract class MathFunctions {
 	 * Returns the stdDev from the arraylist of doubles
 	 * 
 	 * @param mean
-	 *            - Mean of the values
+	 *            Mean of the values
 	 * @param vals
-	 *            - DMArrayList containing all values
+	 *            DMArrayList containing all values
 	 * @return returns the standard deviation
 	 */
 
@@ -90,7 +90,7 @@ public abstract class MathFunctions {
 	 * is already known.
 	 * 
 	 * @param vals
-	 *            - DMArrayList containing the values
+	 *            DMArrayList containing the values
 	 * @return returns the standard deviation
 	 */
 	public static double stdDev(DMArrayList<Double> vals) {

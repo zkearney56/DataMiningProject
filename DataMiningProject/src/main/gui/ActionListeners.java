@@ -23,6 +23,13 @@ import main.structure.DataList;
  */
 public class ActionListeners {
 
+	/**
+	 * Exports a dataList to a csv file.
+	 * @param list
+	 * 		The dataList to export.
+	 * @param component
+	 * 		The JFrame to open a dialog.
+	 */
 	public static void exportData(DataList list, JFrame component) {
 
 		FileNameExtensionFilter exportFilter = new FileNameExtensionFilter("Csv File", "csv");
@@ -48,6 +55,13 @@ public class ActionListeners {
 		}
 	}
 
+	/**
+	 * Exports dataList Attributes to a csv file. 
+	 * @param list
+	 * 			The DataList to read.
+	 * @param component
+	 * 			The JFrame to open a dialog.
+	 */
 	public static void exportAttributes(DataList list, JFrame component) {
 
 		FileNameExtensionFilter exportFilter = new FileNameExtensionFilter("Csv File", "csv");
@@ -74,6 +88,13 @@ public class ActionListeners {
 
 	}
 
+	/**
+	 * Saves the JTextArea to a txt file.
+	 * @param textArea
+	 * 			The JTextArea to read.
+	 * @param component
+	 * 			The JFrame to open a dialog.
+	 */
 	public static void save(JTextArea textArea, JFrame component) {
 
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Text File", "txt");
@@ -108,6 +129,12 @@ public class ActionListeners {
 		}
 	}
 
+	/**
+	 * Returns a new file from a filechooser.
+	 * @param frame
+	 * 			The JFrame to display the dialog.
+	 * @return A new File.
+	 */
 	public static File open(JFrame frame) {
 		File file = new File("null");
 		JFileChooser fc = new JFileChooser();
@@ -125,6 +152,12 @@ public class ActionListeners {
 		return file;
 	}
 
+	/**
+	 * Gets the extension of a file.
+	 * @param f
+	 * 			The file to read.
+	 * @return returns the extension of a file.
+	 */
 	public static String getExtension(File f) {
 		String ext = null;
 		String s = f.getName();

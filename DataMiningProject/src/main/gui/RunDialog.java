@@ -195,7 +195,7 @@ public class RunDialog extends JDialog {
 
 		else if (model.getSelectedIndex() == 1) {
 			float percentage = ((Double) percent.getSelectedItem()).floatValue();
-			sets = list.randomShuffle(percentage);// Percentage
+			sets = list.percentSplit(percentage);// Percentage
 		}
 
 		String algorithmString = (String) algorithm.getSelectedItem();

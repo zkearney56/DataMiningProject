@@ -14,7 +14,7 @@ public interface DMList<E> {
 	 * Adds the element to the list.
 	 * 
 	 * @param e
-	 *            - An element
+	 *            An element
 	 */
 
 	public void add(E e);
@@ -23,9 +23,9 @@ public interface DMList<E> {
 	 * Adds the element to the list at the specified index.
 	 * 
 	 * @param index
-	 *            - The index to add
+	 *            The index to add
 	 * @param e
-	 *            - Element to add
+	 *            Element to add
 	 */
 
 	public void add(int index, E e);
@@ -40,7 +40,7 @@ public interface DMList<E> {
 	 * Compares two objects.
 	 * 
 	 * @param o
-	 *            - Object to compare.
+	 *            Object to compare.
 	 * @return true or false
 	 */
 
@@ -51,7 +51,7 @@ public interface DMList<E> {
 	 * Returns element at specified index.
 	 * 
 	 * @param index
-	 *            - The index to access
+	 *            The index to access
 	 * @return returns Object located at specified index
 	 */
 
@@ -61,7 +61,7 @@ public interface DMList<E> {
 	 * Removes element at specified index.
 	 * 
 	 * @param index
-	 *            - index to remove
+	 *            index to remove
 	 */
 
 	public void remove(int index);
@@ -70,9 +70,9 @@ public interface DMList<E> {
 	 * Sets element at specified index.
 	 * 
 	 * @param index
-	 *            - index to add
+	 *            index to add
 	 * @param Element
-	 *            - Element to add
+	 *            Element to add
 	 */
 
 	public void set(int index, E Element);
@@ -95,9 +95,9 @@ public interface DMList<E> {
 	 * Swaps the elements at the specified indices.
 	 * 
 	 * @param index1
-	 *            - first element position
+	 *            first element position
 	 * @param index2
-	 *            - second element position
+	 *            second element position
 	 */
 
 	public void swap(int index1, int index2);
@@ -106,7 +106,7 @@ public interface DMList<E> {
 	 * Trims the list by the specified number.
 	 * 
 	 * @param num
-	 *            - number of elements to trim
+	 *            number of elements to trim
 	 */
 
 	public void trim(int num);

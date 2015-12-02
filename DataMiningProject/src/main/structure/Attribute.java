@@ -47,7 +47,7 @@ public class Attribute implements AttributeInterface {
 	 * Constructor to clone existing attribute
 	 * 
 	 * @param att
-	 *            - The attribute to clone.
+	 *            The attribute to clone.
 	 */
 
 	public Attribute(Attribute att) {
@@ -72,11 +72,11 @@ public class Attribute implements AttributeInterface {
 	 * of data
 	 * 
 	 * @param name
-	 *            - The name of the Attribute.
+	 *            The name of the Attribute.
 	 * @param type
-	 *            - The type of the Attribute. "Categorical" or "Numeric"
+	 *            The type of the Attribute. "Categorical" or "Numeric"
 	 * @param data
-	 *            - The DMArrayList containing Attribute data.
+	 *            The DMArrayList containing Attribute data.
 	 */
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -95,7 +95,7 @@ public class Attribute implements AttributeInterface {
 	/**
 	 * If attribute is numeric, calculates the min, max, mean, and stdDev
 	 * 
-	 * @param data-
+	 * @param data
 	 *            The DMArrayList containing all data.
 	 */
 
@@ -110,8 +110,8 @@ public class Attribute implements AttributeInterface {
 	 * If attribute is categorial, calculates the unique values, then the min,
 	 * max, mean, and stdDev of the unique values
 	 * 
-	 * @param -
-	 *            data The DMArrayList containing all data.
+	 * @param data 
+	 * 			 The DMArrayList containing all data.
 	 */
 
 	private void categorial(DMArrayList<String> data) {
@@ -127,7 +127,7 @@ public class Attribute implements AttributeInterface {
 	 * Used by categorial method to calculate the unique values
 	 * 
 	 * @param data
-	 *            - The DMArrayList containing all data.
+	 *            The DMArrayList containing all data.
 	 */
 
 	private void calculateData(DMArrayList<String> data) {

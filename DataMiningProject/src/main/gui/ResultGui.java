@@ -21,6 +21,7 @@ import main.algorithm.Gini;
 import main.structure.DMArrayList;
 import main.structure.DataList;
 import main.tree.DecisionTree;
+
 /**
  * GUI that displays the results from running the data mining algorithms.
  * 
