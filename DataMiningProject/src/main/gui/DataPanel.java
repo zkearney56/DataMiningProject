@@ -349,6 +349,17 @@ public class DataPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				DataList testList = new DataList(dataList);
+				for(int i = 0; i < attributesList.size(); i++){
+					if(attributesList.get(i).getIgnore()){
+						int removeIndex = 0;
+						for(int j = 0; j < testList.getHeaders().size(); j++){
+							if(attributesList.get(i).getName().equals(testList.getHead(j))){
+								removeIndex = j;
+							}
+						}
+						testList.removeColumn(removeIndex);
+					}
+				}
 				RunDialog dlg = new RunDialog();
 				dlg.run(testList);
 				dlg.setVisible(true);
