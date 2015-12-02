@@ -1,13 +1,16 @@
 package main.structure;
 
+import java.util.Iterator;
+
 /**
- * @author Zachary Kearney
- * Last Edited: 11/30/2015
+ *
  * Holds the attribute data of a column.
  * This includes the name, type, min, max, mean, stdDev, the unique values, and the number of unique values
+ * 
+ * @author Zachary Kearney
+ * 
+ * Last Edited: 11/30/2015
  */
-
-import java.util.Iterator;
 
 public class Attribute implements AttributeInterface {
 
@@ -22,12 +25,12 @@ public class Attribute implements AttributeInterface {
 	/**
 	 * Constructor for a numeric Attribute with predefined values
 	 * 
-	 * @param name
-	 * @param type
-	 * @param min
-	 * @param max
-	 * @param mean
-	 * @param stdDev
+	 * @param name Name
+	 * @param type Type can be "Numeric" or "Categorical"
+	 * @param min Minimum
+	 * @param max Maximum
+	 * @param mean Mean
+	 * @param stdDev Standard Deviation
 	 */
 
 	public Attribute(String name, String type, double min, double max, double mean, double stdDev) {
@@ -163,7 +166,9 @@ public class Attribute implements AttributeInterface {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see main.structure.AttributeInterface#getMin()
 	 */
 
@@ -172,7 +177,9 @@ public class Attribute implements AttributeInterface {
 		return min;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see main.structure.AttributeInterface#getMax()
 	 */
 
@@ -181,7 +188,9 @@ public class Attribute implements AttributeInterface {
 		return max;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see main.structure.AttributeInterface#getMean()
 	 */
 
@@ -190,7 +199,9 @@ public class Attribute implements AttributeInterface {
 		return mean;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see main.structure.AttributeInterface#getStdDev()
 	 */
 
@@ -199,7 +210,9 @@ public class Attribute implements AttributeInterface {
 		return stdDev;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see main.structure.AttributeInterface#getUniqueVals()
 	 */
 
@@ -208,7 +221,9 @@ public class Attribute implements AttributeInterface {
 		return uniqueVals;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see main.structure.AttributeInterface#getData()
 	 */
 
@@ -216,7 +231,9 @@ public class Attribute implements AttributeInterface {
 		return dataStore;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see main.structure.AttributeInterface#getType()
 	 */
 
@@ -225,7 +242,9 @@ public class Attribute implements AttributeInterface {
 		return type;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see main.structure.AttributeInterface#getName()
 	 */
 
@@ -234,7 +253,9 @@ public class Attribute implements AttributeInterface {
 		return name;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see main.structure.AttributeInterface#ignore(boolean)
 	 */
 
@@ -243,7 +264,9 @@ public class Attribute implements AttributeInterface {
 		ignored = t;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see main.structure.AttributeInterface#getIgnore()
 	 */
 
@@ -252,7 +275,9 @@ public class Attribute implements AttributeInterface {
 		return ignored;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see main.structure.AttributeInterface#toString()
 	 */
 
@@ -277,7 +302,7 @@ public class Attribute implements AttributeInterface {
 		return stringBuilder.toString();
 
 	}
-	
+
 	class CategorialPoint {
 
 		private String name;

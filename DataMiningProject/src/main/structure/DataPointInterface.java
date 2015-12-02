@@ -1,5 +1,13 @@
 package main.structure;
 
+/**
+ * Interface for a DataPoint.
+ * 
+ * @author Zachary Kearney
+ * 
+ * Last Edited: 12/1/2015
+ *
+ */
 public interface DataPointInterface {
 
 	/**

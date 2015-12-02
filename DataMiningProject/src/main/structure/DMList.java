@@ -1,8 +1,11 @@
 package main.structure;
 
 /**
- * @author Zachary Kearney Last Edited: 11/30/2015 Interface for a custom list
- *         class.
+ * Interface for a custom ArrayList class.
+ * 
+ * @author Zachary Kearney
+ * 
+ * Last Edited:11/28/2015
  */
 
 public interface DMList<E> {

@@ -1,11 +1,5 @@
 package main.gui;
 
-/**
- * @author Zachary Kearney
- * Last Edited: 12/1/2015
- * Class to display a data panel from a csv file.
- */
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -37,6 +31,14 @@ import javax.swing.table.AbstractTableModel;
 import main.structure.Attribute;
 import main.structure.DataList;
 
+/**
+ * Class to display a data panel from a csv file.
+ * 
+ * @author Zachary Kearney
+ * 
+ * Last Edited: 12/1/2015
+ *
+ */
 @SuppressWarnings("serial")
 public class DataPanel extends JPanel {
 	private JTextPane relation, instances, attributes, selectName, selectType, selectMin, selectMax, selectUnique,

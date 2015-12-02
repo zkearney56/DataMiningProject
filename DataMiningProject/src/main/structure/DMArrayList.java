@@ -1,14 +1,16 @@
 package main.structure;
-/**
- * @author Zachary Kearney
- * Last Edited: 11/30/2015
- * Custom ArrayList class to hold all data from a file.
- */
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.concurrent.ThreadLocalRandom;
+/**
+ * Custom ArrayList class to hold all data from a file.
+ * 
+ * @author Zachary Kearney
+ * 
+ * Last Edited: 11/30/2015
+ */
 
 public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E> {
 
@@ -198,20 +200,19 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E> {
 		StringBuilder stringBuilder = new StringBuilder();
 		@SuppressWarnings("rawtypes")
 		Iterator itr = DMArrayList.this.iterator();
-		if(DMArrayList.this.get(0) instanceof Attribute || DMArrayList.this.get(0) instanceof DataPoint){
+		if (DMArrayList.this.get(0) instanceof Attribute || DMArrayList.this.get(0) instanceof DataPoint) {
 			while (itr.hasNext()) {
 				stringBuilder.append(itr.next().toString());
 			}
 			return stringBuilder.toString();
-		}
-		else{
-		while (itr.hasNext()) {
-			stringBuilder.append(itr.next().toString());
-			if (itr.hasNext()) {
-				stringBuilder.append(",");
+		} else {
+			while (itr.hasNext()) {
+				stringBuilder.append(itr.next().toString());
+				if (itr.hasNext()) {
+					stringBuilder.append(",");
+				}
 			}
-		}
-		return stringBuilder.toString();
+			return stringBuilder.toString();
 		}
 	}
 

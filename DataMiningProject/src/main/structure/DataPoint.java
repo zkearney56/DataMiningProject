@@ -3,8 +3,11 @@ package main.structure;
 import java.util.Iterator;
 
 /**
- * @author Zachary Kearney Last Edited: 11/30/2015 Container for a row of data
- *         within an ArrayList
+ *  Container for a row of data within an ArrayList
+ *  
+ * @author Zachary Kearney
+ * 
+ *  Last Edited: 11/30/2015
  */
 
 public class DataPoint implements DataPointInterface {
@@ -37,7 +40,9 @@ public class DataPoint implements DataPointInterface {
 		this.data = new DMArrayList<Object>(point.data);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see main.structure.DataPointInterface#getClassification()
 	 */
 
@@ -48,7 +53,9 @@ public class DataPoint implements DataPointInterface {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see main.structure.DataPointInterface#getType(int)
 	 */
 
@@ -63,7 +70,9 @@ public class DataPoint implements DataPointInterface {
 		return "Numeric";
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see main.structure.DataPointInterface#getData()
 	 */
 
@@ -72,7 +81,9 @@ public class DataPoint implements DataPointInterface {
 		return data;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see main.structure.DataPointInterface#removeData(int)
 	 */
 
@@ -81,7 +92,9 @@ public class DataPoint implements DataPointInterface {
 		data.remove(column);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see main.structure.DataPointInterface#getDataVal(int)
 	 */
 
@@ -92,7 +105,9 @@ public class DataPoint implements DataPointInterface {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see main.structure.DataPointInterface#setClass(int)
 	 */
 
@@ -105,7 +120,9 @@ public class DataPoint implements DataPointInterface {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see main.structure.DataPointInterface#toString()
 	 */
 

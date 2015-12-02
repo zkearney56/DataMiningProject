@@ -1,13 +1,15 @@
 package main.structure;
 
-/**
- * @author Zachary Kearney
- * Last Edited: 11/30/2015
- * Math functions for use with large amounts of data.
- */
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-
+/**
+ * Math functions for use with large amounts of data.
+ * 
+ * @author Zachary Kearney
+ * 
+ * Last Edited: 11/30/2015
+ */
 public abstract class MathFunctions {
 
 	/**

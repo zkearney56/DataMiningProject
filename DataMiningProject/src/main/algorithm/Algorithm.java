@@ -36,7 +36,7 @@ public abstract class Algorithm {
 	}
 	/**
 	 * Sets the Algorithms dataList.
-	 * @param dataList
+	 * @param dataList DataList containing all data.
 	 */
 	public void setDataList(DataList dataList){
 		this.dataList = dataList;

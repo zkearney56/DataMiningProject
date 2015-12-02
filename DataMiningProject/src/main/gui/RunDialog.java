@@ -1,11 +1,5 @@
 package main.gui;
 
-/**
- * @author Zachary Kearney
- * Last Edited: 12/1/2015
- * Dialog used to run the data mining algorithms.
- */
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.SystemColor;
@@ -24,7 +18,14 @@ import javax.swing.border.EmptyBorder;
 
 import main.structure.DMArrayList;
 import main.structure.DataList;
-
+/**
+ * Dialog used to run the data mining algorithms.
+ * 
+ * @author Zachary Kearney
+ * 
+ * Last Edited: 12/1/2015
+ *
+ */
 @SuppressWarnings("serial")
 public class RunDialog extends JDialog {
 

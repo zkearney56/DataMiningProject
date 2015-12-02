@@ -1,9 +1,5 @@
 package main.gui;
 
-/**
- * @author Zachary Kearney
- * Contains ActionListeners for open, save, and export functions.
- */
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -17,7 +13,14 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import main.structure.DataList;
-
+/**
+ * Container for custom ActionListeners for export and save.
+ * 
+ * @author Zachart Kearney
+ * 
+ * Last Edited: 12/1/2015
+ *
+ */
 public class ActionListeners {
 
 	public static void exportData(DataList list, JFrame component) {

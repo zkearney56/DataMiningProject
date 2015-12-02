@@ -1,13 +1,5 @@
 package main.structure;
 
-/**
- * @author Zachary Kearney
- * Last Edited: 11/30/2015
- * Object container for all data, contains three array lists containing the headers, data rows, and column attributes.
- * After initializing, use the readFile method to fill with data.
- * To clone, create a new DataList using the DataList(DataList list) constructor.
- */
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -16,6 +8,16 @@ import java.util.Iterator;
 
 import com.opencsv.CSVReader;
 
+/**
+
+ * Object container for all data, contains three array lists containing the headers, data rows, and column attributes.
+ * After initializing, use the readFile method to fill with data.
+ * To clone, create a new DataList using the DataList(DataList list) constructor.
+ * 
+ * @author Zachary Kearney
+ *
+ * Last Edited: 11/30/2015
+ */
 public class DataList implements Cloneable {
 
 	private DMArrayList<DataPoint> dataPoints;
@@ -174,7 +176,7 @@ public class DataList implements Cloneable {
 	/**
 	 * Returns the specified row as a DataPoint.
 	 * 
-	 * @param column
+	 * @param row
 	 *            - The row to return.
 	 * @return returns the specified row as a DataPoint.
 	 */
@@ -375,7 +377,7 @@ public class DataList implements Cloneable {
 	/**
 	 * Returns an iterator for the data types.
 	 * 
-	 * @return
+	 * @return returns dataHeaders iterator.
 	 */
 
 	public Iterator<Object> dataHeadersIterator() {
@@ -385,7 +387,7 @@ public class DataList implements Cloneable {
 	/**
 	 * Returns an iterator for the data points.
 	 * 
-	 * @return
+	 * @return returns dataPoints iterator
 	 */
 
 	public Iterator<DataPoint> dataPointsIterator() {
@@ -395,7 +397,7 @@ public class DataList implements Cloneable {
 	/**
 	 * Returns an iterator for the data attributes.
 	 * 
-	 * @return
+	 * @return returns dataAttributes iterator
 	 */
 
 	public Iterator<Attribute> dataAttributesIterator() {
@@ -406,6 +408,7 @@ public class DataList implements Cloneable {
 	 * Writes the current list to a csv file with headers followed by data
 	 * 
 	 * @param filename
+	 *            - CSV filepath
 	 */
 
 	public void writeToCSV(String filename) {
@@ -428,6 +431,7 @@ public class DataList implements Cloneable {
 	 * information.
 	 * 
 	 * @param filename
+	 *            - CSV FilePath
 	 */
 
 	public void attributeToCsv(String filename) {

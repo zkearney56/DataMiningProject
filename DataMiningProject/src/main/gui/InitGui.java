@@ -20,6 +20,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * Initial GUI loaded upon startup. Allows you to load a new csv file.
+ * 
+ * @author Zachary Kearney
+ * 
+ * Last Edited: 12/1/2015
+ */
 @SuppressWarnings("serial")
 public class InitGui extends JFrame {
 

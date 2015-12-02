@@ -1,10 +1,4 @@
 package main.gui;
-/**
- * @author Zachary Kearney
- * Last Edited: 11/30/2015
- * GUI that displays the results from running the data mining algorithms.
- */
-
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +21,14 @@ import main.algorithm.Gini;
 import main.structure.DMArrayList;
 import main.structure.DataList;
 import main.tree.DecisionTree;
-
+/**
+ * GUI that displays the results from running the data mining algorithms.
+ * 
+ * @author Zachary Kearney
+ * 
+ * Last Edited: 11/30/2015
+ *
+ */
 @SuppressWarnings("serial")
 public class ResultGui extends JFrame {
 
@@ -36,9 +37,12 @@ public class ResultGui extends JFrame {
 	private DataList testSet;
 	private JTextArea textArea;
 
-	/**
-	 * Create the frame.
-	 */
+/**
+ * Creates a new Result Gui.
+ * @param dataSets Object array containing two dataLists [TrainingSet][TestSet].
+ * @param algorithm The Algorithm to be used "Entropy" "Gini".
+ * @param ignored The DMArrayList of attributes to be ignored.
+ */
 	public ResultGui(Object[] dataSets, String algorithm, DMArrayList<String> ignored) {
 
 		trainingSet = (DataList) dataSets[0];

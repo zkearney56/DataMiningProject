@@ -1,9 +1,4 @@
 package main.gui;
-/**
- * @author Zachary Kearney
- * Last Edited: 12/1/2015
- * Class to print all output to a JTextComponent witin a gui.
- */
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -11,6 +6,14 @@ import java.io.OutputStream;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
+/**
+ * Class to print all output to a JTextComponent within a gui.
+ * 
+ * @author Zachary Kearney
+ * 
+ * Last Edited: 12/1/2015
+ *
+ */
 public class GuiOutputStream extends OutputStream {
 	private final JTextArea destination;
 
