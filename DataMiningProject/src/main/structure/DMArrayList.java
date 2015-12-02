@@ -41,6 +41,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 	 * @param size
 	 */
 	
+	@SuppressWarnings("unused")
 	private DMArrayList(E[] row, int size) {
 		elementData = row;
 		this.size = size;;
@@ -51,7 +52,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 	 * @param list
 	 */
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DMArrayList (DMArrayList list){
 		elementData = new Object[INITIAL_CAPACITY];
 		size = 0;
@@ -155,6 +156,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 	/**
 	 * Prints the ArrayList to the SystemOutputStream.
 	 */
+	@SuppressWarnings("rawtypes")
 	public void printArray(){
 		if(DMArrayList.this.size == 0){
 			System.out.println("None");
@@ -165,6 +167,29 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 			System.out.println((String)itr.next());
 		}
 	}
+	}
+	
+	public String toStringObj(){
+		StringBuilder stringBuilder = new StringBuilder();
+		@SuppressWarnings("rawtypes")
+		Iterator itr = DMArrayList.this.iterator();
+		while(itr.hasNext()){
+			stringBuilder.append(itr.next().toString());
+		}
+		return stringBuilder.toString();
+	}
+	
+	public String toString(){
+		StringBuilder stringBuilder = new StringBuilder();
+		@SuppressWarnings("rawtypes")
+		Iterator itr = DMArrayList.this.iterator();
+		while(itr.hasNext()){
+			stringBuilder.append(itr.next().toString());
+			if(itr.hasNext()){
+				stringBuilder.append(",");
+			}		
+		}
+		return stringBuilder.toString();
 	}
 	
 	private class ArrayListIterator implements Iterator<E>{

@@ -33,28 +33,33 @@ import main.structure.DMArrayList;
 import main.structure.DataList;
 import main.tree.DecisionTree;
 
+@SuppressWarnings("serial")
 public class ResultGui extends JFrame {
 
 	private JPanel contentPane;
 	private DataList trainingSet;
 	private DataList testSet;
-	private DMArrayList<String> ignored;
-	private JFileChooser fc;
+	private JFileChooser fcsave;
+	private JFileChooser fcexport;
 	private JTextArea textArea;
 	/**
 	 * Create the frame.
 	 */
 	public ResultGui(Object[] dataSets, String algorithm, DMArrayList<String> ignored) {
 
-		this.ignored = ignored;
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Text File", "txt");
-		fc = new JFileChooser();
-		fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-		fc.setApproveButtonText("Save");
-		fc.setFileFilter(filter);
+		fcsave = new JFileChooser();
+		fcsave.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		fcsave.setApproveButtonText("Save");
+		fcsave.setFileFilter(filter);
+		
+		fcexport = new JFileChooser();
+		fcexport.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		fcexport.setApproveButtonText("Export");
+		fcsave.setFileFilter(filter);
 		
 		trainingSet = (DataList)dataSets[0];
-		testSet = (DataList)dataSets[0];
+		testSet = (DataList)dataSets[1];
 		setTitle("Results");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -69,6 +74,14 @@ public class ResultGui extends JFrame {
 		mnFile.add(mntmSave);
 		mntmSave.addActionListener(save());
 		
+		JMenuItem exportTest = new JMenuItem("Export Test Set");
+		mnFile.add(exportTest);
+		exportTest.addActionListener(export(testSet));
+		
+		JMenuItem exportTrain = new JMenuItem("Export Training Set");
+		mnFile.add(exportTrain);
+		exportTrain.addActionListener(export(trainingSet));
+		
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		mnFile.add(mntmExit);
 		mntmExit.addActionListener(new ActionListener(){
@@ -80,11 +93,6 @@ public class ResultGui extends JFrame {
 			
 		});
 		
-		JMenu mnHelp = new JMenu("Help");
-		menuBar.add(mnHelp);
-		
-		JMenu mnAbout = new JMenu("About");
-		menuBar.add(mnAbout);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -143,15 +151,48 @@ public class ResultGui extends JFrame {
 		System.out.println("Percent correctly classified: " + Float.toString((float)correct/(float)total));
 	}
 	
+	private ActionListener export(DataList list){
+		
+		final DataList exportList = list;
+		
+		ActionListener export = new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int returnval = fcexport.showSaveDialog(ResultGui.this);
+				if(returnval == JFileChooser.APPROVE_OPTION){
+					File file = fcexport.getSelectedFile();
+					if(file.exists()){
+						int n = JOptionPane.showConfirmDialog(
+							    ResultGui.this,
+							    "File Already Exists, Do You Want To OverWrite?",
+							    "File Already Exists",
+							    JOptionPane.YES_NO_OPTION);
+						if(n!=JOptionPane.YES_OPTION){
+							return;
+						}
+					}
+				      if (!file.getName().endsWith(".csv")) {
+				         file = new File(file.getAbsolutePath() + ".csv");
+				      }
+				      exportList.writeToCSV(file.getAbsolutePath());			      
+				}
+				// TODO Auto-generated method stub
+				
+			}
+			
+		};
+		return export;
+	}
 	private ActionListener save(){
 		
 		ActionListener save = new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				int returnval = fc.showSaveDialog(ResultGui.this);
+				int returnval = fcsave.showSaveDialog(ResultGui.this);
 				if(returnval == JFileChooser.APPROVE_OPTION){
-					File file = fc.getSelectedFile();
+					File file = fcsave.getSelectedFile();
 					if(file.exists()){
 						int n = JOptionPane.showConfirmDialog(
 							    ResultGui.this,

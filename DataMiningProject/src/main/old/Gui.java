@@ -32,7 +32,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import main.algorithm.Algorithm;
 import main.algorithm.Entropy;
 import main.algorithm.Gini;
-import main.gui.ResultGui;
 import main.structure.DataList;
 import main.tree.DecisionTree;
 
@@ -324,9 +323,9 @@ public class Gui extends JFrame {
 			
 			switch(trainingMode){
 			case "NFOLD":	int folds = Integer.parseInt((String)nFold.getSelectedItem());
-							sets = testData.nFoldCrossValid(folds);
-							trainingSet = (DataList)sets[0];
-							testSet = (DataList)sets[1];
+							//sets = testData.nFoldCrossValid(folds);
+							//trainingSet = (DataList)sets[0];
+							//testSet = (DataList)sets[1];
 							break;
 							
 			case "EVERYOTHER":
@@ -345,8 +344,8 @@ public class Gui extends JFrame {
 			
 			}
 			
-			ResultGui result = new ResultGui(testData);
-			result.setVisible(true);
+			//ResultGui result = new ResultGui(testData);
+			//result.setVisible(true);
 			Algorithm a;
 			switch(alg){
 			case "Entropy":	a = new Entropy(trainingSet);

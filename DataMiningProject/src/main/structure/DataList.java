@@ -8,6 +8,8 @@ package main.structure;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Iterator;
 
 import com.opencsv.CSVReader;
@@ -342,7 +344,35 @@ public class DataList implements Cloneable {
 		return dataAttributes.iterator();
 	}
 	
+	public void writeToCSV(String filename){
+		String NEW_LINE = "\n";
+		try {
+			FileWriter fileWriter = new FileWriter(filename);
+			fileWriter.append(dataTypes.toString());
+			fileWriter.append(NEW_LINE);
+			fileWriter.append(dataPoints.toStringObj());
+			fileWriter.flush();
+            fileWriter.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}			        		
+	}
 	
+	public void attributeToCsv(String filename){
+		String NEW_LINE = "\n";
+		try{
+			FileWriter fileWriter = new FileWriter(filename);
+			fileWriter.append("Name,Type,Unique Values,Minimum,Maximum,Mean,StdDev");
+			fileWriter.append(NEW_LINE);
+			fileWriter.append(dataAttributes.toStringObj());
+			fileWriter.flush();
+			fileWriter.close();
+			
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * Returns training set at [0] and test set at [1];
 	 * @param folds

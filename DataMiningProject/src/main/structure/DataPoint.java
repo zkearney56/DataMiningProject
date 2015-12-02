@@ -1,4 +1,7 @@
 package main.structure;
+
+import java.util.Iterator;
+
 /**
  * Author: Zachary Kearney
  * Last Edited: 11/30/2015
@@ -102,5 +105,21 @@ public class DataPoint {
 		data.remove(column);
 		//data.add(0, classification);
 		
+	}
+	
+	public String toString(){
+		StringBuilder stringBuilder = new StringBuilder();
+		@SuppressWarnings("rawtypes")
+		Iterator itr = data.iterator();
+		while(itr.hasNext()){
+			stringBuilder.append(itr.next().toString());
+			if(itr.hasNext()){
+				stringBuilder.append(",");
+			}
+			else{
+				stringBuilder.append("\n");
+			}
+		}
+		return stringBuilder.toString();
 	}
 }

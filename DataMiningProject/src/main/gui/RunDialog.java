@@ -8,23 +8,23 @@ package main.gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Iterator;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
 import main.structure.DMArrayList;
 import main.structure.DataList;
 
-import javax.swing.JTextPane;
-import java.awt.SystemColor;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.event.ActionListener;
-import java.util.Iterator;
-import java.awt.event.ActionEvent;
-
+@SuppressWarnings("serial")
 public class RunDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
@@ -32,6 +32,7 @@ public class RunDialog extends JDialog {
 	/**
 	 * Launch the application.
 	 */
+	@SuppressWarnings("rawtypes")
 	private JComboBox mainclass, trim, percent, model, algorithm;
 	private DMArrayList<String> ignored;
 	private DataList list;
@@ -43,6 +44,7 @@ public class RunDialog extends JDialog {
 	public RunDialog() {
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void run(DataList list){
 		ignored = new DMArrayList<String>();
 		setModal(true);
@@ -157,7 +159,6 @@ public class RunDialog extends JDialog {
 		double per = (double)trim.getSelectedItem() / 100;
 		double size = (list.getNumRows());
 		size =  size*per;	
-		System.out.println("Pause");
 		list.trimList((int)size);
 		}
 

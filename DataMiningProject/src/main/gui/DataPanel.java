@@ -1,5 +1,13 @@
 package main.gui;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
 /**
  * Author: Zachary Kearney
  * Last Edited: 12/1/2015
@@ -7,37 +15,24 @@ package main.gui;
  */
 
 import javax.swing.DefaultListSelectionModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import main.structure.Attribute;
 import main.structure.DMArrayList;
 import main.structure.DataList;
-
-import javax.swing.JTextPane;
-import javax.swing.ListSelectionModel;
-
-import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-
-import javax.swing.UIManager;
-import java.awt.Color;
-import java.awt.Dimension;
-
-import javax.swing.JTextField;
-import javax.swing.JCheckBox;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ChangeEvent;
-import java.awt.FlowLayout;
-import javax.swing.border.LineBorder;
-import javax.swing.JButton;
 
 public class DataPanel extends JPanel {
 	private JTextPane relation, instances, attributes, selectName, selectType,
@@ -363,7 +358,12 @@ public class DataPanel extends JPanel {
 		};
 		return next;
 	}
+	
 	int getSelected(){
 		return table.getSelectedRow();
+	}
+	
+	public DataList getList(){
+		return dataList;
 	}
 }

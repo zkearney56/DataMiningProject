@@ -238,4 +238,25 @@ public class Attribute {
 		return ignored;
 	}
 	
+	public String toString(){
+		StringBuilder stringBuilder = new StringBuilder();
+		String COMMA = ",";
+		stringBuilder.append(name);
+		stringBuilder.append(COMMA);
+		stringBuilder.append(type);
+		stringBuilder.append(COMMA);
+		stringBuilder.append(uniqueVals);
+		stringBuilder.append(COMMA);
+		stringBuilder.append(min);
+		stringBuilder.append(COMMA);
+		stringBuilder.append(max);
+		stringBuilder.append(COMMA);
+		stringBuilder.append(mean);
+		stringBuilder.append(COMMA);
+		stringBuilder.append(stdDev);
+		stringBuilder.append("\n");
+		return stringBuilder.toString();
+		
+	}
+	
 }
