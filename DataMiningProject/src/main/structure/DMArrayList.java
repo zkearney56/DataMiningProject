@@ -16,20 +16,40 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 	private static final int INITIAL_CAPACITY = 10;
 	private int size = 0;
 	
+	/**
+	 * Initial Constructor for an array list.
+	 */
+	
 	public DMArrayList(){
 		elementData = new Object[INITIAL_CAPACITY];
 		size = 0;
 	}
 
+	/**
+	 * Constructor for creating an ArrayList from an array of elements.
+	 * @param row
+	 */
+	
 	public DMArrayList(E[] row){
 		elementData = row;
 		size = row.length;
 	}
 	
+	/**
+	 * Constructor for creating an ArrayList from an array of elements of a set size.
+	 * @param row
+	 * @param size
+	 */
+	
 	private DMArrayList(E[] row, int size) {
 		elementData = row;
 		this.size = size;;
 	}
+	
+	/**
+	 * Constructor used to clone an existing ArrayList.
+	 * @param list
+	 */
 	
 	@SuppressWarnings("unchecked")
 	public DMArrayList (DMArrayList list){
@@ -132,6 +152,9 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 		return new ArrayListIterator();
 	}
 	
+	/**
+	 * Prints the ArrayList to the SystemOutputStream.
+	 */
 	public void printArray(){
 		if(DMArrayList.this.size == 0){
 			System.out.println("None");

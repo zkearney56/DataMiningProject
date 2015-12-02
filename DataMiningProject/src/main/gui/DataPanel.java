@@ -1,5 +1,11 @@
 package main.gui;
 
+/**
+ * Author: Zachary Kearney
+ * Last Edited: 12/1/2015
+ * This Panel contains all information on the loaded csv file. Displays it within the InitGui.
+ */
+
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;

@@ -19,17 +19,20 @@ public class DataList implements Cloneable {
 	private DMArrayList<Attribute> dataAttributes;
 	private String classification = "";
 
+	/**
+	 * Constructor for an empty datalist.
+	 */
+	
 	public DataList(){
 		dataPoints = new DMArrayList<DataPoint>();
 		dataTypes = new DMArrayList<Object>();
 		dataAttributes = new DMArrayList<Attribute>();
 	}
 	
-	public DataList(DMArrayList<DataPoint> dataPoints, DMArrayList<Object> dataTypes, DMArrayList<Attribute> dataAttributes){
-		this.dataPoints = dataPoints;
-		this.dataTypes = dataTypes;
-		this.dataAttributes = dataAttributes;
-	}
+	/**
+	 * Constructor to clone an existing datalist.
+	 * @param list
+	 */
 	
 	public DataList(DataList list){
 		dataPoints = new DMArrayList<DataPoint>();
@@ -46,40 +49,83 @@ public class DataList implements Cloneable {
 		}
 	}
 	
+	/**
+	 * Returns an ArrayList of the column headers.
+	 * @return
+	 */
+	
 	public DMArrayList<Object> getHeaders(){
 		return dataTypes;
 	}
 	
+	/**
+	 * Returns an ArrayList of the attributes.
+	 * @return
+	 */
 	public DMArrayList<Attribute> getAttributes(){
 		return dataAttributes;
 	}
+	
+	/**
+	 * Returns an ArrayList of the data points.
+	 * @return
+	 */
 	
 	public DMArrayList<DataPoint> getPoints(){
 		return dataPoints;
 	}
 	
+	/**
+	 * Returns the main classification.
+	 * @return
+	 */
+	
 	public String getClassification(){
 		return classification;
 	}
+	
+	/**
+	 * Sets the data attributes.
+	 * @param dataAttributes
+	 */
 	
 	public void setAttributes(DMArrayList<Attribute> dataAttributes){
 		this.dataAttributes = dataAttributes;
 	}
 	
+	/**
+	 * Sets the column headers.
+	 * @param dataTypes
+	 */
+	
 	public void setHeaders(DMArrayList<Object> dataTypes){
 		this.dataTypes = dataTypes;	
 	}
+	
+	/**
+	 * Sets the data points.
+	 * @param dataPoints
+	 */
 	
 	public void setData(DMArrayList<DataPoint> dataPoints){
 		this.dataPoints = dataPoints;
 	}
 	
-	public void resetAttributes(){
+	/**
+	 * Resets all attributes.
+	 */
+	
+	private void resetAttributes(){
 		dataAttributes.clear();
 		for(int i = 0; i < dataTypes.size(); i++){
 			dataAttributes.add(getAttribute(i));
 		}
 	}
+	
+	/**
+	 * Adds a datapoint to the list.
+	 * @param point
+	 */
 	
 	public void addDataPoint(DataPoint point){
 		dataPoints.add(point);
@@ -89,6 +135,7 @@ public class DataList implements Cloneable {
 	 * Reads a csv file and fills the arraylists with data from the file.
 	 * @param file
 	 */
+	
 	public void readFile(File file){
 		dataPoints.clear();
 		dataTypes.clear();
@@ -123,6 +170,7 @@ public class DataList implements Cloneable {
 	 * Trims the dataPoints list by a set number.
 	 * @param num
 	 */
+	
 	public void trimList(int num){
 		dataPoints.trim(num);
 	}
@@ -131,7 +179,8 @@ public class DataList implements Cloneable {
 	 * Returns the number of rows.
 	 * @return
 	 */
-	public int getDataSize()
+	
+	public int getNumRows()
 	{
 	return dataPoints.size();
 	}
@@ -141,6 +190,7 @@ public class DataList implements Cloneable {
 	 * @param column
 	 * @return
 	 */
+	
 	public DataPoint getRow(int column){
 		
 		return dataPoints.get(column);
@@ -153,6 +203,7 @@ public class DataList implements Cloneable {
 	 * @param column
 	 * @return
 	 */
+	
 	public Object getRowColVal(int row, int column){
 		
 		return dataPoints.get(row).getDataVal(column);
@@ -164,6 +215,7 @@ public class DataList implements Cloneable {
 	 * @param column
 	 * @return
 	 */
+	
 	public String getType(int column){
 		return dataPoints.get(0).getType(column);
 	}
@@ -172,6 +224,7 @@ public class DataList implements Cloneable {
 	 * Removes a row from the data.
 	 * @param row
 	 */
+	
 	public void removeRow(int row){
 		
 		dataPoints.remove(row);
@@ -183,6 +236,7 @@ public class DataList implements Cloneable {
 	 * @param column
 	 * @return
 	 */
+	
 	public Attribute getAttribute(int column){
 		
 		if(column > dataTypes.size()) throw new ArrayIndexOutOfBoundsException();
@@ -209,6 +263,7 @@ public class DataList implements Cloneable {
 	 * Removes the column from the data.
 	 * @param column
 	 */
+	
 	public void removeColumn(int column){
 		
 		dataTypes.remove(column);
@@ -216,10 +271,12 @@ public class DataList implements Cloneable {
 			dataPoints.get(i).removeData(column);
 		}
 	}
+	
 	/**
 	 * Sets the main class of the data.
 	 * @param column
 	 */
+	
 	public void setClass(int column){
 	
 		classification = (String) dataTypes.get(column);
@@ -230,6 +287,11 @@ public class DataList implements Cloneable {
 		}
 	}
 	
+	/**
+	 * Sets the classification of the data list.
+	 * @param classification
+	 */
+	
 	public void setClass(String classification){
 		this.classification = classification;
 	}
@@ -239,6 +301,7 @@ public class DataList implements Cloneable {
 	 * @param column
 	 * @return
 	 */
+	
 	public Object getHead(int column){
 		return dataTypes.get(column);
 	}
@@ -247,25 +310,33 @@ public class DataList implements Cloneable {
 	 * Returns the number of columns.
 	 * @return
 	 */
+	
 	public int getLength(){
 		return dataTypes.size();
 	}
 	
 	/**
-	 * Returns the number of rows.
+	 * Returns an iterator for the data types.
 	 * @return
 	 */
-	public int getNumRows(){
-		return dataPoints.size();
-	}
 	
 	public Iterator<Object> dataTypeIterator(){
 		return dataTypes.iterator();
 	}
 	
+	/**
+	 * Returns an iterator for the data points.
+	 * @return
+	 */
+	
 	public Iterator<DataPoint> dataPointsIterator(){
 		return dataPoints.iterator();
 	}
+	
+	/**
+	 * Returns an iterator for the data attributes.
+	 * @return
+	 */
 	
 	public Iterator<Attribute> dataAttributesIterator(){
 		return dataAttributes.iterator();
@@ -277,15 +348,10 @@ public class DataList implements Cloneable {
 	 * @param folds
 	 * @return
 	 */
-	public Object[] nFoldCrossValid(int folds){
-		return null;
-	}	
 	
-	/**public void clearTestSets(){
-		training.clear();
-		test.clear();
-	}
-	*/
+	//public Object[] nFoldCrossValid(int folds){
+		//return null;
+	//}	
 	
 	/**
 	 * Returns an object array containing two new dataLists.

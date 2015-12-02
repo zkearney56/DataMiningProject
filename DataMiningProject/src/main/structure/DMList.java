@@ -4,12 +4,14 @@ package main.structure;
  * Last Edited: 11/30/2015
  * Interface for a custom list class.
  */
+
 public interface DMList<E> {
 	
 	/**
 	 * Adds the element to the list.
 	 * @param e
 	 */
+	
 	public void add(E e);
 	
 	/**
@@ -17,11 +19,13 @@ public interface DMList<E> {
 	 * @param index
 	 * @param e
 	 */
+	
 	public void add(int index, E e);
 	
 	/**
 	 * Clears all data from the list.
 	 */
+	
 	public void clear();
 	
 	/**
@@ -29,6 +33,7 @@ public interface DMList<E> {
 	 * @param o
 	 * @return
 	 */
+	
 	public boolean equals(Object o);
 	
 	/**
@@ -36,12 +41,14 @@ public interface DMList<E> {
 	 * @param index
 	 * @return
 	 */
+	
 	public E get(int index);
 	
 	/**
 	 * Removes element at specified index.
 	 * @param index
 	 */
+	
 	public void remove(int index);
 	
 	/**
@@ -49,17 +56,20 @@ public interface DMList<E> {
 	 * @param index
 	 * @param Element
 	 */
+	
 	public void set(int index, E Element);
 	
 	/**
 	 * Randomly shuffles list.
 	 */
+	
 	public void shuffle();
 	
 	/**
 	 * Returns the number of elements in the list.
 	 * @return
 	 */
+	
 	public int size();
 	
 	/**
@@ -67,12 +77,14 @@ public interface DMList<E> {
 	 * @param index1
 	 * @param index2
 	 */
+	
 	public void swap(int index1, int index2);
 	
 	/**
 	 * Trims the list by the specified number.
 	 * @param num
 	 */
+	
 	public void trim(int num);
 
 }

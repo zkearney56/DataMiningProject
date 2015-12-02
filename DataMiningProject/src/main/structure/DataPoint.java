@@ -10,7 +10,7 @@ public class DataPoint {
 	private String classification;
 
 	/**
-	 * Accepts an arraylist containing all data in a row
+	 * Constructor which accepts an arraylist containing all data in a row
 	 * @param data
 	 */
 	public DataPoint(DMArrayList <Object> data){
@@ -20,16 +20,33 @@ public class DataPoint {
 		
 	}
 	
+	/**
+	 * Constructor to clone an existing DataPoint.
+	 * @param point
+	 */
+	
 	public DataPoint(DataPoint point){
 		this.classification = point.classification;
 		this.data = new DMArrayList<Object>(point.data);
 	}
+	
+	/**
+	 * Returns the classification of the datapoint.
+	 * @return
+	 */
 	
 	public String getClassification(){
 		
 	return classification;
 	
 	}
+	
+	/**
+	 * Returns the type of the DataPoint.
+	 * Types can either be numerical or categorical.
+	 * @param column
+	 * @return
+	 */
 	
 	public String getType(int column){
 		try  
@@ -44,19 +61,40 @@ public class DataPoint {
 		  return "Numeric";  
 	}
 	
+	/**
+	 * Returns all data in the row as an array list.
+	 * @return
+	 */
+	
 	public DMArrayList<Object> getData(){
 		return data;
 	}
 	
+	/**
+	 * Removes a specified column from the row.
+	 * @param column
+	 */
+	
 	public void removeData(int column){
 		data.remove(column);
 	}
+	
+	/**
+	 * Returns the value from a specified column.
+	 * @param column
+	 * @return
+	 */
 	
 	public Object getDataVal(int column){
 		
 		return data.get(column);
 		
 	}
+	
+	/**
+	 * Sets the classification of the DataPoint and removes the column.
+	 * @param column
+	 */
 	
 	public void setClass(int column){
 		

@@ -1,10 +1,12 @@
 package main.structure;
+
 /**
  * Author: Zachary Kearney
  * Last Edited: 11/30/2015
  * Holds the attribute data of a column.
  * This includes the name, type, min, max, mean, stdDev, the unique values, and the number of unique values
  */
+
 import java.util.Iterator;
 
 public class Attribute {
@@ -26,6 +28,7 @@ public class Attribute {
 	 * @param mean
 	 * @param stdDev
 	 */
+	
 	public Attribute(String name, String type, double min, double max, double mean, double stdDev){
 		this.name = name;
 		this.type = type;
@@ -34,6 +37,11 @@ public class Attribute {
 		this.mean = mean;
 		this.stdDev = stdDev;
 	}
+	
+	/**
+	 * Constructor to clone existing attribute
+	 * @param att
+	 */
 	
 	public Attribute(Attribute att){
 		this.name = att.name;
@@ -57,6 +65,7 @@ public class Attribute {
 	 * @param type
 	 * @param data
 	 */
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Attribute(String name, String type, DMArrayList data){
 		this.name = name;
@@ -75,6 +84,7 @@ public class Attribute {
 	 * If attribute is numeric, calculates the min, max, mean, and stdDev
 	 * @param data
 	 */
+	
 	private void numeric(DMArrayList<Double> data){
 		min = MathFunctions.min(data);
 		max = MathFunctions.max(data);
@@ -86,6 +96,7 @@ public class Attribute {
 	 * If attribute is categorial, calculates the unique values, then the min, max, mean, and stdDev of the unique values
 	 * @param data
 	 */
+	
 	private void categorial(DMArrayList<String> data){
 		calculateData(data);
 		this.uniqueVals = dataStore.size();
@@ -99,6 +110,7 @@ public class Attribute {
 	 * Used by categorial method to calculate the unique values
 	 * @param data
 	 */
+	
 	private void calculateData(DMArrayList<String> data){
 		
 		dataStore = new DMArrayList<CategorialPoint>();
@@ -136,41 +148,91 @@ public class Attribute {
 		}
 	}
 	
+	/**
+	 * Returns the minimum value
+	 * @return
+	 */
+	
 	public double getMin(){
 		return min;
 	}
+	
+	/**
+	 * Returns the maximum value
+	 * @return
+	 */
 	
 	public double getMax(){
 		return max;
 	}
 	
+	/**
+	 * Returns the mean of the values
+	 * @return
+	 */
+	
 	public double getMean(){
 		return mean;
 	}
+	
+	/**
+	 * Returns the standard deviation of the values
+	 * @return
+	 */
 	
 	public double getStdDev(){
 		return stdDev;
 	}
 	
+	/**
+	 * Returns the number of unique values
+	 * @return
+	 */
+	
 	public int getUniqueVals(){
 		return uniqueVals;
 	}
+	
+	/**
+	 * Returns the unique values as an ArrayList of categorial points containing the name of the values and the number of instances
+	 * @return
+	 */
 	
 	public DMArrayList<CategorialPoint> getData(){
 		return dataStore;
 	}
 	
+	/**
+	 * Returns the type of the Attribute
+	 * @return
+	 */
+	
 	public String getType(){
 		return type;
 	}
+	
+	/**
+	 * Returns the name of the values
+	 * @return
+	 */
 	
 	public String getName(){
 		return name;
 	}
 	
+	/**
+	 * Used to signify is attribute is to be ignored
+	 * @param t
+	 */
+	
 	public void ignore(boolean t){
 		ignored = t;
 	}
+	
+	/**
+	 * Returns ignore value
+	 * @return
+	 */
 	
 	public boolean getIgnore(){
 		return ignored;

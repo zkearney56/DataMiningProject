@@ -2,19 +2,29 @@ package main.gui;
 /**
  * Author: Zachary Kearney
  * Last Edited: 11/30/2015
+ * GUI that displays the results from running the data mining algorithms.
  */
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintStream;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import main.algorithm.Algorithm;
 import main.algorithm.Entropy;
@@ -29,12 +39,20 @@ public class ResultGui extends JFrame {
 	private DataList trainingSet;
 	private DataList testSet;
 	private DMArrayList<String> ignored;
+	private JFileChooser fc;
+	private JTextArea textArea;
 	/**
 	 * Create the frame.
 	 */
 	public ResultGui(Object[] dataSets, String algorithm, DMArrayList<String> ignored) {
 
 		this.ignored = ignored;
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Text File", "txt");
+		fc = new JFileChooser();
+		fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		fc.setApproveButtonText("Save");
+		fc.setFileFilter(filter);
+		
 		trainingSet = (DataList)dataSets[0];
 		testSet = (DataList)dataSets[0];
 		setTitle("Results");
@@ -49,9 +67,18 @@ public class ResultGui extends JFrame {
 		
 		JMenuItem mntmSave = new JMenuItem("Save");
 		mnFile.add(mntmSave);
+		mntmSave.addActionListener(save());
 		
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		mnFile.add(mntmExit);
+		mntmExit.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+			dispose();
+			}
+			
+		});
 		
 		JMenu mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);
@@ -62,7 +89,7 @@ public class ResultGui extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		JTextArea textArea = new JTextArea (25, 80);
+		textArea = new JTextArea (25, 80);
 		System.out.println("Pause");	
 		
 		contentPane.setLayout (new BorderLayout ());
@@ -83,8 +110,8 @@ public class ResultGui extends JFrame {
         System.out.println("");
         System.out.println("Main Class: " + (String)trainingSet.getClassification());
         System.out.println("");
-		System.out.println("Training Set Size: " + trainingSet.getDataSize());
-		System.out.println("Test Set Size: " + testSet.getDataSize());
+		System.out.println("Training Set Size: " + trainingSet.getNumRows());
+		System.out.println("Test Set Size: " + testSet.getNumRows());
 		System.out.println("");
 		System.out.println("Algorithm: " + algorithm);
 		System.out.println("");
@@ -114,6 +141,47 @@ public class ResultGui extends JFrame {
 			System.out.println(testSet.getRow(i).getClassification() + " = " + t.classify(testSet.getRow(i)));
 		}
 		System.out.println("Percent correctly classified: " + Float.toString((float)correct/(float)total));
+	}
+	
+	private ActionListener save(){
+		
+		ActionListener save = new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int returnval = fc.showSaveDialog(ResultGui.this);
+				if(returnval == JFileChooser.APPROVE_OPTION){
+					File file = fc.getSelectedFile();
+					if(file.exists()){
+						int n = JOptionPane.showConfirmDialog(
+							    ResultGui.this,
+							    "File Already Exists, Do You Want To OverWrite?",
+							    "File Already Exists",
+							    JOptionPane.YES_NO_OPTION);
+						if(n!=JOptionPane.YES_OPTION){
+							return;
+						}
+					}
+				      if (!file.getName().endsWith(".txt")) {
+				         file = new File(file.getAbsolutePath() + ".txt");
+				      }
+				      try {
+						FileWriter fw = new FileWriter(file.getAbsolutePath());
+						BufferedWriter bw = new BufferedWriter(fw);
+						bw.write(textArea.getText());
+						bw.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				      
+				}
+				// TODO Auto-generated method stub
+				
+			}
+			
+		};
+		return save;
 	}
 	
 	}

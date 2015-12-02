@@ -254,7 +254,7 @@ public class Gui extends JFrame {
 		trimSize.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(trimSize.getText().matches("^\\d+$")){
-					if(Integer.parseInt(trimSize.getText()) < dataList.getDataSize()){ 
+					if(Integer.parseInt(trimSize.getText()) < dataList.getNumRows()){ 
 				int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to trim?", "Trim?",  JOptionPane.YES_NO_OPTION);
 				if (reply == JOptionPane.YES_OPTION)
 				{
@@ -273,7 +273,7 @@ public class Gui extends JFrame {
 	}
 	
 	void update(){
-		sizePane.setText(Integer.toString(dataList.getDataSize()));
+		sizePane.setText(Integer.toString(dataList.getNumRows()));
 	}
 	
 	void showData(){

@@ -1,5 +1,11 @@
 package main.gui;
 
+/**
+ * Author: Zachary Kearney
+ * Last Edited: 12/1/2015
+ * Initial GUI loaded upon startup. Allows you to load a new csv file.
+ */
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -20,7 +26,7 @@ import java.io.File;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 
-public class NewGui extends JFrame {
+public class InitGui extends JFrame {
 
 	private JPanel contentPane;
 	private JFileChooser fc;
@@ -33,7 +39,7 @@ public class NewGui extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NewGui frame = new NewGui();
+					InitGui frame = new InitGui();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +51,7 @@ public class NewGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public NewGui() {
+	public InitGui() {
 		setTitle("Decision Tree GUI");
 		setResizable(false);
 		
@@ -66,7 +72,7 @@ public class NewGui extends JFrame {
 		JMenuItem mntmOpenCsv = new JMenuItem("Open CSV");
 		mntmOpenCsv.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				            int returnVal = fc.showOpenDialog(NewGui.this);
+				            int returnVal = fc.showOpenDialog(InitGui.this);
 				 
 				            if (returnVal == JFileChooser.APPROVE_OPTION) {
 				                File file = fc.getSelectedFile();
@@ -86,6 +92,13 @@ public class NewGui extends JFrame {
 					}
 				});
 		mnFile.add(mntmOpenCsv);
+		
+		JMenuItem mntmExit = new JMenuItem("Exit");
+		mntmExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0){
+				InitGui.this.dispose();
+			}
+		});
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

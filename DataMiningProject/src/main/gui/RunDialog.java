@@ -1,5 +1,11 @@
 package main.gui;
 
+/**
+ * Author: Zachary Kearney
+ * Last Edited: 12/1/2015
+ * Dialog used to run the data mining algorithms.
+ */
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 

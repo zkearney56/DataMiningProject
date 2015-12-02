@@ -14,6 +14,7 @@ public abstract class MathFunctions {
 	 * @param vals
 	 * @return
 	 */
+	
 	public static double min(DMArrayList<Double> vals){
 		double min = vals.get(0);
 		for(int i = 0; i < vals.size(); i++){
@@ -27,6 +28,7 @@ public abstract class MathFunctions {
 	 * @param vals
 	 * @return
 	 */
+	
 	public static double max(DMArrayList<Double> vals){
 		double max = vals.get(0);
 		for(int i = 0; i < vals.size(); i++){
@@ -40,6 +42,7 @@ public abstract class MathFunctions {
 	 * @param vals
 	 * @return
 	 */
+	
 	public static double mean(DMArrayList<Double> vals){
 		BigDecimal mean = new BigDecimal(0.0);
 		for(int i = 0; i < vals.size(); i++){
@@ -55,6 +58,7 @@ public abstract class MathFunctions {
 	 * @param vals
 	 * @return
 	 */
+	
 	public static double stdDev(double mean, DMArrayList<Double> vals){
 		BigDecimal stdDev = new BigDecimal("0.0");
 		double val;
