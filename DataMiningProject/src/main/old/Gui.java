@@ -34,7 +34,7 @@ import main.algorithm.Entropy;
 import main.algorithm.Gini;
 import main.structure.DataList;
 import main.tree.DecisionTree;
-
+@Deprecated
 public class Gui extends JFrame {
 
 	private JPanel contentPane;

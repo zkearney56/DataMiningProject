@@ -13,7 +13,7 @@ import main.structure.Attribute;
 import main.structure.DMArrayList;
 import main.structure.DataPoint;
 
-
+@Deprecated
 public class OldDataList {
 	
 	private DMArrayList<DataPoint> dataPoints;

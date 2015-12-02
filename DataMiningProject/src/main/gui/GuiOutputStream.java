@@ -1,6 +1,6 @@
 package main.gui;
 /**
- * Author: Zachary Kearney
+ * @author Zachary Kearney
  * Last Edited: 12/1/2015
  * Class to print all output to a JTextComponent witin a gui.
  */
@@ -11,39 +11,33 @@ import java.io.OutputStream;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
-public class GuiOutputStream extends OutputStream
-{
-    private final JTextArea destination;
+public class GuiOutputStream extends OutputStream {
+	private final JTextArea destination;
 
-    public GuiOutputStream (JTextArea destination)
-    {
-        if (destination == null)
-            throw new IllegalArgumentException ("Destination is null");
+	public GuiOutputStream(JTextArea destination) {
+		if (destination == null)
+			throw new IllegalArgumentException("Destination is null");
 
-        this.destination = destination;
-    }
+		this.destination = destination;
+	}
 
-    @Override
-    /**
-     * Instead of outputting to console, appends the JTextArea
-     */
-    public void write(byte[] buffer, int offset, int length) throws IOException
-    {
-        final String text = new String (buffer, offset, length);
-        SwingUtilities.invokeLater(new Runnable ()
-            {
-                @Override
-                public void run() 
-                {
-                    destination.append (text);
-                }
-            });
-    }
+	@Override
+	/**
+	 * Instead of outputting to console, appends the JTextArea
+	 */
+	public void write(byte[] buffer, int offset, int length) throws IOException {
+		final String text = new String(buffer, offset, length);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				destination.append(text);
+			}
+		});
+	}
 
-    @Override
-    public void write(int b) throws IOException
-    {
-        write (new byte [] {(byte)b}, 0, 1);
-    }
+	@Override
+	public void write(int b) throws IOException {
+		write(new byte[] { (byte) b }, 0, 1);
+	}
 
 }

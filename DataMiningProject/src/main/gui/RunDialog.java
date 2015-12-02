@@ -1,7 +1,7 @@
 package main.gui;
 
 /**
- * Author: Zachary Kearney
+ * @author Zachary Kearney
  * Last Edited: 12/1/2015
  * Dialog used to run the data mining algorithms.
  */
@@ -36,16 +36,16 @@ public class RunDialog extends JDialog {
 	private JComboBox mainclass, trim, percent, model, algorithm;
 	private DMArrayList<String> ignored;
 	private DataList list;
-	
+
 	/**
 	 * Create the dialog.
 	 */
-	
+
 	public RunDialog() {
 	}
-	
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void run(DataList list){
+	public void run(DataList list) {
 		ignored = new DMArrayList<String>();
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -99,47 +99,47 @@ public class RunDialog extends JDialog {
 			txtpnMainClass.setEditable(false);
 			contentPanel.add(txtpnMainClass);
 		}
-		
+
 		trim = new JComboBox();
-		trim.setModel(new DefaultComboBoxModel(new Object[] {0.0,10.0,20.0,30.0,40.0,50.0,60.0,70.0,80.0,90.0,95.0,96.0,97.0,98.0,99.0}));
+		trim.setModel(new DefaultComboBoxModel(new Object[] { 0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0,
+				95.0, 96.0, 97.0, 98.0, 99.0 }));
 		trim.setBounds(10, 37, 113, 20);
 		contentPanel.add(trim);
-		
+
 		percent = new JComboBox();
-		percent.setModel(new DefaultComboBoxModel(new Object[] {1.0,2.0,3.0,4.0,5.0,10.0,15.0,20.0,25.0,30.0,40.0,50.0,60.0,70.0,75.0,80.0,85.0,90.0,95.0,96.0,97.0,98.0,99.0}));
+		percent.setModel(new DefaultComboBoxModel(new Object[] { 1.0, 2.0, 3.0, 4.0, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0,
+				40.0, 50.0, 60.0, 70.0, 75.0, 80.0, 85.0, 90.0, 95.0, 96.0, 97.0, 98.0, 99.0 }));
 		percent.setBounds(150, 92, 113, 20);
 		contentPanel.add(percent);
 		percent.setEnabled(false);
-		
+
 		model = new JComboBox();
-		model.setModel(new DefaultComboBoxModel(new String[] {"Every Other", "Percentage"}));
+		model.setModel(new DefaultComboBoxModel(new String[] { "Every Other", "Percentage" }));
 		model.setBounds(150, 34, 113, 20);
 		contentPanel.add(model);
-		model.addActionListener(new ActionListener(){
+		model.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(model.getSelectedIndex() == 0){
+				if (model.getSelectedIndex() == 0) {
 					percent.setEnabled(false);
-				}
-				else if(model.getSelectedIndex() == 1){
+				} else if (model.getSelectedIndex() == 1) {
 					percent.setEnabled(true);
 				}
-				
+
 			}
-		}
-		);
-		
+		});
+
 		algorithm = new JComboBox();
-		algorithm.setModel(new DefaultComboBoxModel(new String[] {"Entropy", "Gini"}));
+		algorithm.setModel(new DefaultComboBoxModel(new String[] { "Entropy", "Gini" }));
 		algorithm.setBounds(10, 92, 113, 20);
 		contentPanel.add(algorithm);
-		
+
 		String[] headers = new String[list.getLength()];
 		Iterator itr = list.dataHeadersIterator();
 		int i = 0;
-		while(itr.hasNext()){
-			headers[i] = (String)itr.next();
+		while (itr.hasNext()) {
+			headers[i] = (String) itr.next();
 			i++;
 		}
 		mainclass = new JComboBox();
@@ -152,8 +152,8 @@ public class RunDialog extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Execute");
-				okButton.addActionListener(new ActionListener(){
-					public void actionPerformed(ActionEvent arg0){
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
 						execute();
 					}
 				});
@@ -171,43 +171,44 @@ public class RunDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		
+
 	}
-	private void execute(){
-		
-		if((double)trim.getSelectedItem() != 0.0){
-		double per = (double)trim.getSelectedItem() / 100;
-		double size = (list.getNumRows());
-		size =  size*per;	
-		list.trimList((int)size);
+
+	private void execute() {
+
+		if ((double) trim.getSelectedItem() != 0.0) {
+			double per = (double) trim.getSelectedItem() / 100;
+			double size = (list.getNumRows());
+			size = size * per;
+			list.trimList((int) size);
 		}
 
 		list.setClass(mainclass.getSelectedIndex());
 		Object[] sets = new Object[1];
-		if(model.getSelectedIndex()==0){ //EveryOther
+		if (model.getSelectedIndex() == 0) { // EveryOther
 			sets = list.everyOther();
-		}		
-		
-		else if(model.getSelectedIndex()==1){
-			float percentage = ((Double)percent.getSelectedItem()).floatValue();
+		}
+
+		else if (model.getSelectedIndex() == 1) {
+			float percentage = ((Double) percent.getSelectedItem()).floatValue();
 			sets = list.randomShuffle(percentage);// Percentage
 		}
-		
-		String algorithmString = (String)algorithm.getSelectedItem();
-		
-		ResultGui result = new ResultGui(sets,algorithmString, ignored);
+
+		String algorithmString = (String) algorithm.getSelectedItem();
+
+		ResultGui result = new ResultGui(sets, algorithmString, ignored);
 		result.setVisible(true);
-		
+
 		RunDialog.this.dispose();
 	}
-	
-	private void cleanList(){
-		
-	for(int i = 0; i < list.getLength(); i++){
-		if(list.getAttribute(i).getIgnore()){
-			list.removeColumn(i);
-			ignored.add((String)list.getHead(i));		
+
+	private void cleanList() {
+
+		for (int i = 0; i < list.getLength(); i++) {
+			if (list.getAttribute(i).getIgnore()) {
+				list.removeColumn(i);
+				ignored.add((String) list.getHead(i));
+			}
 		}
 	}
-	}
-	}
+}

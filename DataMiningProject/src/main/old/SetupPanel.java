@@ -11,8 +11,10 @@ import javax.swing.JPanel;
  * Last Edited: 11/30/2015
  */
 import main.structure.Attribute;
+import main.structure.AttributeInterface;
 import main.structure.DMArrayList;
 
+@Deprecated
 public class SetupPanel extends JPanel {
 
 	/**
@@ -32,7 +34,7 @@ public class SetupPanel extends JPanel {
 		this.attributes = attributes;
 		Iterator itr = attributes.iterator();
 		while(itr.hasNext()){
-			AttributePanel att = new AttributePanel((Attribute)itr.next());
+			AttributePanel att = new AttributePanel((AttributeInterface)itr.next());
 			att.setSize(250,250);
 			add(att);
 			classGrp.add(att.getRadio());

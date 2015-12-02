@@ -1,7 +1,7 @@
 package main.gui;
 
 /**
- * Author: Zachary Kearney
+ * @author Zachary Kearney
  * Last Edited: 12/1/2015
  * Initial GUI loaded upon startup. Allows you to load a new csv file.
  */
@@ -27,6 +27,7 @@ public class InitGui extends JFrame {
 	private DataPanel dataPanel;
 	private boolean initialized = false;
 	private JMenuItem mntmExportCsv;
+
 	/**
 	 * Launch the application.
 	 */
@@ -49,44 +50,43 @@ public class InitGui extends JFrame {
 	public InitGui() {
 		setTitle("Decision Tree GUI");
 		setResizable(false);
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 657, 455);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
+
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
-		
+
 		JMenuItem mntmOpenCsv = new JMenuItem("Open CSV");
-		
+
 		mntmOpenCsv.addActionListener(open());
-		
+
 		mnFile.add(mntmOpenCsv);
-		
+
 		mntmExportCsv = new JMenuItem("Export Attributes");
 		mntmExportCsv.addActionListener(export());
 		mnFile.add(mntmExportCsv);
 		mntmExportCsv.setEnabled(false);
-		
+
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		mntmExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0){
+			public void actionPerformed(ActionEvent arg0) {
 				InitGui.this.dispose();
 			}
 		});
 		mnFile.add(mntmExit);
-		
+
 		JMenuItem mntmAbout = new JMenuItem("About");
-		mntmAbout.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0){
-				JOptionPane.showMessageDialog(InitGui.this,
-						"CPSC 464\n" +
-						"Decision Tree Algorithm Project\n" +
-					    "Created By Zachary Kearney and Dan Martin",
-					    "About",
-					    JOptionPane.PLAIN_MESSAGE);
+		mntmAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane
+						.showMessageDialog(InitGui.this,
+								"CPSC 464\n" + "Decision Tree Algorithm Project\n"
+										+ "Created By Zachary Kearney and Dan Martin",
+								"About", JOptionPane.PLAIN_MESSAGE);
 			}
 		});
 		mnFile.add(mntmAbout);
@@ -96,45 +96,43 @@ public class InitGui extends JFrame {
 		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 	}
-	
+
 	/**
 	 * ActionListener to open a csv file.
+	 * 
 	 * @return
 	 */
-	
-	private ActionListener open(){
+
+	private ActionListener open() {
 		ActionListener open = new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-		File file = ActionListeners.open(InitGui.this);
-		if(ActionListeners.getExtension(file).equals("csv")){
-			if(initialized){
-        		contentPane.remove(dataPanel);
-        	}
-    		dataPanel = new DataPanel(file);
-    		contentPane.add(dataPanel);
-    		initialized = true;
-    		mntmExportCsv.setEnabled(true);
-		}
-		else	{
-			JOptionPane.showMessageDialog(InitGui.this,
-        		    "Please select a valid csv file.",
-        		    "Invalid File Selection",
-        		    JOptionPane.ERROR_MESSAGE);
-		}
-	}
-	};
-	return open;
+			public void actionPerformed(ActionEvent arg0) {
+				File file = ActionListeners.open(InitGui.this);
+				if (ActionListeners.getExtension(file).equals("csv")) {
+					if (initialized) {
+						contentPane.remove(dataPanel);
+					}
+					dataPanel = new DataPanel(file);
+					contentPane.add(dataPanel);
+					initialized = true;
+					mntmExportCsv.setEnabled(true);
+				} else {
+					JOptionPane.showMessageDialog(InitGui.this, "Please select a valid csv file.",
+							"Invalid File Selection", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		};
+		return open;
 	}
 
 	/**
 	 * ActionListener to export attributes as a csv file.
+	 * 
 	 * @return
 	 */
-	
-	private ActionListener export(){
-		
-		
-		ActionListener export = new ActionListener(){
+
+	private ActionListener export() {
+
+		ActionListener export = new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -143,4 +141,4 @@ public class InitGui extends JFrame {
 		};
 		return export;
 	}
-	}
+}

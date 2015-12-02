@@ -18,8 +18,9 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
-import main.structure.Attribute;
+import main.structure.AttributeInterface;
 
+@Deprecated
 public class AttributePanel extends JPanel {
 
 	/**
@@ -41,7 +42,7 @@ public class AttributePanel extends JPanel {
 	private JTextPane Type;
 	private JTextPane uniqueVals;
 	
-	public AttributePanel(Attribute att) {
+	public AttributePanel(AttributeInterface att) {
 		setBackground(SystemColor.window);
 		setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		setLayout(null);

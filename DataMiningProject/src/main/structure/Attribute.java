@@ -1,7 +1,7 @@
 package main.structure;
 
 /**
- * Author: Zachary Kearney
+ * @author Zachary Kearney
  * Last Edited: 11/30/2015
  * Holds the attribute data of a column.
  * This includes the name, type, min, max, mean, stdDev, the unique values, and the number of unique values
@@ -9,7 +9,7 @@ package main.structure;
 
 import java.util.Iterator;
 
-public class Attribute {
+public class Attribute implements AttributeInterface {
 
 	private double min, max, mean, stdDev;
 	private DMArrayList<CategorialPoint> dataStore;
@@ -18,9 +18,10 @@ public class Attribute {
 	private String name;
 	private int uniqueVals;
 	private boolean ignored;
-	
+
 	/**
 	 * Constructor for a numeric Attribute with predefined values
+	 * 
 	 * @param name
 	 * @param type
 	 * @param min
@@ -28,8 +29,8 @@ public class Attribute {
 	 * @param mean
 	 * @param stdDev
 	 */
-	
-	public Attribute(String name, String type, double min, double max, double mean, double stdDev){
+
+	public Attribute(String name, String type, double min, double max, double mean, double stdDev) {
 		this.name = name;
 		this.type = type;
 		this.min = min;
@@ -38,13 +39,15 @@ public class Attribute {
 		this.stdDev = stdDev;
 		this.ignored = false;
 	}
-	
+
 	/**
 	 * Constructor to clone existing attribute
-	 * @param att - The attribute to clone.
+	 * 
+	 * @param att
+	 *            - The attribute to clone.
 	 */
-	
-	public Attribute(Attribute att){
+
+	public Attribute(Attribute att) {
 		this.name = att.getName();
 		this.type = att.getType();
 		this.min = att.getMin();
@@ -52,55 +55,63 @@ public class Attribute {
 		this.mean = att.getMean();
 		this.stdDev = att.getStdDev();
 		this.ignored = att.getIgnore();
-		if(type.equals("Categorial")){
-		this.dataStore = new DMArrayList<CategorialPoint>();
-		this.uniqueVals = att.getUniqueVals();
-		for(int i = 0; i < att.getData().size(); i ++){
-			dataStore.add(new CategorialPoint(att.getData().get(i)));
+		if (type.equals("Categorial")) {
+			this.dataStore = new DMArrayList<CategorialPoint>();
+			this.uniqueVals = att.getUniqueVals();
+			for (int i = 0; i < att.getData().size(); i++) {
+				dataStore.add(new CategorialPoint(att.getData().get(i)));
+			}
 		}
 	}
-	}
-	
+
 	/**
-	 * Constructor for an attribute that accepts a name, type, and an arraylist of data
-	 * @param name - The name of the Attribute.
-	 * @param type - The type of the Attribute. "Categorical" or "Numeric"
-	 * @param data - The DMArrayList containing Attribute data.
+	 * Constructor for an attribute that accepts a name, type, and an arraylist
+	 * of data
+	 * 
+	 * @param name
+	 *            - The name of the Attribute.
+	 * @param type
+	 *            - The type of the Attribute. "Categorical" or "Numeric"
+	 * @param data
+	 *            - The DMArrayList containing Attribute data.
 	 */
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Attribute(String name, String type, DMArrayList data){
-		this.ignored= false;
+	public Attribute(String name, String type, DMArrayList data) {
+		this.ignored = false;
 		this.name = name;
 		this.type = type;
-		if(type.equals("Numeric")){
+		if (type.equals("Numeric")) {
 			numeric(data);
-		}
-		else if(type.equals("Categorial")){
+		} else if (type.equals("Categorial")) {
 			categorial(data);
 		}
 
-
 	}
-	
+
 	/**
 	 * If attribute is numeric, calculates the min, max, mean, and stdDev
-	 * @param data- The DMArrayList containing all data.
+	 * 
+	 * @param data-
+	 *            The DMArrayList containing all data.
 	 */
-	
-	private void numeric(DMArrayList<Double> data){
+
+	private void numeric(DMArrayList<Double> data) {
 		min = MathFunctions.min(data);
 		max = MathFunctions.max(data);
 		mean = MathFunctions.mean(data);
 		stdDev = MathFunctions.stdDev(mean, data);
 	}
-	
+
 	/**
-	 * If attribute is categorial, calculates the unique values, then the min, max, mean, and stdDev of the unique values
-	 * @param - data The DMArrayList containing all data.
+	 * If attribute is categorial, calculates the unique values, then the min,
+	 * max, mean, and stdDev of the unique values
+	 * 
+	 * @param -
+	 *            data The DMArrayList containing all data.
 	 */
-	
-	private void categorial(DMArrayList<String> data){
+
+	private void categorial(DMArrayList<String> data) {
 		calculateData(data);
 		this.uniqueVals = dataStore.size();
 		min = MathFunctions.min(values);
@@ -108,144 +119,146 @@ public class Attribute {
 		mean = MathFunctions.mean(values);
 		stdDev = MathFunctions.stdDev(mean, values);
 	}
-	
+
 	/**
 	 * Used by categorial method to calculate the unique values
-	 * @param data - The DMArrayList containing all data.
+	 * 
+	 * @param data
+	 *            - The DMArrayList containing all data.
 	 */
-	
-	private void calculateData(DMArrayList<String> data){
-		
+
+	private void calculateData(DMArrayList<String> data) {
+
 		dataStore = new DMArrayList<CategorialPoint>();
 		Iterator<String> itr = data.iterator();
-		String current = (String)itr.next();
+		String current = (String) itr.next();
 		CategorialPoint point = new CategorialPoint(current);
 		dataStore.add(point);
-		while(itr.hasNext()){
+		while (itr.hasNext()) {
 			boolean found = false;
-			current = (String)itr.next();
+			current = (String) itr.next();
 			Iterator<CategorialPoint> itr2 = dataStore.iterator();
 			int i = 0;
-			while(itr2.hasNext() && !found){
+			while (itr2.hasNext() && !found) {
 				point = itr2.next();
-				if(point.getName().equals(current)){
+				if (point.getName().equals(current)) {
 					point.increment();
 					found = true;
 				}
-				
+
 			}
-			if(found){
+			if (found) {
 				dataStore.set(i, point);
-			}
-			else{
+			} else {
 				dataStore.add(new CategorialPoint(current));
 			}
 			i++;
 		}
 		values = new DMArrayList<Double>();
 		Iterator<CategorialPoint> itr3 = dataStore.iterator();
-		while(itr3.hasNext()){
-			point = (CategorialPoint)itr3.next();
-			values.add((double)point.getCount());
-			
+		while (itr3.hasNext()) {
+			point = (CategorialPoint) itr3.next();
+			values.add((double) point.getCount());
+
 		}
 	}
-	
-	/**
-	 * Returns the minimum value
-	 * @return min - the min of the Attribute.
+
+	/* (non-Javadoc)
+	 * @see main.structure.AttributeInterface#getMin()
 	 */
-	
-	public double getMin(){
+
+	@Override
+	public double getMin() {
 		return min;
 	}
-	
-	/**
-	 * Returns the maximum value
-	 * @return max - the max of the Attribute.
+
+	/* (non-Javadoc)
+	 * @see main.structure.AttributeInterface#getMax()
 	 */
-	
-	public double getMax(){
+
+	@Override
+	public double getMax() {
 		return max;
 	}
-	
-	/**
-	 * Returns the mean of the values
-	 * @return mean - the mean of the Attribute.
+
+	/* (non-Javadoc)
+	 * @see main.structure.AttributeInterface#getMean()
 	 */
-	
-	public double getMean(){
+
+	@Override
+	public double getMean() {
 		return mean;
 	}
-	
-	/**
-	 * Returns the standard deviation of the values
-	 * @return stdDev - the standard deviation of the Attribute.
+
+	/* (non-Javadoc)
+	 * @see main.structure.AttributeInterface#getStdDev()
 	 */
-	
-	public double getStdDev(){
+
+	@Override
+	public double getStdDev() {
 		return stdDev;
 	}
-	
-	/**
-	 * Returns the number of unique values
-	 * @return uniqueVals - the number of unique values of the Attribute.
+
+	/* (non-Javadoc)
+	 * @see main.structure.AttributeInterface#getUniqueVals()
 	 */
-	
-	public int getUniqueVals(){
+
+	@Override
+	public int getUniqueVals() {
 		return uniqueVals;
 	}
-	
-	/**
-	 * Returns the unique values as an ArrayList of categorial points containing the name of the values and the number of instances
-	 * @return dataStore - DMArrayList<CategorialPoint containing all of the data associated with the Attribute.
+
+	/* (non-Javadoc)
+	 * @see main.structure.AttributeInterface#getData()
 	 */
-	
-	public DMArrayList<CategorialPoint> getData(){
+
+	@Override
+	public DMArrayList<CategorialPoint> getData() {
 		return dataStore;
 	}
-	
-	/**
-	 * Returns the type of the Attribute, can be "Numeric" or "Categorical"
-	 * @return type - the type of the Attribute
+
+	/* (non-Javadoc)
+	 * @see main.structure.AttributeInterface#getType()
 	 */
-	
-	public String getType(){
+
+	@Override
+	public String getType() {
 		return type;
 	}
-	
-	/**
-	 * Returns the name of the values
-	 * @return name - the name of the Attribute
+
+	/* (non-Javadoc)
+	 * @see main.structure.AttributeInterface#getName()
 	 */
-	
-	public String getName(){
+
+	@Override
+	public String getName() {
 		return name;
 	}
-	
-	/**
-	 * Used to signify is attribute is to be ignored
-	 * @param t - boolean
+
+	/* (non-Javadoc)
+	 * @see main.structure.AttributeInterface#ignore(boolean)
 	 */
-	
-	public void ignore(boolean t){
+
+	@Override
+	public void ignore(boolean t) {
 		ignored = t;
 	}
-	
-	/**
-	 * Returns ignore value
-	 * @return ignored - boolean signifying if Attribute is ignored.
+
+	/* (non-Javadoc)
+	 * @see main.structure.AttributeInterface#getIgnore()
 	 */
-	
-	public boolean getIgnore(){
+
+	@Override
+	public boolean getIgnore() {
 		return ignored;
 	}
-	
-	/**
-	 * Outputs the Attribute to a csv readable format string.
+
+	/* (non-Javadoc)
+	 * @see main.structure.AttributeInterface#toString()
 	 */
-	
-	public String toString(){
+
+	@Override
+	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
 		String COMMA = ",";
 		stringBuilder.append(name);
@@ -263,7 +276,7 @@ public class Attribute {
 		stringBuilder.append(stdDev);
 		stringBuilder.append("\n");
 		return stringBuilder.toString();
-		
+
 	}
-	
+
 }
