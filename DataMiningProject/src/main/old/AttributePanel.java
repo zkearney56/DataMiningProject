@@ -177,7 +177,7 @@ public class AttributePanel extends JPanel {
 							max.setText(Double.toString(att.getMax()));
 							mean.setText(Double.toString(att.getMean()));
 							stdev.setText(Double.toString(att.getStdDev()));
-							uniqueVals.setText(Integer.toString(att.getUniqueVals()));
+							uniqueVals.setText(Integer.toString(att.getNumUniqueVals()));
 							break;
 							
 		case "Numeric": 	

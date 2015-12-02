@@ -57,7 +57,7 @@ public class Attribute implements AttributeInterface {
 		this.ignored = att.getIgnore();
 		if (type.equals("Categorial")) {
 			this.dataStore = new DMArrayList<CategorialPoint>();
-			this.uniqueVals = att.getUniqueVals();
+			this.uniqueVals = att.getNumUniqueVals();
 			for (int i = 0; i < att.getData().size(); i++) {
 				dataStore.add(new CategorialPoint(att.getData().get(i)));
 			}
@@ -204,7 +204,7 @@ public class Attribute implements AttributeInterface {
 	 */
 
 	@Override
-	public int getUniqueVals() {
+	public int getNumUniqueVals() {
 		return uniqueVals;
 	}
 
@@ -212,8 +212,7 @@ public class Attribute implements AttributeInterface {
 	 * @see main.structure.AttributeInterface#getData()
 	 */
 
-	@Override
-	public DMArrayList<CategorialPoint> getData() {
+	private DMArrayList<CategorialPoint> getData() {
 		return dataStore;
 	}
 
@@ -277,6 +276,34 @@ public class Attribute implements AttributeInterface {
 		stringBuilder.append("\n");
 		return stringBuilder.toString();
 
+	}
+	
+	class CategorialPoint {
+
+		private String name;
+		private int count;
+
+		public CategorialPoint(String name) {
+			this.name = name;
+			count = 1;
+		}
+
+		public CategorialPoint(CategorialPoint point) {
+			this.name = point.name;
+			this.count = point.count;
+		}
+
+		public void increment() {
+			count++;
+		}
+
+		public int getCount() {
+			return count;
+		}
+
+		public String getName() {
+			return name;
+		}
 	}
 
 }

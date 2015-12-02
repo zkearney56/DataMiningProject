@@ -197,9 +197,8 @@ public class RunDialog extends JDialog {
 		String algorithmString = (String) algorithm.getSelectedItem();
 
 		ResultGui result = new ResultGui(sets, algorithmString, ignored);
-		result.setVisible(true);
-
 		RunDialog.this.dispose();
+		result.setVisible(true);
 	}
 
 	private void cleanList() {

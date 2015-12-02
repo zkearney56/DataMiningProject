@@ -40,17 +40,7 @@ public interface AttributeInterface {
 	 * @return uniqueVals - the number of unique values of the Attribute.
 	 */
 
-	int getUniqueVals();
-
-	/**
-	 * Returns the unique values as an ArrayList of categorial points containing
-	 * the name of the values and the number of instances
-	 * 
-	 * @return dataStore - DMArrayList<CategorialPoint containing all of the
-	 *         data associated with the Attribute.
-	 */
-
-	DMArrayList<CategorialPoint> getData();
+	int getNumUniqueVals();
 
 	/**
 	 * Returns the type of the Attribute, can be "Numeric" or "Categorical"

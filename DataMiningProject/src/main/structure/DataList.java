@@ -414,7 +414,7 @@ public class DataList implements Cloneable {
 			FileWriter fileWriter = new FileWriter(filename);
 			fileWriter.append(dataHeaders.toString());
 			fileWriter.append(NEW_LINE);
-			fileWriter.append(dataPoints.toStringObj());
+			fileWriter.append(dataPoints.toString());
 			fileWriter.flush();
 			fileWriter.close();
 		} catch (IOException e) {
@@ -436,7 +436,7 @@ public class DataList implements Cloneable {
 			FileWriter fileWriter = new FileWriter(filename);
 			fileWriter.append("Name,Type,Unique Values,Minimum,Maximum,Mean,StdDev");
 			fileWriter.append(NEW_LINE);
-			fileWriter.append(dataAttributes.toStringObj());
+			fileWriter.append(dataAttributes.toString());
 			fileWriter.flush();
 			fileWriter.close();
 

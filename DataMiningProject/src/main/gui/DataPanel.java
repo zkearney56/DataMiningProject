@@ -58,7 +58,7 @@ public class DataPanel extends JPanel {
 
 		selectName.setText(selected.getName());
 		selectType.setText(selected.getType());
-		selectUnique.setText(Integer.toString(selected.getUniqueVals()));
+		selectUnique.setText(Integer.toString(selected.getNumUniqueVals()));
 		selectMin.setText(Double.toString(selected.getMin()));
 		selectMax.setText(Double.toString(selected.getMax()));
 		selectMean.setText(Double.toString(selected.getMean()));

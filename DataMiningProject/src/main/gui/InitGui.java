@@ -107,6 +107,7 @@ public class InitGui extends JFrame {
 		ActionListener open = new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				File file = ActionListeners.open(InitGui.this);
+				try{
 				if (ActionListeners.getExtension(file).equals("csv")) {
 					if (initialized) {
 						contentPane.remove(dataPanel);
@@ -120,6 +121,9 @@ public class InitGui extends JFrame {
 							"Invalid File Selection", JOptionPane.ERROR_MESSAGE);
 				}
 			}
+				catch (NullPointerException e){};
+				}
+			
 		};
 		return open;
 	}

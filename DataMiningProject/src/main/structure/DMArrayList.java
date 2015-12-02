@@ -208,6 +208,13 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E> {
 		StringBuilder stringBuilder = new StringBuilder();
 		@SuppressWarnings("rawtypes")
 		Iterator itr = DMArrayList.this.iterator();
+		if(DMArrayList.this.get(0) instanceof Attribute || DMArrayList.this.get(0) instanceof DataPoint){
+			while (itr.hasNext()) {
+				stringBuilder.append(itr.next().toString());
+			}
+			return stringBuilder.toString();
+		}
+		else{
 		while (itr.hasNext()) {
 			stringBuilder.append(itr.next().toString());
 			if (itr.hasNext()) {
@@ -215,6 +222,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E> {
 			}
 		}
 		return stringBuilder.toString();
+		}
 	}
 
 	/**
