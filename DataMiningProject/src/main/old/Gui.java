@@ -293,7 +293,7 @@ public class Gui extends JFrame {
 			while(ignoreItr.hasNext()){
 				
 				Object remove = ignoreItr.next();
-				Iterator<Object> itr2 = testData.dataTypeIterator();
+				Iterator<Object> itr2 = testData.dataHeadersIterator();
 				int x = 0;
 				while(itr2.hasNext()){
 					Object next = itr2.next();
@@ -306,7 +306,7 @@ public class Gui extends JFrame {
 			}
 			
 			String classification = setupPanel.selectedClass();
-			Iterator<Object> itr = testData.dataTypeIterator();
+			Iterator<Object> itr = testData.dataHeadersIterator();
 			int index = 0;
 			while(itr.hasNext()){
 				Object element = itr.next();

@@ -4,6 +4,8 @@ package main.structure;
  * Author: Zachary Kearney
  * Last Edited: 11/30/2015
  * Object container for all data, contains three array lists containing the headers, data rows, and column attributes.
+ * After initializing, use the readFile method to fill with data.
+ * To clone, create a new DataList using the DataList(DataList list) constructor.
  */
 
 import java.io.File;
@@ -33,7 +35,7 @@ public class DataList implements Cloneable {
 	
 	/**
 	 * Constructor to clone an existing datalist.
-	 * @param list
+	 * @param list - The DataList to clone.
 	 */
 	
 	public DataList(DataList list){
@@ -53,7 +55,7 @@ public class DataList implements Cloneable {
 	
 	/**
 	 * Returns an ArrayList of the column headers.
-	 * @return
+	 * @return returns a DMArrayList containing the headers.
 	 */
 	
 	public DMArrayList<Object> getHeaders(){
@@ -62,7 +64,7 @@ public class DataList implements Cloneable {
 	
 	/**
 	 * Returns an ArrayList of the attributes.
-	 * @return
+	 * @return returns a DMArrayList containing the attributes.
 	 */
 	public DMArrayList<Attribute> getAttributes(){
 		return dataAttributes;
@@ -70,7 +72,7 @@ public class DataList implements Cloneable {
 	
 	/**
 	 * Returns an ArrayList of the data points.
-	 * @return
+	 * @return returns a DMArrayList containing the dataPoints.
 	 */
 	
 	public DMArrayList<DataPoint> getPoints(){
@@ -79,7 +81,7 @@ public class DataList implements Cloneable {
 	
 	/**
 	 * Returns the main classification.
-	 * @return
+	 * @return returns the main classification.
 	 */
 	
 	public String getClassification(){
@@ -88,7 +90,7 @@ public class DataList implements Cloneable {
 	
 	/**
 	 * Sets the data attributes.
-	 * @param dataAttributes
+	 * @param dataAttributes - The DataAttributes DMArrayList to clone.
 	 */
 	
 	public void setAttributes(DMArrayList<Attribute> dataAttributes){
@@ -97,16 +99,16 @@ public class DataList implements Cloneable {
 	
 	/**
 	 * Sets the column headers.
-	 * @param dataTypes
+	 * @param dataHeaders - the DataHeaders DMArrayList to clone.
 	 */
 	
-	public void setHeaders(DMArrayList<Object> dataTypes){
-		this.dataHeaders = dataTypes;	
+	public void setHeaders(DMArrayList<Object> dataHeaders){
+		this.dataHeaders = dataHeaders;	
 	}
 	
 	/**
 	 * Sets the data points.
-	 * @param dataPoints
+	 * @param dataPoints - the DataPoints DMArrayList to clone.
 	 */
 	
 	public void setData(DMArrayList<DataPoint> dataPoints){
@@ -126,8 +128,8 @@ public class DataList implements Cloneable {
 	
 	/**
 	 * Returns the Attribute for the specified column.
-	 * @param column
-	 * @return
+	 * @param column - The column of the Attribute.
+	 * @return returns the specified Attribute.
 	 */
 	
 	public Attribute getAttribute(int column){
@@ -135,7 +137,7 @@ public class DataList implements Cloneable {
 	}
 	/**
 	 * Adds a datapoint to the list.
-	 * @param point
+	 * @param point - The DataPoint to add.
 	 */
 	
 	public void addDataPoint(DataPoint point){
@@ -144,7 +146,7 @@ public class DataList implements Cloneable {
 	
 	/**
 	 * Returns the number of rows.
-	 * @return
+	 * @return returns the number of rows.
 	 */
 	
 	public int getNumRows()
@@ -154,21 +156,21 @@ public class DataList implements Cloneable {
 	
 	/**
 	 * Returns the specified row as a DataPoint.
-	 * @param column
-	 * @return
+	 * @param column - The row to return.
+	 * @return returns the specified row as a DataPoint.
 	 */
 	
-	public DataPoint getRow(int column){
+	public DataPoint getRow(int row){
 		
-		return dataPoints.get(column);
+		return dataPoints.get(row);
 		
 	}
 	
 	/**
 	 * Returns the specified data from (row,column).
-	 * @param row
-	 * @param column
-	 * @return
+	 * @param row - The specified row.
+	 * @param column - The specified column.
+	 * @return returns the value as an Object.
 	 */
 	
 	public Object getRowColVal(int row, int column){
@@ -179,8 +181,8 @@ public class DataList implements Cloneable {
 	
 	/**
 	 * Returns the type of the specified column.
-	 * @param column
-	 * @return
+	 * @param column - the specified column.
+	 * @return returns the type of the specified column.
 	 */
 	
 	public String getType(int column){
@@ -189,7 +191,7 @@ public class DataList implements Cloneable {
 	
 	/**
 	 * Removes a row from the data.
-	 * @param row
+	 * @param row - the row to remove
 	 */
 	
 	public void removeRow(int row){
@@ -200,7 +202,7 @@ public class DataList implements Cloneable {
 	
 	/**
 	 * Reads a csv file and fills the arraylists with data from the file.
-	 * @param file
+	 * @param file - The csv file to read.
 	 */
 	
 	public void readFile(File file){
@@ -235,7 +237,7 @@ public class DataList implements Cloneable {
 	
 	/**
 	 * Trims the dataPoints list by a set number.
-	 * @param num
+	 * @param num - the number of DataPoints to trim.
 	 */
 	
 	public void trimList(int num){
@@ -244,7 +246,7 @@ public class DataList implements Cloneable {
 	
 	/**
 	 * Removes the column from the data.
-	 * @param column
+	 * @param column - The column to remove from data.
 	 */
 	
 	public void removeColumn(int column){
@@ -256,8 +258,8 @@ public class DataList implements Cloneable {
 	}
 	
 	/**
-	 * Sets the main class of the data.
-	 * @param column
+	 * Sets the main class of the data to the specified column and removes that column.
+	 * @param column - The column to be set to main classification.
 	 */
 	
 	public void setClass(int column){
@@ -271,8 +273,8 @@ public class DataList implements Cloneable {
 	}
 	
 	/**
-	 * Sets the classification of the data list.
-	 * @param classification
+	 * Sets the classification of the data list but doesnt remove from ArrayLists
+	 * @param classification - String containing classification.
 	 */
 	
 	public void setClass(String classification){
@@ -281,8 +283,8 @@ public class DataList implements Cloneable {
 	
 	/**
 	 * Returns the header of the specified column.
-	 * @param column
-	 * @return
+	 * @param column - the specified column.
+	 * @return returns the header of the specified column.
 	 */
 	
 	public Object getHead(int column){
@@ -291,7 +293,7 @@ public class DataList implements Cloneable {
 	
 	/**
 	 * Returns the number of columns.
-	 * @return
+	 * @return returns the number of columns.
 	 */
 	
 	public int getLength(){
@@ -300,8 +302,8 @@ public class DataList implements Cloneable {
 	
 	/**
 	 * Creates an attribute from the specified column.
-	 * @param column
-	 * @return
+	 * @param column - the specified column.
+	 * @return returns a new Attribute created from column data.
 	 */
 
 	private Attribute createAttribute(int column){
@@ -328,10 +330,10 @@ public class DataList implements Cloneable {
 	
 	/**
 	 * Returns an iterator for the data types.
-	 * @return
+	 * @return 
 	 */
 	
-	public Iterator<Object> dataTypeIterator(){
+	public Iterator<Object> dataHeadersIterator(){
 		return dataHeaders.iterator();
 	}
 	
@@ -399,7 +401,7 @@ public class DataList implements Cloneable {
 	 * The first datalist is the training set.
 	 * The second datalist is the test set.
 	 * The sets are shuffled to select every other value.
-	 * @return
+	 * @return returns Object array containing dataLists.
 	 */
 	
 	public Object[] everyOther(){
@@ -425,8 +427,8 @@ public class DataList implements Cloneable {
 	 * The first dataList is the training set.
 	 * The second dataList is the test set.
 	 * The sets are shuffled randomly, then split by the specified percent.
-	 * @param percent
-	 * @return
+	 * @param percent - the percent you wish to be used for training.
+	 * @return new Object array containing the dataLists.
 	 */
 	
 	public Object[] randomShuffle(float percent){

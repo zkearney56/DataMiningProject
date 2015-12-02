@@ -15,7 +15,7 @@ public class DataPoint {
 
 	/**
 	 * Constructor which accepts an arraylist containing all data in a row
-	 * @param data
+	 * @param data - DMArrayList which contains row data.
 	 */
 	public DataPoint(DMArrayList <Object> data){
 		
@@ -26,7 +26,7 @@ public class DataPoint {
 	
 	/**
 	 * Constructor to clone an existing DataPoint.
-	 * @param point
+	 * @param point - DataPoint to clone.
 	 */
 	
 	public DataPoint(DataPoint point){
@@ -36,7 +36,7 @@ public class DataPoint {
 	
 	/**
 	 * Returns the classification of the datapoint.
-	 * @return
+	 * @return returns the classification of the DataPoint.
 	 */
 	
 	public String getClassification(){
@@ -48,8 +48,8 @@ public class DataPoint {
 	/**
 	 * Returns the type of the DataPoint.
 	 * Types can either be numerical or categorical.
-	 * @param column
-	 * @return
+	 * @param column - The column to access.
+	 * @return returns the type of the Column as either "Numeric" or "Categorical"
 	 */
 	
 	public String getType(int column){
@@ -67,7 +67,7 @@ public class DataPoint {
 	
 	/**
 	 * Returns all data in the row as an array list.
-	 * @return
+	 * @return returns all data in the row as an ArrayList.
 	 */
 	
 	public DMArrayList<Object> getData(){
@@ -76,7 +76,7 @@ public class DataPoint {
 	
 	/**
 	 * Removes a specified column from the row.
-	 * @param column
+	 * @param column - The column to remove.
 	 */
 	
 	public void removeData(int column){
@@ -85,8 +85,8 @@ public class DataPoint {
 	
 	/**
 	 * Returns the value from a specified column.
-	 * @param column
-	 * @return
+	 * @param column - The column to access.
+	 * @return returns the data from the column.
 	 */
 	
 	public Object getDataVal(int column){
@@ -97,7 +97,7 @@ public class DataPoint {
 	
 	/**
 	 * Sets the classification of the DataPoint and removes the column.
-	 * @param column
+	 * @param column - the column to set as the main class.
 	 */
 	
 	public void setClass(int column){

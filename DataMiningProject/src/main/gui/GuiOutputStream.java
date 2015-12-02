@@ -24,6 +24,9 @@ public class GuiOutputStream extends OutputStream
     }
 
     @Override
+    /**
+     * Instead of outputting to console, appends the JTextArea
+     */
     public void write(byte[] buffer, int offset, int length) throws IOException
     {
         final String text = new String (buffer, offset, length);

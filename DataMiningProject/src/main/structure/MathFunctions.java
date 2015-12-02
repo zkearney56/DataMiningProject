@@ -11,8 +11,8 @@ public abstract class MathFunctions {
 
 	/**
 	 * Returns the min from the arraylist of doubles.
-	 * @param vals
-	 * @return
+	 * @param vals - DMArrayList containing all values
+	 * @return returns the maximum
 	 */
 	
 	public static double min(DMArrayList<Double> vals){
@@ -25,8 +25,8 @@ public abstract class MathFunctions {
 	
 	/**
 	 * Returns the max from the arraylist of doubles.
-	 * @param vals
-	 * @return
+	 * @param vals - DMArrayList containing all values
+	 * @return returns the minimum
 	 */
 	
 	public static double max(DMArrayList<Double> vals){
@@ -39,8 +39,8 @@ public abstract class MathFunctions {
 	
 	/**
 	 * Returns the mean of the arraylist of doubles.
-	 * @param vals
-	 * @return
+	 * @param vals - DMArrayList containing all values
+	 * @return returns the mean
 	 */
 	
 	public static double mean(DMArrayList<Double> vals){
@@ -53,13 +53,30 @@ public abstract class MathFunctions {
 	}
 	
 	/**
-	 * Returns the stdDev from the arraylist of doubles.
-	 * @param mean
-	 * @param vals
-	 * @return
+	 * Returns the stdDev from the arraylist of doubles
+	 * @param mean - Mean of the values
+	 * @param vals - DMArrayList containing all values
+	 * @return returns the standard deviation
 	 */
 	
 	public static double stdDev(double mean, DMArrayList<Double> vals){
+		BigDecimal stdDev = new BigDecimal("0.0");
+		double val;
+		for(int i = 0; i < vals.size(); i++){
+			val = vals.get(i) - mean;
+			val = val * val;
+			stdDev = stdDev.add(BigDecimal.valueOf(val));
+		}
+		stdDev = stdDev.divide(BigDecimal.valueOf(vals.size()), 2, RoundingMode.HALF_UP);
+		return Double.parseDouble(stdDev.toString());
+	}
+	/**
+	 * Returns the stdDev from the ArrayList of doubles. Faster to use if mean is already known.
+	 * @param vals - DMArrayList containing the values
+	 * @return returns the standard deviation
+	 */
+	public static double stdDev(DMArrayList<Double> vals){
+		double mean = mean(vals);
 		BigDecimal stdDev = new BigDecimal("0.0");
 		double val;
 		for(int i = 0; i < vals.size(); i++){

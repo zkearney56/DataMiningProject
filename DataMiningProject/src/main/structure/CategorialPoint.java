@@ -13,7 +13,7 @@ public class CategorialPoint {
 		
 		/**
 		 * Initial constructor for the point, count starts at 1
-		 * @param name
+		 * @param name - The name of the CategorialPoint.
 		 */
 		
 		public CategorialPoint(String name){
@@ -23,7 +23,7 @@ public class CategorialPoint {
 		
 		/**
 		 * Constructor to clone an existing point
-		 * @param point
+		 * @param point - The CategorialPoint to clone.
 		 */
 		
 		public CategorialPoint(CategorialPoint point){
@@ -41,7 +41,7 @@ public class CategorialPoint {
 		
 		/**
 		 * Returns the count
-		 * @return
+		 * @return count - The number of instances.
 		 */
 		
 		public int getCount(){
@@ -50,7 +50,7 @@ public class CategorialPoint {
 		
 		/**
 		 * Returns the name
-		 * @return
+		 * @return name - The name of the point.
 		 */
 		
 		public String getName(){

@@ -136,7 +136,7 @@ public class RunDialog extends JDialog {
 		contentPanel.add(algorithm);
 		
 		String[] headers = new String[list.getLength()];
-		Iterator itr = list.dataTypeIterator();
+		Iterator itr = list.dataHeadersIterator();
 		int i = 0;
 		while(itr.hasNext()){
 			headers[i] = (String)itr.next();

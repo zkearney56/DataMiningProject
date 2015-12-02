@@ -388,7 +388,6 @@ public class DataPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				DataList testList = new DataList(dataList);
-				System.out.println("pause");
 				RunDialog dlg = new RunDialog();
 				dlg.run(testList);
 				dlg.setVisible(true);

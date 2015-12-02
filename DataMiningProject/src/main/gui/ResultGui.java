@@ -78,7 +78,6 @@ public class ResultGui extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		textArea = new JTextArea (25, 80);
-		System.out.println("Pause");	
 		
 		contentPane.setLayout (new BorderLayout ());
         contentPane.add (

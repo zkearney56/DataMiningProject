@@ -27,7 +27,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 
 	/**
 	 * Constructor for creating an ArrayList from an array of elements.
-	 * @param row
+	 * @param row - ObjectArray containing data to fill the array.
 	 */
 	
 	public DMArrayList(E[] row){
@@ -37,8 +37,8 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 	
 	/**
 	 * Constructor for creating an ArrayList from an array of elements of a set size.
-	 * @param row
-	 * @param size
+	 * @param row - ObjectArray containing data to fill the array.
+	 * @param size - A set size for the ArrayList.
 	 */
 	
 	@SuppressWarnings("unused")
@@ -49,7 +49,7 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 	
 	/**
 	 * Constructor used to clone an existing ArrayList.
-	 * @param list
+	 * @param list - The DMArrayList to clone.
 	 */
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })

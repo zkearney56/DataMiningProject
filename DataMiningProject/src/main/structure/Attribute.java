@@ -41,7 +41,7 @@ public class Attribute {
 	
 	/**
 	 * Constructor to clone existing attribute
-	 * @param att
+	 * @param att - The attribute to clone.
 	 */
 	
 	public Attribute(Attribute att){
@@ -63,9 +63,9 @@ public class Attribute {
 	
 	/**
 	 * Constructor for an attribute that accepts a name, type, and an arraylist of data
-	 * @param name
-	 * @param type
-	 * @param data
+	 * @param name - The name of the Attribute.
+	 * @param type - The type of the Attribute. "Categorical" or "Numeric"
+	 * @param data - The DMArrayList containing Attribute data.
 	 */
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -85,7 +85,7 @@ public class Attribute {
 	
 	/**
 	 * If attribute is numeric, calculates the min, max, mean, and stdDev
-	 * @param data
+	 * @param data- The DMArrayList containing all data.
 	 */
 	
 	private void numeric(DMArrayList<Double> data){
@@ -97,7 +97,7 @@ public class Attribute {
 	
 	/**
 	 * If attribute is categorial, calculates the unique values, then the min, max, mean, and stdDev of the unique values
-	 * @param data
+	 * @param - data The DMArrayList containing all data.
 	 */
 	
 	private void categorial(DMArrayList<String> data){
@@ -111,7 +111,7 @@ public class Attribute {
 	
 	/**
 	 * Used by categorial method to calculate the unique values
-	 * @param data
+	 * @param data - The DMArrayList containing all data.
 	 */
 	
 	private void calculateData(DMArrayList<String> data){
@@ -153,7 +153,7 @@ public class Attribute {
 	
 	/**
 	 * Returns the minimum value
-	 * @return
+	 * @return min - the min of the Attribute.
 	 */
 	
 	public double getMin(){
@@ -162,7 +162,7 @@ public class Attribute {
 	
 	/**
 	 * Returns the maximum value
-	 * @return
+	 * @return max - the max of the Attribute.
 	 */
 	
 	public double getMax(){
@@ -171,7 +171,7 @@ public class Attribute {
 	
 	/**
 	 * Returns the mean of the values
-	 * @return
+	 * @return mean - the mean of the Attribute.
 	 */
 	
 	public double getMean(){
@@ -180,7 +180,7 @@ public class Attribute {
 	
 	/**
 	 * Returns the standard deviation of the values
-	 * @return
+	 * @return stdDev - the standard deviation of the Attribute.
 	 */
 	
 	public double getStdDev(){
@@ -189,7 +189,7 @@ public class Attribute {
 	
 	/**
 	 * Returns the number of unique values
-	 * @return
+	 * @return uniqueVals - the number of unique values of the Attribute.
 	 */
 	
 	public int getUniqueVals(){
@@ -198,7 +198,7 @@ public class Attribute {
 	
 	/**
 	 * Returns the unique values as an ArrayList of categorial points containing the name of the values and the number of instances
-	 * @return
+	 * @return dataStore - DMArrayList<CategorialPoint containing all of the data associated with the Attribute.
 	 */
 	
 	public DMArrayList<CategorialPoint> getData(){
@@ -206,8 +206,8 @@ public class Attribute {
 	}
 	
 	/**
-	 * Returns the type of the Attribute
-	 * @return
+	 * Returns the type of the Attribute, can be "Numeric" or "Categorical"
+	 * @return type - the type of the Attribute
 	 */
 	
 	public String getType(){
@@ -216,7 +216,7 @@ public class Attribute {
 	
 	/**
 	 * Returns the name of the values
-	 * @return
+	 * @return name - the name of the Attribute
 	 */
 	
 	public String getName(){
@@ -225,7 +225,7 @@ public class Attribute {
 	
 	/**
 	 * Used to signify is attribute is to be ignored
-	 * @param t
+	 * @param t - boolean
 	 */
 	
 	public void ignore(boolean t){
@@ -234,12 +234,16 @@ public class Attribute {
 	
 	/**
 	 * Returns ignore value
-	 * @return
+	 * @return ignored - boolean signifying if Attribute is ignored.
 	 */
 	
 	public boolean getIgnore(){
 		return ignored;
 	}
+	
+	/**
+	 * Outputs the Attribute to a csv readable format string.
+	 */
 	
 	public String toString(){
 		StringBuilder stringBuilder = new StringBuilder();
