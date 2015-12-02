@@ -185,8 +185,8 @@ public class RunDialog extends JDialog {
 		
 	for(int i = 0; i < list.getLength(); i++){
 		if(list.getAttribute(i).getIgnore()){
-			ignored.add((String)list.getHead(i));
 			list.removeColumn(i);
+			ignored.add((String)list.getHead(i));		
 		}
 	}
 	}

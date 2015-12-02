@@ -17,7 +17,7 @@ public class Attribute {
 	private String type;
 	private String name;
 	private int uniqueVals;
-	private boolean ignored = false;
+	private boolean ignored;
 	
 	/**
 	 * Constructor for a numeric Attribute with predefined values
@@ -36,6 +36,7 @@ public class Attribute {
 		this.max = max;
 		this.mean = mean;
 		this.stdDev = stdDev;
+		this.ignored = false;
 	}
 	
 	/**
@@ -44,15 +45,16 @@ public class Attribute {
 	 */
 	
 	public Attribute(Attribute att){
-		this.name = att.name;
-		this.type = att.type;
-		this.min = att.min;
-		this.max = att.max;
-		this.mean = att.mean;
-		this.stdDev = att.stdDev;
+		this.name = att.getName();
+		this.type = att.getType();
+		this.min = att.getMin();
+		this.max = att.getMax();
+		this.mean = att.getMean();
+		this.stdDev = att.getStdDev();
+		this.ignored = att.getIgnore();
 		if(type.equals("Categorial")){
 		this.dataStore = new DMArrayList<CategorialPoint>();
-		this.uniqueVals = att.uniqueVals;
+		this.uniqueVals = att.getUniqueVals();
 		for(int i = 0; i < att.getData().size(); i ++){
 			dataStore.add(new CategorialPoint(att.getData().get(i)));
 		}
@@ -68,6 +70,7 @@ public class Attribute {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Attribute(String name, String type, DMArrayList data){
+		this.ignored= false;
 		this.name = name;
 		this.type = type;
 		if(type.equals("Numeric")){

@@ -120,7 +120,7 @@ public class DataList implements Cloneable {
 	private void resetAttributes(){
 		dataAttributes.clear();
 		for(int i = 0; i < dataTypes.size(); i++){
-			dataAttributes.add(getAttribute(i));
+			dataAttributes.add(createAttribute(i));
 		}
 	}
 	
@@ -159,7 +159,7 @@ public class DataList implements Cloneable {
 			
 			csvReader.close();
 			for(int i = 0; i < dataTypes.size(); i++){
-				dataAttributes.add(getAttribute(i));
+				dataAttributes.add(createAttribute(i));
 			}
 		}
 
@@ -234,12 +234,12 @@ public class DataList implements Cloneable {
 	}
 	
 	/**
-	 * Returns the attribute from the specified column.
+	 * Creates an attribute from the specified column.
 	 * @param column
 	 * @return
 	 */
 	
-	public Attribute getAttribute(int column){
+	public Attribute createAttribute(int column){
 		
 		if(column > dataTypes.size()) throw new ArrayIndexOutOfBoundsException();
 		String name = (String)dataTypes.get(column);
@@ -261,6 +261,9 @@ public class DataList implements Cloneable {
 		else return null;	
 	}
 
+	public Attribute getAttribute(int column){
+		return dataAttributes.get(column);
+	}
 	/**
 	 * Removes the column from the data.
 	 * @param column

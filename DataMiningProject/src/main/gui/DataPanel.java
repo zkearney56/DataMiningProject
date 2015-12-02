@@ -41,7 +41,6 @@ public class DataPanel extends JPanel {
 	private File file;
 	private JTable table;
 	private JPanel attributePanel;
-	private DMArrayList<Attribute> attributesList;
 	private JCheckBox ignoreBox;
 	public boolean initialized = false;
 	//private JTextPane relation, instances, attributes;
@@ -51,7 +50,7 @@ public class DataPanel extends JPanel {
 	 */
 	
 	private void update(){
-		Attribute selected = attributesList.get(getSelected());
+		Attribute selected = dataList.getAttributes().get(getSelected());
 
 		selectName.setText(selected.getName());
 		selectType.setText(selected.getType());
@@ -75,7 +74,6 @@ public class DataPanel extends JPanel {
 		this.file = file;
 		dataList = new DataList();
 		dataList.readFile(file);
-		attributesList = dataList.getAttributes();
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
@@ -235,17 +233,17 @@ public class DataPanel extends JPanel {
 		panel_2.add(selectStdDev);
 		
 		ignoreBox = new JCheckBox("");
-		ignoreBox.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-				if (ignoreBox.isSelected()){
-					Attribute a = attributesList.get(getSelected());
+		ignoreBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+ 				if (ignoreBox.isSelected()){
+					Attribute a = dataList.getAttributes().get(getSelected());
 					a.ignore(true);
-					attributesList.set(getSelected(), a);
+					dataList.getAttributes().set(getSelected(), a);
 				}
 				else if(!ignoreBox.isSelected()){
-					Attribute a = attributesList.get(getSelected());
+					Attribute a = dataList.getAttributes().get(getSelected());
 					a.ignore(false);
-					attributesList.set(getSelected(), a);
+					dataList.getAttributes().set(getSelected(), a);
 				}
 			}
 		});
@@ -349,17 +347,7 @@ public class DataPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				DataList testList = new DataList(dataList);
-				for(int i = 0; i < attributesList.size(); i++){
-					if(attributesList.get(i).getIgnore()){
-						int removeIndex = 0;
-						for(int j = 0; j < testList.getHeaders().size(); j++){
-							if(attributesList.get(i).getName().equals(testList.getHead(j))){
-								removeIndex = j;
-							}
-						}
-						testList.removeColumn(removeIndex);
-					}
-				}
+				System.out.println("pause");
 				RunDialog dlg = new RunDialog();
 				dlg.run(testList);
 				dlg.setVisible(true);
