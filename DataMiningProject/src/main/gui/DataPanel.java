@@ -1,5 +1,11 @@
 package main.gui;
 
+/**
+ * Author: Zachary Kearney
+ * Last Edited: 12/1/2015
+ * Class to display a data panel from a csv file.
+ */
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -44,9 +50,9 @@ public class DataPanel extends JPanel {
 	private JCheckBox ignoreBox;
 	public boolean initialized = false;
 	//private JTextPane relation, instances, attributes;
-
+	
 	/**
-	 * Create the panel.
+	 * Updates the panel when a new attribute is selected.
 	 */
 	
 	private void update(){
@@ -62,6 +68,10 @@ public class DataPanel extends JPanel {
 		ignoreBox.setSelected(selected.getIgnore());
 		
 	}
+	
+	/**
+	 * Updates the panel when a csv is loaded.
+	 */
 	
 	private void updateMain(){
 		relation.setText(file.getName());
@@ -105,18 +115,21 @@ public class DataPanel extends JPanel {
 		panel.add(txtpnAttributes);
 		
 		relation = new JTextPane();
+		relation.setEditable(false);
 		relation.setBackground(SystemColor.menu);
 		relation.setText("...");
 		relation.setBounds(66, 15, 62, 20);
 		panel.add(relation);
 		
 		instances = new JTextPane();
+		instances.setEditable(false);
 		instances.setBackground(SystemColor.menu);
 		instances.setText("...");
 		instances.setBounds(66, 39, 62, 20);
 		panel.add(instances);
 		
 		attributes = new JTextPane();
+		attributes.setEditable(false);
 		attributes.setText("...");
 		attributes.setBackground(SystemColor.menu);
 		attributes.setBounds(252, 39, 57, 20);
@@ -156,12 +169,14 @@ public class DataPanel extends JPanel {
 		panel_2.add(txtpnIgnore);
 		
 		selectName = new JTextPane();
+		selectName.setEditable(false);
 		selectName.setText("...");
 		selectName.setBackground(SystemColor.menu);
 		selectName.setBounds(66, 15, 62, 20);
 		panel_2.add(selectName);
 		
 		selectType = new JTextPane();
+		selectType.setEditable(false);
 		selectType.setText("...");
 		selectType.setBackground(SystemColor.menu);
 		selectType.setBounds(66, 39, 62, 20);
@@ -203,30 +218,35 @@ public class DataPanel extends JPanel {
 		panel_2.add(txtpnStddev);
 		
 		selectUnique = new JTextPane();
+		selectUnique.setEditable(false);
 		selectUnique.setText("...");
 		selectUnique.setBackground(SystemColor.menu);
 		selectUnique.setBounds(66, 64, 62, 20);
 		panel_2.add(selectUnique);
 		
 		selectMin = new JTextPane();
+		selectMin.setEditable(false);
 		selectMin.setText("...");
 		selectMin.setBackground(SystemColor.menu);
 		selectMin.setBounds(66, 89, 62, 20);
 		panel_2.add(selectMin);
 		
 		selectMax = new JTextPane();
+		selectMax.setEditable(false);
 		selectMax.setText("...");
 		selectMax.setBackground(SystemColor.menu);
 		selectMax.setBounds(66, 113, 62, 20);
 		panel_2.add(selectMax);
 		
 		selectMean = new JTextPane();
+		selectMean.setEditable(false);
 		selectMean.setText("...");
 		selectMean.setBackground(SystemColor.menu);
 		selectMean.setBounds(66, 138, 62, 20);
 		panel_2.add(selectMean);
 		
 		selectStdDev = new JTextPane();
+		selectStdDev.setEditable(false);
 		selectStdDev.setText("...");
 		selectStdDev.setBackground(SystemColor.menu);
 		selectStdDev.setBounds(66, 163, 62, 20);
@@ -267,6 +287,12 @@ public class DataPanel extends JPanel {
 		update();
 	}
 	
+	/**
+	 * AbstractTableModel for the display table.
+	 * @author zrk1002
+	 *
+	 */
+	
 	class AttributePanel extends AbstractTableModel{
 		private String[] columnNames = {"No.", "Name"};
 		private Object [][] data;
@@ -303,6 +329,12 @@ public class DataPanel extends JPanel {
 		}
 	}
 	
+	/**
+	 * Used to force the table to only allow 1 row selection.
+	 * @author zrk1002
+	 *
+	 */
+	
 	class ForcedListSelectionModel extends DefaultListSelectionModel {
 
 	    public ForcedListSelectionModel () {
@@ -318,6 +350,10 @@ public class DataPanel extends JPanel {
 	    }
 
 	}
+	
+	/**
+	 * Adds the table containing csv data.
+	 */
 	
 	void addTable(){
 		attributePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -341,6 +377,11 @@ public class DataPanel extends JPanel {
 		});
 	}
 	
+	/**
+	 * ActionListener to open a runDialog using data from the dataList.
+	 * @return
+	 */
+	
 	private ActionListener next(){
 		ActionListener next = new ActionListener(){
 
@@ -358,7 +399,7 @@ public class DataPanel extends JPanel {
 		return next;
 	}
 	
-	int getSelected(){
+	private int getSelected(){
 		return table.getSelectedRow();
 	}
 	

@@ -63,6 +63,7 @@ public class RunDialog extends JDialog {
 			txtpnTrim.setBounds(10, 10, 87, 20);
 			txtpnTrim.setBackground(SystemColor.menu);
 			txtpnTrim.setText("Trim Percent");
+			txtpnTrim.setEditable(false);
 			contentPanel.add(txtpnTrim);
 		}
 		{
@@ -70,6 +71,7 @@ public class RunDialog extends JDialog {
 			txtpnAlgorithm.setBounds(10, 65, 55, 20);
 			txtpnAlgorithm.setText("Algorithm");
 			txtpnAlgorithm.setBackground(SystemColor.menu);
+			txtpnAlgorithm.setEditable(false);
 			contentPanel.add(txtpnAlgorithm);
 		}
 		{
@@ -78,6 +80,7 @@ public class RunDialog extends JDialog {
 			txtpnTrainingSet.setText("Training Set Model");
 			txtpnTrainingSet.setBackground(SystemColor.menu);
 			txtpnTrainingSet.setBounds(150, 10, 113, 20);
+			txtpnTrainingSet.setEditable(false);
 			contentPanel.add(txtpnTrainingSet);
 		}
 		{
@@ -85,6 +88,7 @@ public class RunDialog extends JDialog {
 			txtpnPercentTraining.setText("Percent");
 			txtpnPercentTraining.setBackground(SystemColor.menu);
 			txtpnPercentTraining.setBounds(150, 65, 79, 20);
+			txtpnPercentTraining.setEditable(false);
 			contentPanel.add(txtpnPercentTraining);
 		}
 		{
@@ -92,6 +96,7 @@ public class RunDialog extends JDialog {
 			txtpnMainClass.setText("Main Class");
 			txtpnMainClass.setBackground(SystemColor.menu);
 			txtpnMainClass.setBounds(10, 120, 64, 20);
+			txtpnMainClass.setEditable(false);
 			contentPanel.add(txtpnMainClass);
 		}
 		
@@ -104,11 +109,26 @@ public class RunDialog extends JDialog {
 		percent.setModel(new DefaultComboBoxModel(new Object[] {1.0,2.0,3.0,4.0,5.0,10.0,15.0,20.0,25.0,30.0,40.0,50.0,60.0,70.0,75.0,80.0,85.0,90.0,95.0,96.0,97.0,98.0,99.0}));
 		percent.setBounds(150, 92, 113, 20);
 		contentPanel.add(percent);
+		percent.setEnabled(false);
 		
 		model = new JComboBox();
 		model.setModel(new DefaultComboBoxModel(new String[] {"Every Other", "Percentage"}));
 		model.setBounds(150, 34, 113, 20);
 		contentPanel.add(model);
+		model.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(model.getSelectedIndex() == 0){
+					percent.setEnabled(false);
+				}
+				else if(model.getSelectedIndex() == 1){
+					percent.setEnabled(true);
+				}
+				
+			}
+		}
+		);
 		
 		algorithm = new JComboBox();
 		algorithm.setModel(new DefaultComboBoxModel(new String[] {"Entropy", "Gini"}));

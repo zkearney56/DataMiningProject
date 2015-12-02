@@ -7,6 +7,7 @@ import java.util.Iterator;
  * Last Edited: 11/30/2015
  * Container for a row of data within an ArrayList
  */
+
 public class DataPoint {
 	
 	private DMArrayList<Object> data;
@@ -106,6 +107,10 @@ public class DataPoint {
 		//data.add(0, classification);
 		
 	}
+	
+	/**
+	 * Used to create csv files from datapoints.
+	 */
 	
 	public String toString(){
 		StringBuilder stringBuilder = new StringBuilder();

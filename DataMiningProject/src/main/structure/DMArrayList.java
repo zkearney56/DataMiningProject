@@ -169,6 +169,11 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 	}
 	}
 	
+	/**
+	 * Used to output to a csv style file for objects containing ArrayLists containing a specified toString method.
+	 * @return
+	 */
+	
 	public String toStringObj(){
 		StringBuilder stringBuilder = new StringBuilder();
 		@SuppressWarnings("rawtypes")
@@ -178,6 +183,10 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 		}
 		return stringBuilder.toString();
 	}
+	
+	/**
+	 * Used to output to a csv style file for arraylists not containing objects containing a custom toString method.
+	 */
 	
 	public String toString(){
 		StringBuilder stringBuilder = new StringBuilder();
@@ -191,6 +200,12 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 		}
 		return stringBuilder.toString();
 	}
+	
+	/**
+	 * Iterator for the arraylist.
+	 * @author zrk1002
+	 *
+	 */
 	
 	private class ArrayListIterator implements Iterator<E>{
 		private int index = 0;	

@@ -17,7 +17,7 @@ import com.opencsv.CSVReader;
 public class DataList implements Cloneable {
 	
 	private DMArrayList<DataPoint> dataPoints;
-	private DMArrayList<Object> dataTypes;
+	private DMArrayList<Object> dataHeaders;
 	private DMArrayList<Attribute> dataAttributes;
 	private String classification = "";
 
@@ -27,7 +27,7 @@ public class DataList implements Cloneable {
 	
 	public DataList(){
 		dataPoints = new DMArrayList<DataPoint>();
-		dataTypes = new DMArrayList<Object>();
+		dataHeaders = new DMArrayList<Object>();
 		dataAttributes = new DMArrayList<Attribute>();
 	}
 	
@@ -38,13 +38,13 @@ public class DataList implements Cloneable {
 	
 	public DataList(DataList list){
 		dataPoints = new DMArrayList<DataPoint>();
-		dataTypes = new DMArrayList<Object>();
+		dataHeaders = new DMArrayList<Object>();
 		dataAttributes = new DMArrayList<Attribute>();
 		for(int i = 0; i < list.getPoints().size(); i++){
 			dataPoints.add(new DataPoint(list.getRow(i)));
 		}
 		for(int i = 0; i < list.getHeaders().size(); i++){
-			dataTypes.add(list.getHead(i));
+			dataHeaders.add(list.getHead(i));
 		}
 		for(int i = 0; i < list.getAttributes().size(); i++){
 			dataAttributes.add(new Attribute(list.getAttribute(i)));
@@ -57,7 +57,7 @@ public class DataList implements Cloneable {
 	 */
 	
 	public DMArrayList<Object> getHeaders(){
-		return dataTypes;
+		return dataHeaders;
 	}
 	
 	/**
@@ -101,7 +101,7 @@ public class DataList implements Cloneable {
 	 */
 	
 	public void setHeaders(DMArrayList<Object> dataTypes){
-		this.dataTypes = dataTypes;	
+		this.dataHeaders = dataTypes;	
 	}
 	
 	/**
@@ -119,11 +119,20 @@ public class DataList implements Cloneable {
 	
 	private void resetAttributes(){
 		dataAttributes.clear();
-		for(int i = 0; i < dataTypes.size(); i++){
+		for(int i = 0; i < dataHeaders.size(); i++){
 			dataAttributes.add(createAttribute(i));
 		}
 	}
 	
+	/**
+	 * Returns the Attribute for the specified column.
+	 * @param column
+	 * @return
+	 */
+	
+	public Attribute getAttribute(int column){
+		return dataAttributes.get(column);
+	}
 	/**
 	 * Adds a datapoint to the list.
 	 * @param point
@@ -131,50 +140,6 @@ public class DataList implements Cloneable {
 	
 	public void addDataPoint(DataPoint point){
 		dataPoints.add(point);
-	}
-	
-	/**
-	 * Reads a csv file and fills the arraylists with data from the file.
-	 * @param file
-	 */
-	
-	public void readFile(File file){
-		dataPoints.clear();
-		dataTypes.clear();
-		dataAttributes.clear();
-			System.out.println(file.getAbsolutePath());
-		try{
-			CSVReader csvReader = new CSVReader(new FileReader(file));
-			String[] row;
-			boolean header = false;
-			while((row = csvReader.readNext()) != null) {
-				if(!header){
-					dataTypes = new DMArrayList<Object>(row);
-					header = true;
-				}				
-					else{				
-				dataPoints.add(new DataPoint(new DMArrayList<Object>(row)));
-			}
-				}
-			
-			csvReader.close();
-			for(int i = 0; i < dataTypes.size(); i++){
-				dataAttributes.add(createAttribute(i));
-			}
-		}
-
-		catch(Exception e){
-			e.printStackTrace();}
-							
-	}
-	
-	/**
-	 * Trims the dataPoints list by a set number.
-	 * @param num
-	 */
-	
-	public void trimList(int num){
-		dataPoints.trim(num);
 	}
 	
 	/**
@@ -234,36 +199,49 @@ public class DataList implements Cloneable {
 	}
 	
 	/**
-	 * Creates an attribute from the specified column.
-	 * @param column
-	 * @return
+	 * Reads a csv file and fills the arraylists with data from the file.
+	 * @param file
 	 */
 	
-	public Attribute createAttribute(int column){
-		
-		if(column > dataTypes.size()) throw new ArrayIndexOutOfBoundsException();
-		String name = (String)dataTypes.get(column);
-		if(getType(column).equals("Categorial")){
-			DMArrayList<String> colVals = new DMArrayList<String>();
-			for(int i = 0; i < dataPoints.size(); i++){
-				colVals.add(((String)dataPoints.get(i).getDataVal(column)));
+	public void readFile(File file){
+		dataPoints.clear();
+		dataHeaders.clear();
+		dataAttributes.clear();
+			System.out.println(file.getAbsolutePath());
+		try{
+			CSVReader csvReader = new CSVReader(new FileReader(file));
+			String[] row;
+			boolean header = false;
+			while((row = csvReader.readNext()) != null) {
+				if(!header){
+					dataHeaders = new DMArrayList<Object>(row);
+					header = true;
+				}				
+					else{				
+				dataPoints.add(new DataPoint(new DMArrayList<Object>(row)));
 			}
-			return new Attribute(name, "Categorial", colVals);
-		}
-		
-		else if(getType(column).equals("Numeric")){
-			DMArrayList<Double> colVals = new DMArrayList<Double>();
-			for(int i = 0; i < dataPoints.size(); i++){
-				colVals.add(Double.parseDouble((String)dataPoints.get(i).getDataVal(column)));
+				}
+			
+			csvReader.close();
+			for(int i = 0; i < dataHeaders.size(); i++){
+				dataAttributes.add(createAttribute(i));
 			}
-			return new Attribute(name, "Numeric", colVals);
 		}
-		else return null;	
-	}
 
-	public Attribute getAttribute(int column){
-		return dataAttributes.get(column);
+		catch(Exception e){
+			e.printStackTrace();}
+							
 	}
+	
+	/**
+	 * Trims the dataPoints list by a set number.
+	 * @param num
+	 */
+	
+	public void trimList(int num){
+		dataPoints.trim(num);
+	}
+	
 	/**
 	 * Removes the column from the data.
 	 * @param column
@@ -271,7 +249,7 @@ public class DataList implements Cloneable {
 	
 	public void removeColumn(int column){
 		
-		dataTypes.remove(column);
+		dataHeaders.remove(column);
 		for(int i = 0; i < dataPoints.size(); i++){
 			dataPoints.get(i).removeData(column);
 		}
@@ -284,8 +262,8 @@ public class DataList implements Cloneable {
 	
 	public void setClass(int column){
 	
-		classification = (String) dataTypes.get(column);
-		dataTypes.remove(column);
+		classification = (String) dataHeaders.get(column);
+		dataHeaders.remove(column);
 		//dataTypes.add(0, classification);
 		for(int i = 0; i < dataPoints.size(); i++){
 			dataPoints.get(i).setClass(column);
@@ -308,7 +286,7 @@ public class DataList implements Cloneable {
 	 */
 	
 	public Object getHead(int column){
-		return dataTypes.get(column);
+		return dataHeaders.get(column);
 	}
 	
 	/**
@@ -317,7 +295,35 @@ public class DataList implements Cloneable {
 	 */
 	
 	public int getLength(){
-		return dataTypes.size();
+		return dataHeaders.size();
+	}
+	
+	/**
+	 * Creates an attribute from the specified column.
+	 * @param column
+	 * @return
+	 */
+
+	private Attribute createAttribute(int column){
+		
+		if(column > dataHeaders.size()) throw new ArrayIndexOutOfBoundsException();
+		String name = (String)dataHeaders.get(column);
+		if(getType(column).equals("Categorial")){
+			DMArrayList<String> colVals = new DMArrayList<String>();
+			for(int i = 0; i < dataPoints.size(); i++){
+				colVals.add(((String)dataPoints.get(i).getDataVal(column)));
+			}
+			return new Attribute(name, "Categorial", colVals);
+		}
+		
+		else if(getType(column).equals("Numeric")){
+			DMArrayList<Double> colVals = new DMArrayList<Double>();
+			for(int i = 0; i < dataPoints.size(); i++){
+				colVals.add(Double.parseDouble((String)dataPoints.get(i).getDataVal(column)));
+			}
+			return new Attribute(name, "Numeric", colVals);
+		}
+		else return null;	
 	}
 	
 	/**
@@ -326,7 +332,7 @@ public class DataList implements Cloneable {
 	 */
 	
 	public Iterator<Object> dataTypeIterator(){
-		return dataTypes.iterator();
+		return dataHeaders.iterator();
 	}
 	
 	/**
@@ -347,11 +353,16 @@ public class DataList implements Cloneable {
 		return dataAttributes.iterator();
 	}
 	
+	/**
+	 * Writes the current list to a csv file with headers followed by data
+	 * @param filename
+	 */
+	
 	public void writeToCSV(String filename){
 		String NEW_LINE = "\n";
 		try {
 			FileWriter fileWriter = new FileWriter(filename);
-			fileWriter.append(dataTypes.toString());
+			fileWriter.append(dataHeaders.toString());
 			fileWriter.append(NEW_LINE);
 			fileWriter.append(dataPoints.toStringObj());
 			fileWriter.flush();
@@ -361,6 +372,12 @@ public class DataList implements Cloneable {
 			e.printStackTrace();
 		}			        		
 	}
+	
+	/**
+	 * Writes the current attributes to a csv file.
+	 * Headers contain attribute information.
+	 * @param filename
+	 */
 	
 	public void attributeToCsv(String filename){
 		String NEW_LINE = "\n";
@@ -376,15 +393,6 @@ public class DataList implements Cloneable {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * Returns training set at [0] and test set at [1];
-	 * @param folds
-	 * @return
-	 */
-	
-	//public Object[] nFoldCrossValid(int folds){
-		//return null;
-	//}	
 	
 	/**
 	 * Returns an object array containing two new dataLists.
@@ -393,6 +401,7 @@ public class DataList implements Cloneable {
 	 * The sets are shuffled to select every other value.
 	 * @return
 	 */
+	
 	public Object[] everyOther(){
 		DataList training = new DataList();
 		DataList test = new DataList();
@@ -419,6 +428,7 @@ public class DataList implements Cloneable {
 	 * @param percent
 	 * @return
 	 */
+	
 	public Object[] randomShuffle(float percent){
 		DataList training = new DataList();
 		DataList test = new DataList();
