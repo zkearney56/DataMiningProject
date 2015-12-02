@@ -1,6 +1,9 @@
 package main.structure;
 
 import java.util.*;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
 
 /**
  * This class is used by the Entropy and Gini algorithm in order to process the data in a dataList easier.

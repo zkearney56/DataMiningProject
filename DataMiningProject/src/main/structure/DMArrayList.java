@@ -31,9 +31,13 @@ public class DMArrayList<E> implements DMList<E>, Cloneable, Iterable<E>{
 		this.size = size;;
 	}
 	
-	public DMArrayList clone(){
-		Object[] newData = elementData.clone();
-		return new DMArrayList(newData, size);
+	@SuppressWarnings("unchecked")
+	public DMArrayList (DMArrayList list){
+		elementData = new Object[INITIAL_CAPACITY];
+		size = 0;
+		for(int i = 0; i < list.size(); i++){
+			add((E)list.get(i));
+		}
 	}
 
 	public void add(E e) {

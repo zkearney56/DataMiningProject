@@ -1,17 +1,17 @@
-package main.gui;
+package main.old;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.util.Iterator;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JPanel;
+
 /**
  * Author: Zachary Kearney
  * Last Edited: 11/30/2015
  */
 import main.structure.Attribute;
 import main.structure.DMArrayList;
-import main.structure.DataList;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JPanel;
-import java.awt.FlowLayout;
-import java.util.Iterator;
-import java.awt.Dimension;
 
 public class SetupPanel extends JPanel {
 

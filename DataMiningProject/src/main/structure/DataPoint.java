@@ -20,6 +20,11 @@ public class DataPoint {
 		
 	}
 	
+	public DataPoint(DataPoint point){
+		this.classification = point.classification;
+		this.data = new DMArrayList<Object>(point.data);
+	}
+	
 	public String getClassification(){
 		
 	return classification;

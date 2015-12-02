@@ -31,9 +31,21 @@ public class DataList implements Cloneable {
 		this.dataAttributes = dataAttributes;
 	}
 	
-	public DataList clone(){
-		return new DataList(dataPoints.clone(), dataTypes.clone(), dataAttributes.clone());
+	public DataList(DataList list){
+		dataPoints = new DMArrayList<DataPoint>();
+		dataTypes = new DMArrayList<Object>();
+		dataAttributes = new DMArrayList<Attribute>();
+		for(int i = 0; i < list.getPoints().size(); i++){
+			dataPoints.add(new DataPoint(list.getRow(i)));
+		}
+		for(int i = 0; i < list.getHeaders().size(); i++){
+			dataTypes.add(list.getHead(i));
+		}
+		for(int i = 0; i < list.getAttributes().size(); i++){
+			dataAttributes.add(new Attribute(list.getAttribute(i)));
+		}
 	}
+	
 	public DMArrayList<Object> getHeaders(){
 		return dataTypes;
 	}

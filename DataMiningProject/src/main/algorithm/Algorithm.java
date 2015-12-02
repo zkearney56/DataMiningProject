@@ -2,10 +2,10 @@ package main.algorithm;
 
 import java.util.Vector;
 
+import main.node.Node;
 import main.structure.DataList;
 import main.structure.DataPoint;
 import main.structure.FrequencyTable;
-import main.node.Node;
 
 /**
  * This class is the base class for each decision tree algorithm to extend from.

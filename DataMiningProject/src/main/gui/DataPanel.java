@@ -347,11 +347,10 @@ public class DataPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				DataList testList = dataList.clone();
+				DataList testList = new DataList(dataList);
 				RunDialog dlg = new RunDialog();
 				dlg.run(testList);
 				dlg.setVisible(true);
-				System.out.println("Test");
 				dlg.setModal(true);
 			}
 			

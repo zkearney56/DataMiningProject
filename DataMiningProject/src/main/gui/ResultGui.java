@@ -5,6 +5,9 @@ package main.gui;
  */
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -13,10 +16,6 @@ import main.algorithm.Entropy;
 import main.algorithm.Gini;
 import main.structure.DataList;
 import main.tree.DecisionTree;
-
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 
 public class ResultGui extends JFrame {
 

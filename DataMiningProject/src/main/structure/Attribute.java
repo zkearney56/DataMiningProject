@@ -35,6 +35,22 @@ public class Attribute {
 		this.stdDev = stdDev;
 	}
 	
+	public Attribute(Attribute att){
+		this.name = att.name;
+		this.type = att.type;
+		this.min = att.min;
+		this.max = att.max;
+		this.mean = att.mean;
+		this.stdDev = att.stdDev;
+		if(type.equals("Categorial")){
+		this.dataStore = new DMArrayList<CategorialPoint>();
+		this.uniqueVals = att.uniqueVals;
+		for(int i = 0; i < att.getData().size(); i ++){
+			dataStore.add(new CategorialPoint(att.getData().get(i)));
+		}
+	}
+	}
+	
 	/**
 	 * Constructor for an attribute that accepts a name, type, and an arraylist of data
 	 * @param name

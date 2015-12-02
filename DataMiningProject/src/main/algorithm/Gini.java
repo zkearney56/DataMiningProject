@@ -1,6 +1,5 @@
 package main.algorithm;
 
-import main.algorithm.*;
 import main.node.Leaf;
 import main.node.Node;
 import main.node.NominalDecisionNode;

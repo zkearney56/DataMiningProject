@@ -1,7 +1,6 @@
 package main.node;
 
 import main.algorithm.Algorithm;
-import main.algorithm.Entropy;
 import main.structure.DMArrayList;
 import main.structure.DataList;
 import main.structure.DataPoint;
