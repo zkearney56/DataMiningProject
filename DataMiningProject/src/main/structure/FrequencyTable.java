@@ -5,8 +5,8 @@ import java.util.Hashtable;
 import java.util.Vector;
 
 /**
- * This class is used by the Entropy and Gini algorithm in order to process the
- * data in a dataList easier. It is meant to be made from one column of a
+ * This class is used by the Entropy and Gini algorithm in order to help process the
+ * data in a dataList. It is meant to be made from one column of a
  * dataList where the attributes are the possible values of that column, and the
  * types are the possible classification types. The data can be accessed by
  * either using two integers like a 2d array, or by using the attribute and type
