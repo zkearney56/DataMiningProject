@@ -1,9 +1,8 @@
 package main.tree;
 
-import java.util.*;
-
 import main.algorithm.Algorithm;
-import main.node.*;
+import main.node.Leaf;
+import main.node.Node;
 import main.structure.DataPoint;
 
 public class DecisionTree {

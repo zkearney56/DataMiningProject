@@ -14,6 +14,11 @@ public class CategorialPoint {
 			count = 1;
 		}
 		
+		public CategorialPoint(CategorialPoint point){
+			this.name = point.name;
+			this.count = point.count;
+		}
+		
 		public void increment(){
 			count++;
 		}

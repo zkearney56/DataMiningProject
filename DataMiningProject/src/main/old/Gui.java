@@ -1,43 +1,40 @@
-package main.gui;
+package main.old;
 import java.awt.EventQueue;
-
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.text.Format;
 import java.util.Iterator;
-import java.awt.event.ActionEvent;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import main.algorithm.Algorithm;
 import main.algorithm.Entropy;
 import main.algorithm.Gini;
+import main.gui.ResultGui;
 import main.structure.DataList;
 import main.tree.DecisionTree;
-
-import javax.swing.JTextPane;
-import javax.swing.JComboBox;
-
-import java.awt.SystemColor;
-import java.awt.Font;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-import javax.swing.JFormattedTextField;
 
 public class Gui extends JFrame {
 

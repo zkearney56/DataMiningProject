@@ -76,7 +76,6 @@ public class NewGui extends JFrame {
 				            		dataPanel = new DataPanel(file);
 				            		contentPane.add(dataPanel);
 				            		initialized = true;
-				                	System.out.println("Pause");
 				                }
 				                else{
 				                	System.out.println("Err, invalid file");

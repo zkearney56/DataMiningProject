@@ -1,24 +1,24 @@
-package main.gui;
+package main.old;
 /**
  * Author: Zachary Kearney
  * Last Edited: 11/30/2015
  */
 
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JCheckBox;
-import javax.swing.SwingConstants;
-import javax.swing.JTextPane;
-
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.SystemColor;
-import javax.swing.border.BevelBorder;
-import java.awt.Color;
-import main.structure.Attribute;
-
-import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+
+import main.structure.Attribute;
 
 public class AttributePanel extends JPanel {
 

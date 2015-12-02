@@ -1,15 +1,17 @@
-package main.structure;
+package main.old;
 /**
  * Author: Zachary Kearney
  * Last Edited: 11/30/2015
  */
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 
 import com.opencsv.CSVReader;
+
+import main.structure.Attribute;
+import main.structure.DMArrayList;
+import main.structure.DataPoint;
 
 
 public class OldDataList {

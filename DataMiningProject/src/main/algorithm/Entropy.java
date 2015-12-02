@@ -1,16 +1,13 @@
 package main.algorithm;
 
-import java.util.Hashtable;
-import java.util.Map;
 import java.util.Vector;
 
-import main.structure.DataList;
-import main.structure.DataPoint;
-import main.structure.FrequencyTable;
 import main.node.Leaf;
 import main.node.Node;
 import main.node.NominalDecisionNode;
 import main.node.OrdinalDecisionNode;
+import main.structure.DataList;
+import main.structure.FrequencyTable;
 
 public class Entropy extends Algorithm{
 	
