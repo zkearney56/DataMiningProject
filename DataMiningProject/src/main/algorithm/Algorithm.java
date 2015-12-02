@@ -7,28 +7,50 @@ import main.structure.DataList;
 import main.structure.DataPoint;
 import main.structure.FrequencyTable;
 
+/**
+ * This class is the base class for each decision tree algorithm to extend from.
+ * This will manage the DataList and can create empty frequency tables from one attribute.
+ * @author Dan Martin
+ */
+
 public abstract class Algorithm {
-	
 	protected DataList dataList;
 	protected int currentDataPoint;
 	protected int numBins;
 	
+	/**
+	 * Constructs an Algorithm object, sets the default number of bins for numerical data to 10.
+	 * @param dataList This is the dataList object that the Algorithm will use and manage.
+	 */
 	Algorithm(DataList dataList){
 		this.dataList = dataList;
 		currentDataPoint = 0;
 		numBins = 10;
 	}
+	/**
+	 * Constructs an Algorithm object, sets the default number of bins for numerical data to 10.
+	 */
 	Algorithm(){
 		currentDataPoint = 0;
 		numBins = 10;
 	}
-	
+	/**
+	 * Sets the Algorithms dataList.
+	 * @param dataList
+	 */
 	public void setDataList(DataList dataList){
 		this.dataList = dataList;
 		currentDataPoint = 0;
 	}
+	/**
+	 * This method must be implemented in a child class.
+	 * @return Returns a Nominal, or Ordinal decision node that is created by a child algorithm class.
+	 */
 	public abstract Node getBestNode();
 	
+	/**
+	 * @return the next DataPoint in the dataList.
+	 */
 	public DataPoint getNextDataPoint() {
 		currentDataPoint++;
 		if(dataList.getNumRows() >= currentDataPoint - 1){
@@ -38,17 +60,33 @@ public abstract class Algorithm {
 			return dataList.getRow(dataList.getLength() - 1);
 		}
 	}
+	/**
+	 * Removes the current DataPoint from the DataList.
+	 * @return the removed DataPoint.
+	 */
 	public DataPoint removeDataPoint() {
 		DataPoint temp = dataList.getRow(currentDataPoint);
 		dataList.removeRow(currentDataPoint);
 		return temp;
 	}
+	/**
+	 * Resets the DataList so that it will start returning DataPoints from the start again.
+	 */
 	public void resetDataList() {
 		currentDataPoint = 0;
 	}
+	/**
+	 * Checks if the currentDataPoint is a valid value in the list.
+	 * If this returns false, use resetDataList() to reset the currentDataPoint to 0.
+	 * @return true/false if the currentDataPoint is a valid value in the DataList
+	 */
 	public boolean hasData(){
 		return dataList.getNumRows() > currentDataPoint;
 	}
+	/**
+	 * Sets the number of bins that numerical data will be split into for classification.
+	 * @param b must be greater than 0.
+	 */
 	public void setNumBins(int b){
 		if(b > 0){
 			numBins = b;
@@ -58,6 +96,11 @@ public abstract class Algorithm {
 			numBins = 10;
 		}
 	}
+	/**
+	 * Creates an empty FrequencyTable from one column in the DataList.
+	 * @param col the column number in the DataList that will be used to generate the table.
+	 * @return the FrequencyTable generated from the column.
+	 */
 	protected FrequencyTable getFrequencyTable(int col){
 		FrequencyTable table = new FrequencyTable();
 		Vector<Object> a = new Vector<Object>();
@@ -84,12 +127,6 @@ public abstract class Algorithm {
 			table.setAttributes(a);
 		}
 		else{
-			//This might mess stuff up because float
-			/*float sum = 0;
-			for(int i = 0; i < dataList.getNumRows(); i++){
-				sum = sum + (float)dataList.getRow(i).getDataVal(col);
-			}
-			sum = sum/numBins;*/
 			for(int j = 0; j < dataList.getNumRows(); j++){
 				try{
 					if(!t.contains(((DataPoint)dataList.getRow(j)).getClassification())){
